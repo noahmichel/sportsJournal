@@ -1,0 +1,13 @@
+{
+  "resourceName": "s3sportsjournalstoraged1w0q268rnrb6n",
+  "bucketName": "sportsjournal-storage-d1w0q268rnrb6n",
+  "policyUUID": "ecab106a",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ]
+}
