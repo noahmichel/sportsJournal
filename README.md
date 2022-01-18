@@ -1,9 +1,12 @@
-# TO COMMIT CHANGES
+# COMMIT CHANGES PROTOCOL
 
 1. git commit -a 
 
 //Then put your name as the comment and add description
+
 2. git push
+
+
 
 # Getting Started with Create React App
 
