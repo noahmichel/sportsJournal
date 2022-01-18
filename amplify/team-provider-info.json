@@ -1,20 +1,26 @@
 {
-  "staging": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-sportsjournal-staging-222825-authRole",
-      "UnauthRoleArn": "arn:aws:iam::566270924348:role/amplify-sportsjournal-staging-222825-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::566270924348:role/amplify-sportsjournal-staging-222825-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-sportsjournal-staging-222825-deployment",
-      "UnauthRoleName": "amplify-sportsjournal-staging-222825-unauthRole",
-      "StackName": "amplify-sportsjournal-staging-222825",
-      "StackId": "arn:aws:cloudformation:us-east-2:566270924348:stack/amplify-sportsjournal-staging-222825/4abfdce0-7589-11ec-8703-0a62f9577994",
-      "AmplifyAppId": "d1w0q268rnrb6n"
-    },
-    "categories": {
-      "auth": {
-        "sportsJournal": {}
-      }
+    "staging": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-sportsjournal-staging-222825-authRole",
+            "UnauthRoleArn": "arn:aws:iam::566270924348:role/amplify-sportsjournal-staging-222825-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::566270924348:role/amplify-sportsjournal-staging-222825-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-sportsjournal-staging-222825-deployment",
+            "UnauthRoleName": "amplify-sportsjournal-staging-222825-unauthRole",
+            "StackName": "amplify-sportsjournal-staging-222825",
+            "StackId": "arn:aws:cloudformation:us-east-2:566270924348:stack/amplify-sportsjournal-staging-222825/4abfdce0-7589-11ec-8703-0a62f9577994",
+            "AmplifyAppId": "d1w0q268rnrb6n"
+        },
+        "categories": {
+            "auth": {
+                "sportsJournal": {}
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d1w0q268rnrb6n",
+                    "type": "cicd"
+                }
+            }
+        }
     }
-  }
 }

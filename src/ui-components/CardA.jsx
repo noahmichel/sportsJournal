@@ -74,7 +74,7 @@ export default function CardA(props) {
           alignSelf="stretch"
           position="relative"
           padding="0px 0px 0px 0px"
-          children="$99"
+          children="lkjnlk"
           {...getOverrideProps(overrides, "Flex.Flex[0].Text[1]")}
         ></Text>
       </Flex>

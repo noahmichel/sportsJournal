@@ -262,7 +262,6 @@ export default function SocialA(props) {
           </Flex>
         </Flex>
         <Image
-          src = {require('./login.jpg')}
           width="160px"
           height="160px"
           shrink="0"

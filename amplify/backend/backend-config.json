@@ -60,5 +60,16 @@
       "providerPlugin": "awscloudformation",
       "dependsOn": []
     }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "service": "S3AndCloudFront",
+      "providerPlugin": "awscloudformation"
+    },
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "type": "cicd",
+      "lastPushTimeStamp": "2022-01-18T00:32:35.403Z"
+    }
   }
 }

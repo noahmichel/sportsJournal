@@ -1,6 +1,7 @@
 # TO COMMIT CHANGES
 
 1. git commit -a 
+
 //Then put your name as the comment and add description
 2. git push
 
