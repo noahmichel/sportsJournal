@@ -269,6 +269,7 @@ export default function SocialA(props) {
           position="relative"
           borderRadius="16px"
           padding="0px 0px 0px 0px"
+          src="login.jpg"
           {...getOverrideProps(overrides, "Flex.Flex[0].Image[0]")}
         ></Image>
       </Flex>

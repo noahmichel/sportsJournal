@@ -67,7 +67,8 @@ export default function NavBar(props) {
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
-          children="Logo"
+          about="First Button"
+          children="Home"
           {...getOverrideProps(overrides, "Flex.Flex[0].Text[0]")}
         ></Text>
       </Flex>
@@ -97,7 +98,7 @@ export default function NavBar(props) {
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
-          children="Dashboard"
+          children="Journal"
           {...getOverrideProps(overrides, "Flex.Flex[1].Text[0]")}
         ></Text>
         <Text
@@ -114,7 +115,7 @@ export default function NavBar(props) {
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
-          children="Jobs"
+          children="Progress"
           {...getOverrideProps(overrides, "Flex.Flex[1].Text[1]")}
         ></Text>
         <Text
@@ -131,7 +132,7 @@ export default function NavBar(props) {
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
-          children="Applicants"
+          children="Scouting"
           {...getOverrideProps(overrides, "Flex.Flex[1].Text[2]")}
         ></Text>
         <Text
@@ -148,7 +149,7 @@ export default function NavBar(props) {
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
-          children="Company"
+          children="About"
           {...getOverrideProps(overrides, "Flex.Flex[1].Text[3]")}
         ></Text>
       </Flex>
@@ -194,6 +195,7 @@ export default function NavBar(props) {
           position="relative"
           borderRadius="160px"
           padding="0px 0px 0px 0px"
+          img src={require("./login.jpg")}
           {...getOverrideProps(overrides, "Flex.Flex[2].Image[0]")}
         ></Image>
       </Flex>
