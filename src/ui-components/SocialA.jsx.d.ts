@@ -5,9 +5,12 @@
  **************************************************************************/
 
 import React from "react";
+import { Logos } from "../models";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { FlexProps } from "@aws-amplify/ui-react";
 export declare type SocialAProps = React.PropsWithChildren<Partial<FlexProps> & {
+    Logo?: Logos;
+} & {
     overrides?: EscapeHatchProps | undefined | null;
 }>;
 export default function SocialA(props: SocialAProps): React.ReactElement;

@@ -1,3 +1,8 @@
+type Logos @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  logo: String!
+}
+
 type Author @model @auth(rules: [{allow: public}]) {
   id: ID!
   firstName: String

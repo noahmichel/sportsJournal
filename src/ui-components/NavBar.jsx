@@ -16,7 +16,7 @@ import {
   Text,
 } from "@aws-amplify/ui-react";
 export default function NavBar(props) {
-  const { overrides: overridesProp, ...rest } = props;
+  const { navLogo, overrides: overridesProp, ...rest } = props;
   const overrides = { ...overridesProp };
   return (
     <Flex
@@ -195,7 +195,7 @@ export default function NavBar(props) {
           position="relative"
           borderRadius="160px"
           padding="0px 0px 0px 0px"
-          img src={require("./login.jpg")}
+          src={navLogo?.logo}
           {...getOverrideProps(overrides, "Flex.Flex[2].Image[0]")}
         ></Image>
       </Flex>

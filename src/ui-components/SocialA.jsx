@@ -17,7 +17,7 @@ import {
   Text,
 } from "@aws-amplify/ui-react";
 export default function SocialA(props) {
-  const { overrides: overridesProp, ...rest } = props;
+  const { Logo, overrides: overridesProp, ...rest } = props;
   const overrides = { ...overridesProp };
   return (
     <Flex
@@ -269,7 +269,7 @@ export default function SocialA(props) {
           position="relative"
           borderRadius="16px"
           padding="0px 0px 0px 0px"
-          src="login.jpg"
+          src={Logo?.logo}
           {...getOverrideProps(overrides, "Flex.Flex[0].Image[0]")}
         ></Image>
       </Flex>
