@@ -5,11 +5,11 @@
  **************************************************************************/
 
 import React from "react";
-import { Logos } from "../models";
+import { Author } from "../models";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { FlexProps } from "@aws-amplify/ui-react";
 export declare type SocialAProps = React.PropsWithChildren<Partial<FlexProps> & {
-    Logo?: Logos;
+    Logo?: Author;
 } & {
     overrides?: EscapeHatchProps | undefined | null;
 }>;

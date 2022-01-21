@@ -195,7 +195,7 @@ export default function NavBar(props) {
           position="relative"
           borderRadius="160px"
           padding="0px 0px 0px 0px"
-          src={require('./login.jpg')}
+          src={navLogo?.firstName}
           {...getOverrideProps(overrides, "Flex.Flex[2].Image[0]")}
         ></Image>
       </Flex>

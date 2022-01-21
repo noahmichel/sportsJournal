@@ -5,9 +5,12 @@
  **************************************************************************/
 
 import React from "react";
+import { Author } from "../models";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { FlexProps } from "@aws-amplify/ui-react";
 export declare type AmpligramProps = React.PropsWithChildren<Partial<FlexProps> & {
+    login?: Author;
+} & {
     overrides?: EscapeHatchProps | undefined | null;
 }>;
 export default function Ampligram(props: AmpligramProps): React.ReactElement;

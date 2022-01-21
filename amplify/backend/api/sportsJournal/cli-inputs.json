@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "sportsJournal",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-ba726d53-7d01-4864-9df2-e48e5a90d2fd/amplify/backend/api/sportsJournal/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-82bb4caa-cc0d-48e9-9ae8-71002af76ac4/amplify/backend/api/sportsJournal/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",
@@ -12,10 +12,6 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
-      },
-      {
-        "mode": "AMAZON_COGNITO_USER_POOLS",
-        "cognitoUserPoolId": "authsportsJournal"
       }
     ],
     "conflictResolution": {

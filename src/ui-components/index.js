@@ -32,3 +32,5 @@ export { default as HeroLayout4 } from "./HeroLayout4";
 export { default as MarketingFooter } from "./MarketingFooter";
 export { default as MarketingPricing } from "./MarketingPricing";
 export { default as ContactUs } from "./ContactUs";
+export { default as SocialA2 } from "./SocialA2";
+export { default as NavBar2 } from "./NavBar2";

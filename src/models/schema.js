@@ -10,10 +10,10 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "logo": {
-                    "name": "logo",
+                "image_url": {
+                    "name": "image_url",
                     "isArray": false,
-                    "type": "String",
+                    "type": "AWSURL",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -386,5 +386,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "c5d8d6b22742d834af8451bdc5891f09"
+    "version": "618f88905985aef91811437f674b520d"
 };

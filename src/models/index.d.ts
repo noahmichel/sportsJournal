@@ -26,7 +26,7 @@ type CommentMetaData = {
 
 export declare class Logos {
   readonly id: string;
-  readonly logo: string;
+  readonly image_url: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Logos, LogosMetaData>);
