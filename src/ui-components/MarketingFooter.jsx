@@ -13,9 +13,11 @@ export default function MarketingFooter(props) {
   const overrides = { ...overridesProp };
   return (
     <View
-      width="1440px"
+      width={"100vw"}
       height="400px"
       position="relative"
+      justifyContent="center"
+      alignItems="center"
       padding="0px 0px 0px 0px"
       {...rest}
       {...getOverrideProps(overrides, "View")}

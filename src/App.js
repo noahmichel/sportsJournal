@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { ContactUs, SocialA, NavBar, SocialB, SideBar, SocialA2, NavBar2 } from './ui-components'
+import { ContactUs, SocialA, NavBar, SocialB, SideBar, SocialA2, NavBar2, MarketingFooter } from './ui-components'
 import { withAuthenticator } from '@aws-amplify/ui-react'
 
 function App() {
@@ -24,13 +24,12 @@ function App() {
     
     
     <div>
-      <header>
-        <NavBar2 width={"100vw"} />
       
-      </header>
+      <NavBar width={"100vw"}/>
       <SocialA2 width={"100vw"}/>
       <SocialA2 width={"100vw"}/>
       <SocialA2 width={"100vw"}/>
+      <MarketingFooter width={"100vw"}/>
     </div>
   );
 }

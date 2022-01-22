@@ -23,7 +23,7 @@ export default function SocialA(props) {
     <Flex
       gap="16px"
       direction="column"
-      width="960px"
+      width={"100vw"}
       position="relative"
       borderRadius="25px"
       padding="24px 24px 24px 24px"

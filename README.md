@@ -6,6 +6,7 @@
 
 2. git push
 
+or git push --force (be careful with this command tho)
 
 
 # Getting Started with Create React App

@@ -22,7 +22,7 @@ export default function NavBar(props) {
     <Flex
       gap="20px"
       direction="row"
-      width="1440px"
+      width={"100vw"}
       justifyContent="center"
       alignItems="center"
       position="relative"
@@ -98,6 +98,7 @@ export default function NavBar(props) {
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
+          inputMode="Journal"
           children="Journal"
           {...getOverrideProps(overrides, "Flex.Flex[1].Text[0]")}
         ></Text>
