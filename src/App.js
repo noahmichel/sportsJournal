@@ -25,11 +25,11 @@ function App() {
     
     <div>
       
-      <NavBar width={"100vw"}/>
+      <NavBar2 width={"100vw"}/>
       <SocialA2 width={"100vw"}/>
       <SocialA2 width={"100vw"}/>
       <SocialA2 width={"100vw"}/>
-      <MarketingFooter width={"100vw"}/>
+      //<MarketingFooter width={"100vw"}/>
     </div>
   );
 }
