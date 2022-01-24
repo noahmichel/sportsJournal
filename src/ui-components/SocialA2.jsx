@@ -21,14 +21,15 @@ export default function SocialA2(props) {
   const overrides = { ...overridesProp };
   return (
     <Flex
-      gap="16px"
+      margin="10px 50px 20px 0"
+      overflow="hidden"
+      alignSelf="flex-start"
       direction="column"
-      width="960px"
+      width="100vw"
       position="relative"
       borderRadius="25px"
       padding="24px 24px 24px 24px"
-      backgroundColor="rgba(233.00000131130219,249.00000035762787,252.00000017881393,1)"
-      margin= "5px"
+      backgroundColor="#BEE3DB"
       {...rest}
       {...getOverrideProps(overrides, "Flex")}
     >
@@ -308,9 +309,9 @@ export default function SocialA2(props) {
           justifyContent="flex-start"
           textDecoration="underline"
           letterSpacing="0.010000000000000009px"
-          width="872px"
+          width="100vw"
           grow="1"
-          basis="872px"
+          basis="100vw"
           position="relative"
           padding="0px 0px 0px 0px"
           children="Read more"
