@@ -34,6 +34,6 @@ export { default as MarketingPricing } from "./MarketingPricing";
 export { default as ContactUs } from "./ContactUs";
 export { default as SocialA2 } from "./SocialA2";
 export { default as NavBar2 } from "./NavBar2";
-export { default as MarketingFooter2 } from "./MarketingFooter";
+export { default as MarketingFooter2 } from "./MarketingFooter2";
 export { default as FeaturesText2x2x } from "./FeaturesText2x2x";
 export { default as HeroLayout1x } from "./HeroLayout1x";
