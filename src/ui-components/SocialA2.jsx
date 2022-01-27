@@ -6,6 +6,15 @@
 
 /* eslint-disable */
 import React from "react";
+import styled from 'styled-components';
+
+const Popup = styled.div`
+  width: 200px;
+  height: 200px;
+  transition: opacity 0.5s;
+  opacity: ${({ showPopup }) => (showPopup ? '1' : '0')};
+`;
+
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import {
   Flex,

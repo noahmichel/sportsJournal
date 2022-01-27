@@ -1,7 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
-import { ContactUs, SocialA, NavBar, SocialB, SideBar, SocialA2, NavBar2, MarketingFooter2 } from './ui-components'
+import { SocialA2, NavBar2, MarketingFooter2, FeaturesText2x2x, HeroLayout1x } from './ui-components'
 import { withAuthenticator } from '@aws-amplify/ui-react'
+import styled from 'styled-components';
+
+const Popup = styled.div`
+  width: 200px;
+  height: 200px;
+  transition: opacity 0.5s;
+  opacity: ${({ showPopup }) => (showPopup ? '1' : '0')};
+`;
 
 function App() {
   return (
@@ -24,13 +32,19 @@ function App() {
     
     
     
-      <div style={{background:'#555B6E' }}>
+      <div style={{background:'black' }}>
         <NavBar2 />
+
+        <HeroLayout1x/>
+        <FeaturesText2x2x/>
+        
+        {/* <SocialA2 />
         <SocialA2 />
         <SocialA2 />
-        <SocialA2 />
-        <SocialA2 />
+        <SocialA2 /> */}
+
         <MarketingFooter2/>
+        
       </div>
   );
 }
