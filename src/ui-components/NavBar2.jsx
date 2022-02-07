@@ -7,6 +7,7 @@
 /* eslint-disable */
 import React from "react";
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const Button = styled.button`
   font-variant: small-caps;
@@ -134,7 +135,8 @@ export default function NavBar2(props) {
           className="button"
           children="journal"
           {...getOverrideProps(overrides, "Flex.Flex[1].Text[0]")}
-        ></Button>
+        >
+        </Button>
         <Button
           type="button"
           className="button"
