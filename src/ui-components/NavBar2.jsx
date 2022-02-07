@@ -111,12 +111,14 @@ export default function NavBar2(props) {
           position="relative"
           {...getOverrideProps(overrides, "Flex.Flex[0].Icon[0]")}
         ></Icon>
-        <Button
-          type="button"
-          className="button"
-          children="home"
-          {...getOverrideProps(overrides, "Flex.Flex[0].Text[0]")}
-        ></Button>
+        <Link to="/">
+          <Button
+            type="button"
+            className="button"
+            children="home"
+            {...getOverrideProps(overrides, "Flex.Flex[0].Text[0]")}
+          ></Button>
+        </Link>
       </Flex>
       <Flex
         gap="20px"
@@ -130,31 +132,39 @@ export default function NavBar2(props) {
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Flex.Flex[1]")}
       >
-        <Button
-          type="button"
-          className="button"
-          children="journal"
-          {...getOverrideProps(overrides, "Flex.Flex[1].Text[0]")}
-        >
-        </Button>
-        <Button
-          type="button"
-          className="button"
-          children="progress"
-          {...getOverrideProps(overrides, "Flex.Flex[1].Text[1]")}
-        ></Button>
-        <Button
-          type="button"
-          className="button"
-          children="scouting"
-          {...getOverrideProps(overrides, "Flex.Flex[1].Text[2]")}
-        ></Button>
-        <Button
-          type="button"
-          className="button"
-          children="yearbook"
-          {...getOverrideProps(overrides, "Flex.Flex[1].Text[3]")}
-        ></Button>
+        <Link to="/journal">
+          <Button
+            type="button"
+            className="button"
+            children="journal"
+            {...getOverrideProps(overrides, "Flex.Flex[1].Text[0]")}
+          >
+          </Button>
+        </Link>
+        <Link to="/progress">
+          <Button
+            type="button"
+            className="button"
+            children="progress"
+            {...getOverrideProps(overrides, "Flex.Flex[1].Text[1]")}
+          ></Button>
+        </Link>
+        <Link to="/scouting">
+          <Button
+            type="button"
+            className="button"
+            children="scouting"
+            {...getOverrideProps(overrides, "Flex.Flex[1].Text[2]")}
+          ></Button>
+        </Link>
+        <Link to="/yearbook">
+          <Button
+            type="button"
+            className="button"
+            children="yearbook"
+            {...getOverrideProps(overrides, "Flex.Flex[1].Text[3]")}
+          ></Button>
+        </Link>
       </Flex>
       <Flex
         gap="32px"
@@ -169,12 +179,14 @@ export default function NavBar2(props) {
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Flex.Flex[2]")}
       >
-        <Button2
-          type="button2"
-          className="button2"
-          children="login"
-          {...getOverrideProps(overrides, "Flex.Flex[2].SearchField[0]")}
-        ></Button2>
+        <Link to="/login">
+          <Button2
+            type="button2"
+            className="button2"
+            children="login"
+            {...getOverrideProps(overrides, "Flex.Flex[2].SearchField[0]")}
+          ></Button2>
+        </Link>
         <IconNotifications
           width="32px"
           height="32px"
@@ -187,18 +199,20 @@ export default function NavBar2(props) {
           fontSize="32px"
           {...getOverrideProps(overrides, "Flex.Flex[2].IconNotifications[0]")}
         ></IconNotifications>
-        <Button3>
-          <Image
-            width="45px"
-            height="45px"
-            shrink="0"
-            position="relative"
-            borderRadius="160px"
-            padding="0px 0px 0px 0px"
-            src={require('./login.jpg')}
-            {...getOverrideProps(overrides, "Flex.Flex[2].Image[0]")}
-          ></Image>
-        </Button3>
+        <Link to="/myProfile">
+          <Button3>
+            <Image
+              width="45px"
+              height="45px"
+              shrink="0"
+              position="relative"
+              borderRadius="160px"
+              padding="0px 0px 0px 0px"
+              src={require('./login.jpg')}
+              {...getOverrideProps(overrides, "Flex.Flex[2].Image[0]")}
+            ></Image>
+          </Button3>
+        </Link>
       </Flex>
     </Flex>
   );

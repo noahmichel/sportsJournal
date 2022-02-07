@@ -6,6 +6,11 @@ import Journal from './Journal';
 import Home from './Home';
 import React from "react";
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import Progress from './Progress';
+import Scouting from './Scouting';
+import Yearbook from './Yearbook';
+import Login from './Login';
+import Profile from './Profile';
 
 function App() {
   return (
@@ -14,6 +19,11 @@ function App() {
         
         <Route exact path="/" component={Home}/>
         <Route exact path="/journal" component={Journal}/>
+        <Route exact path="/progress" component={Progress}/>
+        <Route exact path="/scouting" component={Scouting}/>
+        <Route exact path="/yearbook" component={Yearbook}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/myProfile" component={Profile}/>
         
       </div>
   );
