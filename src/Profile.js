@@ -5,10 +5,12 @@ function Profile() {
     return (
 
         <div>
-            <h1>
+            
             <NavBar2 />
-                Welcome to your Profile!
+            <h1>
+            Welcome to your Profile!
             </h1>
+            
         </div>
 
     )

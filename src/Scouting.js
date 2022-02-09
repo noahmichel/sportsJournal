@@ -5,10 +5,12 @@ function Scouting() {
     return (
 
         <div>
-            <h1>
+            
             <NavBar2 />
-                Scouting Section
+            <h1>
+            Scouting Section
             </h1>
+            
         </div>
 
     )

@@ -1,0 +1,9 @@
+.Header {
+
+    position: fixed;
+    display: flex;
+    z-index: 1;
+    height: 54px;
+    max-width: auto;
+
+}

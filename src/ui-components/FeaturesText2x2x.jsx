@@ -10,14 +10,6 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Flex, IconAddBox, Text } from "@aws-amplify/ui-react";
 import styled from 'styled-components';
 
-// const Text = styled.text`
-//   font-variant: small-caps;
-
-//   &:hover {
-    
-//   }
-// `;
-
 export default function FeaturesText2x2x(props) {
   const { overrides: overridesProp, ...rest } = props;
   const overrides = { ...overridesProp };
@@ -29,7 +21,7 @@ export default function FeaturesText2x2x(props) {
       justifyContent="center"
       alignItems="center"
       position="relative"
-      padding="40px 140px 40px 140px"
+      padding="40px 80px 80px 80px"
       backgroundColor="rgba(0,0,0,1)"
       {...rest}
       {...getOverrideProps(overrides, "Flex")}
@@ -39,7 +31,7 @@ export default function FeaturesText2x2x(props) {
         direction="row"
         alignItems="flex-start"
         shrink="0"
-        alignSelf="stretch"
+        alignSelf="center"
         position="relative"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Flex.Flex[0]")}
@@ -52,34 +44,34 @@ export default function FeaturesText2x2x(props) {
           basis="568px"
           height="200px"
           position="relative"
-          padding="0px 0px 0px 0px"
+          padding="0px 600px 0px 0px"
           {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0]")}
         >
           <Text
-            fontFamily="Inter"
-            fontSize="48px"
-            fontWeight="700"
+            fontFamily="HelveticaNeue"
+            fontSize="32px"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="56px"
-            textAlign="left"
+            textAlign="Center"
             display="flex"
             direction="column"
             justifyContent="flex-start"
-            width="568px"
+            width="650px"
             shrink="0"
             alignSelf="stretch"
             position="relative"
-            padding="0px 0px 0px 0px"
+            padding="0px 100px 0px 0px"
             children="Dominate your competition"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Text[0]")}
           ></Text>
           <Text
-            fontFamily="Inter"
-            fontSize="16px"
-            fontWeight="400"
+            fontFamily="HelveticaNeue-Light"
+            fontSize="20px"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
-            textAlign="left"
+            textAlign="center"
             display="flex"
             direction="column"
             justifyContent="flex-start"
@@ -144,7 +136,7 @@ export default function FeaturesText2x2x(props) {
                 )}
               ></IconAddBox>
               <Text
-                fontFamily="Inter"
+                fontFamily="HelveticaNeue"
                 fontSize="16px"
                 fontWeight="700"
                 color="rgba(255,255,255,1)"
@@ -165,7 +157,7 @@ export default function FeaturesText2x2x(props) {
                 )}
               ></Text>
               <Text
-                fontFamily="Inter"
+                fontFamily="HelveticaNeue-Light"
                 fontSize="16px"
                 fontWeight="400"
                 color="rgba(255,255,255,1)"
@@ -217,7 +209,7 @@ export default function FeaturesText2x2x(props) {
                 )}
               ></IconAddBox>
               <Text
-                fontFamily="Inter"
+                fontFamily="HelveticaNeue"
                 fontSize="16px"
                 fontWeight="700"
                 color="rgba(255,255,255,1)"
@@ -238,7 +230,7 @@ export default function FeaturesText2x2x(props) {
                 )}
               ></Text>
               <Text
-                fontFamily="Inter"
+                fontFamily="HelveticaNeue-Light"
                 fontSize="16px"
                 fontWeight="400"
                 color="rgba(255,255,255,1)"
@@ -301,7 +293,7 @@ export default function FeaturesText2x2x(props) {
                 )}
               ></IconAddBox>
               <Text
-                fontFamily="Inter"
+                fontFamily="HelveticaNeue"
                 fontSize="16px"
                 fontWeight="700"
                 color="rgba(255,255,255,1)"
@@ -322,7 +314,7 @@ export default function FeaturesText2x2x(props) {
                 )}
               ></Text>
               <Text
-                fontFamily="Inter"
+                fontFamily="HelveticaNeue-Light"
                 fontSize="16px"
                 fontWeight="400"
                 color="rgba(255,255,255,1)"
@@ -374,7 +366,7 @@ export default function FeaturesText2x2x(props) {
                 )}
               ></IconAddBox>
               <Text
-                fontFamily="Inter"
+                fontFamily="HelveticaNeue"
                 fontSize="16px"
                 fontWeight="700"
                 color="rgba(255,255,255,1)"
@@ -395,7 +387,7 @@ export default function FeaturesText2x2x(props) {
                 )}
               ></Text>
               <Text
-                fontFamily="Inter"
+                fontFamily="HelveticaNeue-Light"
                 fontSize="16px"
                 fontWeight="400"
                 color="rgba(255,255,255,1)"

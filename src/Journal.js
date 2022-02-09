@@ -5,10 +5,12 @@ function Journal() {
     return (
 
         <div>
+            
+            <NavBar2 />
             <h1>
-                <NavBar2 />
-                Welcome to the Journal!
+            Welcome to the Journal!
             </h1>
+            
         </div>
 
     )

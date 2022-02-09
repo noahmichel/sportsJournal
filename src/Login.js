@@ -6,10 +6,10 @@ function Login() {
     return (
 
         <div>
-            <h1>
+            
             <NavBar2 />
-                Login Here
-            </h1>
+            Login Here
+        
         </div>
 
     )

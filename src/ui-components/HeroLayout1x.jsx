@@ -6,6 +6,7 @@
 
 /* eslint-disable */
 import React from "react";
+import {Link} from 'react-router-dom';
 import {
   getOverrideProps,
   getOverridesFromVariants,
@@ -310,7 +311,7 @@ export default function HeroLayout1x(props) {
       justifyContent="center"
       alignItems="center"
       position="relative"
-      padding="0px 0px 0px 0px"
+      padding="54px 0px 60px 0px"
       {...rest}
       {...getOverrideProps(overrides, "Flex")}
     >
@@ -330,20 +331,20 @@ export default function HeroLayout1x(props) {
         {...getOverrideProps(overrides, "Flex.Flex[0]")}
       >
         <Flex
-          gap="24px"
+          gap="20px"
           direction="column"
           justifyContent="center"
           alignItems="center"
           shrink="0"
-          alignSelf="stretch"
+          alignSelf="center"
           position="relative"
           padding="0px 0px 0px 0px"
           {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0]")}
         >
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="700"
+            fontWeight="300"
             color="white"
             lineHeight="20px"
             textAlign="center"
@@ -353,14 +354,14 @@ export default function HeroLayout1x(props) {
             letterSpacing="0.49px"
             width="480px"
             shrink="0"
-            alignSelf="stretch"
+            alignSelf="center"
             position="relative"
             padding="0px 0px 0px 0px"
             children="RACERX SPORTS JOURNAL"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Text[0]")}
           ></Text>
           <Flex
-            gap="16px"
+            gap="20px"
             direction="column"
             justifyContent="center"
             alignItems="center"
@@ -371,18 +372,18 @@ export default function HeroLayout1x(props) {
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Flex[0]")}
           >
             <Text
-              fontFamily="Inter"
+              fontFamily="HelveticaNeue"
               fontSize="40px"
-              fontWeight="700"
+              fontWeight="300"
               color="white"
               lineHeight="48px"
               textAlign="center"
               display="flex"
               direction="column"
               justifyContent="flex-start"
-              width="480px"
+              width="580px"
               shrink="0"
-              alignSelf="stretch"
+              alignSelf="center"
               position="relative"
               padding="0px 0px 0px 0px"
               children="Become 42% more likely to achieve your goals and dreams"
@@ -392,11 +393,11 @@ export default function HeroLayout1x(props) {
               )}
             ></Text>
             <Text
-              fontFamily="Inter"
-              fontSize="16px"
-              fontWeight="400"
+              fontFamily="HelveticaNeue-Light"
+              fontSize="20px"
+              fontWeight="300"
               color="white"
-              lineHeight="24px"
+              lineHeight="32px"
               textAlign="center"
               display="flex"
               direction="column"
@@ -404,7 +405,7 @@ export default function HeroLayout1x(props) {
               letterSpacing="0.010000000000000009px"
               width="480px"
               shrink="0"
-              alignSelf="stretch"
+              alignSelf="center"
               position="relative"
               padding="0px 0px 0px 0px"
               children="Journaling is a powerful peak performance habit that helps you to gain clarity, become more focused and productive, reflect on your actions and progress"
@@ -414,23 +415,29 @@ export default function HeroLayout1x(props) {
               )}
             ></Text>
           </Flex>
-          <Button
-            backgroundColor="#3d74f5"
-            //color="#3d74f5"
-            display="flex"
-            shrink="0"
-            width="206px"
-            size="large"
-            variation="primary"
-            children="Start Now"
-            {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Button[0]")}
-          ></Button>
+          <Link to="/login" style={{ textDecoration: 'none' }}>
+            <Button
+              fontFamily="HelveticaNeue"
+              fontWeight="300"
+              alignSelf="center"
+              padding="5px 0px 5px 0px"
+              position="relative"
+              backgroundColor="#3d74f5"
+              display="flex"
+              shrink="0"
+              width="206px"
+              size="large"
+              variation="primary"
+              children="Start Now"
+              {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Button[0]")}
+            ></Button>
+          </Link>
         </Flex>
       </Flex>
       <Flex
-        gap="10px"
+        gap="20px"
         direction="column"
-        height="620px"
+        height="650px"
         justifyContent="center"
         alignItems="center"
         grow="1"
@@ -446,7 +453,7 @@ export default function HeroLayout1x(props) {
           width="720px"
           height="720px"
           grow="1"
-          basis="620px"
+          basis="720px"
           position="relative"
           padding="0px 0px 0px 0px"
           src={require('./aaronJudge.jpg')}

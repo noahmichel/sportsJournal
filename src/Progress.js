@@ -5,10 +5,12 @@ function Progress() {
     return (
 
         <div>
-            <h1>
+            
             <NavBar2 />
-                Here is your progress!
+            <h1>
+            Here is your progress!
             </h1>
+            
         </div>
 
     )

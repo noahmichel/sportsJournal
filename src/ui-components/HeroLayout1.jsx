@@ -419,7 +419,7 @@ export default function HeroLayout1(props) {
             //color="#3d74f5"
             display="flex"
             shrink="0"
-            width="206px"
+            width="300px"
             size="large"
             variation="primary"
             children="Start Now"

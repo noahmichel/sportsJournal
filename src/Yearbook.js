@@ -5,10 +5,10 @@ function Yearbook() {
     return (
 
         <div>
-            <h1>
+            
             <NavBar2 />
-                Welcome to your yearbook!
-            </h1>
+            Welcome to your yearbook!
+            
         </div>
 
     )
