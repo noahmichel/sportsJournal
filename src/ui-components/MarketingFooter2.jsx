@@ -8,6 +8,7 @@
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Flex, Text, TextField, View } from "@aws-amplify/ui-react";
+import styled from 'styled-components';
 export default function MarketingFooter2(props) {
   const { overrides: overridesProp, ...rest } = props;
   const overrides = { ...overridesProp };
@@ -34,7 +35,7 @@ export default function MarketingFooter2(props) {
         {...getOverrideProps(overrides, "View.View[0]")}
       ></View>
       <Text
-        fontFamily="Inter"
+        fontFamily="HelveticaNeue-Light"
         fontSize="16px"
         fontWeight="400"
         color="rgba(255,255,255,1)"
@@ -48,7 +49,7 @@ export default function MarketingFooter2(props) {
         left="40px"
         top="336px"
         padding="0px 0px 0px 0px"
-        children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut labore et dolore magna"
+        children="While using RacerX Baseball Journal, you agree to have read and accepted our terms of use, cookie and privacy policy."
         {...getOverrideProps(overrides, "View.Text[0]")}
       ></Text>
       <Flex
@@ -71,7 +72,7 @@ export default function MarketingFooter2(props) {
           {...getOverrideProps(overrides, "View.Flex[0].Flex[0]")}
         >
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
             fontWeight="400"
             color="rgba(255,255,255,1)"
@@ -85,11 +86,11 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Lorem ipsum dolor sit amet"
+            children="Visit us on Facebook"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[0]")}
           ></Text>
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
             fontWeight="400"
             color="rgba(255,255,255,1)"
@@ -103,11 +104,11 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Consectetur adipiscing"
+            children="Youtube"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[1]")}
           ></Text>
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
             fontWeight="400"
             color="rgba(255,255,255,1)"
@@ -121,11 +122,11 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Elit sed do eiusmod"
+            children="Twitter"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[2]")}
           ></Text>
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
             fontWeight="400"
             color="rgba(255,255,255,1)"
@@ -139,11 +140,11 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Tempor incididunt ut labore"
+            children="Instagram"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[3]")}
           ></Text>
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
             fontWeight="400"
             color="rgba(255,255,255,1)"
@@ -157,7 +158,7 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Et dolore magna"
+            children="LinkedIn"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[4]")}
           ></Text>
         </Flex>
@@ -171,7 +172,7 @@ export default function MarketingFooter2(props) {
           {...getOverrideProps(overrides, "View.Flex[0].Flex[1]")}
         >
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
             fontWeight="400"
             color="rgba(255,255,255,1)"
@@ -185,11 +186,11 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Lorem ipsum dolor sit amet"
+            children="For buisness inquiries only"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[1].Text[0]")}
           ></Text>
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
             fontWeight="400"
             color="rgba(255,255,255,1)"
@@ -203,11 +204,11 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Consectetur adipiscing"
+            children="Jim McArthur"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[1].Text[1]")}
           ></Text>
           <Text
-            fontFamily="Inter"
+            fontFamily="HelveticaNeue-Light"
             fontSize="16px"
             fontWeight="400"
             color="rgba(255,255,255,1)"
@@ -221,13 +222,13 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Elit sed do eiusmod"
+            children="jakeymac944@gmail.com"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[1].Text[2]")}
           ></Text>
         </Flex>
       </Flex>
       <Text
-        fontFamily="Inter"
+        fontFamily="HelveticaNeue-Light"
         fontSize="16px"
         fontWeight="400"
         color="rgba(255,255,255,1)"
@@ -240,8 +241,8 @@ export default function MarketingFooter2(props) {
         position="absolute"
         left="1050px"
         top="336px"
-        padding="0px 0px 0px 0px"
-        children="Lorem ipsum dolor sit amet 2021"
+        padding="0px 20px 0px 0px"
+        children="Baseball Journal Copyright 2021 by JMac Sports Marketing "
         {...getOverrideProps(overrides, "View.Text[1]")}
       ></Text>
       <Flex
@@ -254,9 +255,9 @@ export default function MarketingFooter2(props) {
         {...getOverrideProps(overrides, "View.Flex[1]")}
       >
         <Text
-          fontFamily="Inter"
-          fontSize="14px"
-          fontWeight="400"
+          fontFamily="HelveticaNeue"
+          fontSize="16px"
+          fontWeight="500"
           color="rgba(255,255,255,1)"
           lineHeight="24px"
           textAlign="left"
@@ -267,21 +268,22 @@ export default function MarketingFooter2(props) {
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
-          children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna"
+          children="Frequently Asked Questions (FAQ)"
           {...getOverrideProps(overrides, "View.Flex[1].Text[0]")}
         ></Text>
         <TextField
           display="flex"
+          textAlign="left"
           shrink="0"
-          label="Label"
+          label="Search"
           size="default"
           variation="default"
           {...getOverrideProps(overrides, "View.Flex[1].TextField[0]")}
         ></TextField>
         <Text
-          fontFamily="Inter"
+          fontFamily="HelveticaNeue-Light"
           fontSize="16px"
-          fontWeight="400"
+          fontWeight="300"
           color="rgba(255,255,255,1)"
           lineHeight="24px"
           textAlign="left"
@@ -293,7 +295,7 @@ export default function MarketingFooter2(props) {
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
-          children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do."
+          children="At RacerX Baseball Journal, we pride ourselves on protecting the information that is produced via our website and have the interest of the users as our utmost priority."
           {...getOverrideProps(overrides, "View.Flex[1].Text[1]")}
         ></Text>
       </Flex>

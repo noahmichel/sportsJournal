@@ -21,7 +21,7 @@ export default function FeaturesText2x2x(props) {
       justifyContent="center"
       alignItems="center"
       position="relative"
-      padding="40px 80px 80px 80px"
+      padding="10px 80px 100px 80px"
       backgroundColor="rgba(0,0,0,1)"
       {...rest}
       {...getOverrideProps(overrides, "Flex")}
@@ -81,7 +81,7 @@ export default function FeaturesText2x2x(props) {
             alignSelf="stretch"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+            children="You’ve heard baseball is 90% mental. Without your brain; your hands, feet, arms can’t move. Yet it’s more than that. By training your brain, it raises you to the top 5% of all ball players. The mental game means learning to play at 100%."
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Text[1]")}
           ></Text>
         </Flex>
@@ -112,7 +112,7 @@ export default function FeaturesText2x2x(props) {
               width="272px"
               grow="1"
               basis="272px"
-              height="176px"
+              height="200px"
               position="relative"
               padding="0px 0px 0px 0px"
               {...getOverrideProps(
@@ -150,7 +150,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Feature A"
+                children="Journal"
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[0].Flex[0].Text[0]"
@@ -172,7 +172,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                children="Your baseball journal is designed to introduce you to the mental aspect of baseball. The total athlete so to speak. Your place to capture thoughts, ideas and memories."
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[0].Flex[0].Text[1]"
@@ -223,7 +223,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Feature B"
+                children="Progress"
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[0].Flex[1].Text[0]"
@@ -245,7 +245,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                children="Your measuring stick. A place to quite your mind and document your successes and failures. Tangible statistics of games and practices."
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[0].Flex[1].Text[1]"
@@ -307,7 +307,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Feature C"
+                children="Scouting"
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[1].Flex[0].Text[0]"
@@ -329,7 +329,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                children="Get your name out there to top scouts at Universities around the country. This is your chance to prove what kind of ball player you really are."
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[1].Flex[0].Text[1]"
@@ -380,7 +380,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Feature D"
+                children="Yearbook"
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[1].Flex[1].Text[0]"
@@ -402,7 +402,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                children="Capture important moments and memories while you play ball. Share these memories in physical/digital form and look professional while doing it."
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[1].Flex[1].Text[1]"

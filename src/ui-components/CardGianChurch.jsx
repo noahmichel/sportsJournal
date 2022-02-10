@@ -16,7 +16,7 @@ import {
   Rating,
   Text,
 } from "@aws-amplify/ui-react";
-export default function CardG(props) {
+export default function CardGianChurch(props) {
   const { overrides: overridesProp, ...rest } = props;
   const overrides = { ...overridesProp };
   return (
@@ -27,7 +27,7 @@ export default function CardG(props) {
       width="100vw"
       alignItems="left"
       position="relative"
-      padding="0px 20px 60px 20px"
+      padding="0px 20px 120px 20px"
       {...rest}
       {...getOverrideProps(overrides, "Flex")}
     >
@@ -38,7 +38,7 @@ export default function CardG(props) {
         shrink="0"
         position="relative"
         padding="10px 10px 10px 10px"
-        src={require('./JonWatson.png')}
+        src={require('./ianChurch.png')}
         {...getOverrideProps(overrides, "Flex.Image[0]")}
       ></Image>
       <Flex
@@ -82,33 +82,12 @@ export default function CardG(props) {
               display="flex"
               direction="column"
               justifyContent="flex-start"
-              width="300px"
-              grow="1"
-              basis="300px"
-              position="relative"
-              padding="0px 0px 0px 0px"
-              children="Former MiLB pitching coach for the Angels and Diamondbacks"
-              {...getOverrideProps(
-                overrides,
-                "Flex.Flex[0].Flex[0].Flex[0].Text[0]"
-              )}
-            ></Text>
-            <Text
-              fontFamily="HelveticaNeue-Light"
-              fontSize="14px"
-              fontWeight="300"
-              color="white"
-              lineHeight="24px"
-              textAlign="left"
-              display="flex"
-              direction="column"
-              justifyContent="flex-start"
               width="400px"
               grow="1"
               basis="400px"
               position="relative"
-              padding="0px 20px 0px 5px"
-              children="Pitching instructor for the top resource for NCAA and MLB pitching coaches"
+              padding="0px 0px 0px 0px"
+              children="Ex-pro player in St Louis Cardinals organization"
               {...getOverrideProps(
                 overrides,
                 "Flex.Flex[0].Flex[0].Flex[0].Text[0]"
@@ -129,7 +108,28 @@ export default function CardG(props) {
               basis="400px"
               position="relative"
               padding="0px 0px 0px 0px"
-              children="Current college head coach"
+              children="Top ranked travel baseball coach"
+              {...getOverrideProps(
+                overrides,
+                "Flex.Flex[0].Flex[0].Flex[0].Text[0]"
+              )}
+            ></Text>
+            <Text
+              fontFamily="HelveticaNeue-Light"
+              fontSize="14px"
+              fontWeight="300"
+              color="white"
+              lineHeight="24px"
+              textAlign="left"
+              display="flex"
+              direction="column"
+              justifyContent="flex-start"
+              width="400px"
+              grow="1"
+              basis="400px"
+              position="relative"
+              padding="0px 0px 0px 0px"
+              children="Former operator of elite athlete training facilities in New York and Florida"
               {...getOverrideProps(
                 overrides,
                 "Flex.Flex[0].Flex[0].Flex[0].Text[0]"
@@ -151,7 +151,7 @@ export default function CardG(props) {
             alignSelf="stretch"
             position="relative"
             padding="20px 0px 0px 0px"
-            children="Jon Watson"
+            children="Ian Church"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Text[0]")}
           ></Text>
         </Flex>
@@ -187,7 +187,7 @@ export default function CardG(props) {
             alignSelf="stretch"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="The RACERX Baseball Journal couldn’t have come at a better time since MLB teams and college baseball teams are using data analytics to find players to recruit and draft. Young ball players must learn to measure and monitor their performance if they want to advance. Baseball Journal is a must have for every ball player."
+            children="Players must know their benchmarks and develop their mental game so they consistently perform. A RACERX baseball journal is an investment in your future. I wish I had this tool when I was coming up through the minor leagues."
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[1].Text[0]")}
           ></Text>
           <Text
@@ -206,7 +206,7 @@ export default function CardG(props) {
             alignSelf="stretch"
             position="relative"
             padding="20px 0px 0px 0px"
-            children="Phoenix Arizona"
+            children="Tampa Bay Florida"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[1].Text[1]")}
           ></Text>
         </Flex>

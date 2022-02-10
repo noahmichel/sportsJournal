@@ -185,7 +185,7 @@ export default function NavBar2(props) {
           padding="0px 0px 0px 0px"
           color="#cccccc"
           type="notifications"
-          fontSize="32px"
+          fontSize="30px"
           {...getOverrideProps(overrides, "Flex.Flex[2].IconNotifications[0]")}
         ></IconNotifications>
         <Link to="/myProfile">
