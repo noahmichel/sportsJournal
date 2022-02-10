@@ -9,6 +9,9 @@
 
   .hideme
 {
-    display: flex;
-    opacity:0;
+  display: flex;
+  opacity:0;
+  /* margin-left:300px; */
+  
+  
 }

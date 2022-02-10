@@ -225,6 +225,24 @@ export default function MarketingFooter2(props) {
             children="jakeymac944@gmail.com"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[1].Text[2]")}
           ></Text>
+          <Text
+            fontFamily="HelveticaNeue-Light"
+            fontSize="16px"
+            fontWeight="400"
+            color="rgba(255,255,255,1)"
+            lineHeight="24px"
+            textAlign="left"
+            display="flex"
+            direction="column"
+            justifyContent="flex-start"
+            letterSpacing="0.010000000000000009px"
+            width="272px"
+            shrink="0"
+            position="relative"
+            padding="0px 0px 0px 0px"
+            children="Sources"
+            {...getOverrideProps(overrides, "View.Flex[0].Flex[1].Text[2]")}
+          ></Text>
         </Flex>
       </Flex>
       <Text
