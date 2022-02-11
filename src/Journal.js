@@ -8,9 +8,9 @@ function Journal() {
         <div>
             
             <NavBar2 class="Header"/>
-            <h1>
+            
             Welcome to the Journal!
-            </h1>
+            
             
         </div>
 

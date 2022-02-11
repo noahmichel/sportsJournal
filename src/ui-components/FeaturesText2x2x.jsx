@@ -245,7 +245,7 @@ export default function FeaturesText2x2x(props) {
                 alignSelf="stretch"
                 position="relative"
                 padding="0px 0px 0px 0px"
-                children="Your measuring stick. A place to quite your mind and document your successes and failures. Tangible statistics of games and practices."
+                children="Your measuring stick. A place to quiet your mind and document your successes and failures. Tangible statistics of games and practices."
                 {...getOverrideProps(
                   overrides,
                   "Flex.Flex[0].Flex[1].Flex[0].Flex[1].Text[1]"

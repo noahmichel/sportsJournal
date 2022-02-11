@@ -8,9 +8,9 @@ function Scouting() {
         <div>
             
             <NavBar2 class="Header"/>
-            <h1>
+            
             Scouting Section
-            </h1>
+            
             
         </div>
 

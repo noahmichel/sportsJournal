@@ -8,9 +8,9 @@ function Progress() {
         <div>
             
             <NavBar2 class="Header"/>
-            <h1>
+            
             Here is your progress!
-            </h1>
+            
             
         </div>
 

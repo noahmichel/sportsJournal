@@ -191,13 +191,14 @@ export default function NavBar2(props) {
         <Link to="/myProfile">
           <Button3>
             <Image
-              width="45px"
-              height="45px"
+              width="38px"
+              height="38px"
               shrink="0"
               position="relative"
               borderRadius="160px"
               padding="0px 0px 0px 0px"
-              src={require('./login.jpg')}
+              border="3px solid white"
+              src={require('./default-user.jpg')}
               {...getOverrideProps(overrides, "Flex.Flex[2].Image[0]")}
             ></Image>
           </Button3>

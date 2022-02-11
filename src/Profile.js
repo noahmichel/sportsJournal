@@ -8,9 +8,9 @@ function Profile() {
         <div>
             
             <NavBar2 class="Header"/>
-            <h1>
+            
             Welcome to your Profile!
-            </h1>
+            
             
         </div>
 
