@@ -306,7 +306,7 @@ export default function HeroLayout1(props) {
     <Flex
       gap="0"
       direction="row"
-      width="100vw"
+      width="1440px"
       justifyContent="center"
       alignItems="center"
       position="relative"
@@ -317,7 +317,7 @@ export default function HeroLayout1(props) {
       <Flex
         gap="10px"
         direction="column"
-        height="620px"
+        height="564px"
         justifyContent="center"
         alignItems="center"
         grow="1"
@@ -326,7 +326,7 @@ export default function HeroLayout1(props) {
         overflow="hidden"
         position="relative"
         padding="120px 120px 120px 120px"
-        backgroundColor="black"
+        backgroundColor="rgba(255,255,255,1)"
         {...getOverrideProps(overrides, "Flex.Flex[0]")}
       >
         <Flex
@@ -344,7 +344,7 @@ export default function HeroLayout1(props) {
             fontFamily="Inter"
             fontSize="16px"
             fontWeight="700"
-            color="white"
+            color="rgba(13.000000175088644,26.000000350177288,38.0000015348196,1)"
             lineHeight="20px"
             textAlign="center"
             display="flex"
@@ -356,7 +356,7 @@ export default function HeroLayout1(props) {
             alignSelf="stretch"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="RACERX SPORTS JOURNAL"
+            children="LOREM IPSUM"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Text[0]")}
           ></Text>
           <Flex
@@ -374,7 +374,7 @@ export default function HeroLayout1(props) {
               fontFamily="Inter"
               fontSize="40px"
               fontWeight="700"
-              color="white"
+              color="rgba(13.000000175088644,26.000000350177288,38.0000015348196,1)"
               lineHeight="48px"
               textAlign="center"
               display="flex"
@@ -385,7 +385,7 @@ export default function HeroLayout1(props) {
               alignSelf="stretch"
               position="relative"
               padding="0px 0px 0px 0px"
-              children="Become 42% more likely to achieve your goals and dreams"
+              children="Ut enim ad minim veniam quis nostrud"
               {...getOverrideProps(
                 overrides,
                 "Flex.Flex[0].Flex[0].Flex[0].Text[0]"
@@ -395,7 +395,7 @@ export default function HeroLayout1(props) {
               fontFamily="Inter"
               fontSize="16px"
               fontWeight="400"
-              color="white"
+              color="rgba(13.000000175088644,26.000000350177288,38.0000015348196,1)"
               lineHeight="24px"
               textAlign="center"
               display="flex"
@@ -407,7 +407,7 @@ export default function HeroLayout1(props) {
               alignSelf="stretch"
               position="relative"
               padding="0px 0px 0px 0px"
-              children="Journaling is a powerful peak performance habit that helps you to gain clarity, become more focused and productive, reflect on your actions and progress"
+              children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
               {...getOverrideProps(
                 overrides,
                 "Flex.Flex[0].Flex[0].Flex[0].Text[1]"
@@ -415,14 +415,12 @@ export default function HeroLayout1(props) {
             ></Text>
           </Flex>
           <Button
-            backgroundColor="#3d74f5"
-            //color="#3d74f5"
             display="flex"
             shrink="0"
-            width="300px"
+            width="206px"
             size="large"
             variation="primary"
-            children="Start Now"
+            children="Primary Button"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Button[0]")}
           ></Button>
         </Flex>
@@ -430,7 +428,7 @@ export default function HeroLayout1(props) {
       <Flex
         gap="10px"
         direction="column"
-        height="620px"
+        height="564px"
         justifyContent="center"
         alignItems="center"
         grow="1"
@@ -442,14 +440,12 @@ export default function HeroLayout1(props) {
         {...getOverrideProps(overrides, "Flex.Flex[1]")}
       >
         <Image
-          borderRadius="720px"
           width="720px"
-          height="720px"
+          height="564px"
           grow="1"
-          basis="620px"
+          basis="564px"
           position="relative"
           padding="0px 0px 0px 0px"
-          src={require('./aaronJudge.jpg')}
           {...getOverrideProps(overrides, "Flex.Flex[1].Image[0]")}
         ></Image>
       </Flex>

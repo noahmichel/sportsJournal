@@ -8,16 +8,6 @@
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Flex, IconAddBox, Text } from "@aws-amplify/ui-react";
-import styled from 'styled-components';
-
-// const Text = styled.text`
-//   font-variant: small-caps;
-
-//   &:hover {
-    
-//   }
-// `;
-
 export default function FeaturesText2x2(props) {
   const { overrides: overridesProp, ...rest } = props;
   const overrides = { ...overridesProp };
@@ -25,7 +15,7 @@ export default function FeaturesText2x2(props) {
     <Flex
       gap="10px"
       direction="column"
-      width="100vw"
+      width="1440px"
       justifyContent="center"
       alignItems="center"
       position="relative"
@@ -70,7 +60,7 @@ export default function FeaturesText2x2(props) {
             alignSelf="stretch"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Dominate your competition"
+            children="Lorem ipsum dolor sit amet"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Text[0]")}
           ></Text>
           <Text

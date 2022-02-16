@@ -13,24 +13,21 @@ export default function MarketingFooter(props) {
   const overrides = { ...overridesProp };
   return (
     <View
-      overflow="hidden"
-      width="100vw"
+      width="1440px"
       height="400px"
       position="relative"
-      justifyContent="center"
-      alignItems="center"
       padding="0px 0px 0px 0px"
       {...rest}
       {...getOverrideProps(overrides, "View")}
     >
       <View
-        width="100vw"
+        width="1440px"
         height="400px"
         position="absolute"
         left="0px"
         top="0px"
         padding="0px 0px 0px 0px"
-        backgroundColor="#555B6E"
+        backgroundColor="rgba(0,0,0,1)"
         {...getOverrideProps(overrides, "View.View[0]")}
       ></View>
       <Text
@@ -238,7 +235,7 @@ export default function MarketingFooter(props) {
         justifyContent="flex-start"
         letterSpacing="0.010000000000000009px"
         position="absolute"
-        left="1050px"
+        left="1148px"
         top="336px"
         padding="0px 0px 0px 0px"
         children="Lorem ipsum dolor sit amet 2021"

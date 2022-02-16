@@ -22,23 +22,20 @@ export default function CardG(props) {
   return (
     <Flex
       gap="0"
-      backgroundColor="black"
       direction="row"
-      width="100vw"
-      alignItems="left"
+      width="960px"
+      alignItems="center"
       position="relative"
-      padding="0px 20px 60px 20px"
+      padding="0px 0px 0px 0px"
       {...rest}
       {...getOverrideProps(overrides, "Flex")}
     >
       <Image
         width="400px"
-        borderRadius="720px"
-        height="380px"
+        height="351px"
         shrink="0"
         position="relative"
-        padding="10px 10px 10px 10px"
-        src={require('./JonWatson.png')}
+        padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Flex.Image[0]")}
       ></Image>
       <Flex
@@ -50,7 +47,7 @@ export default function CardG(props) {
         height="353px"
         position="relative"
         padding="32px 32px 32px 32px"
-        backgroundColor="black"
+        backgroundColor="rgba(255,255,255,1)"
         {...getOverrideProps(overrides, "Flex.Flex[0]")}
       >
         <Flex
@@ -73,74 +70,47 @@ export default function CardG(props) {
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Flex[0]")}
           >
             <Text
-              fontFamily="HelveticaNeue-Light"
+              fontFamily="Inter"
               fontSize="14px"
-              fontWeight="300"
-              color="white"
+              fontWeight="400"
+              color="rgba(92.00000211596489,102.00000151991844,112.000000923872,1)"
               lineHeight="24px"
               textAlign="left"
               display="flex"
               direction="column"
               justifyContent="flex-start"
-              width="300px"
+              width="464px"
               grow="1"
-              basis="300px"
+              basis="464px"
               position="relative"
               padding="0px 0px 0px 0px"
-              children="Former MiLB pitching coach for the Angels and Diamondbacks"
+              children="Information about this product"
               {...getOverrideProps(
                 overrides,
                 "Flex.Flex[0].Flex[0].Flex[0].Text[0]"
               )}
             ></Text>
-            <Text
-              fontFamily="HelveticaNeue-Light"
-              fontSize="14px"
-              fontWeight="300"
-              color="white"
-              lineHeight="24px"
-              textAlign="left"
-              display="flex"
-              direction="column"
-              justifyContent="flex-start"
-              width="400px"
-              grow="1"
-              basis="400px"
-              position="relative"
-              padding="0px 20px 0px 5px"
-              children="Pitching instructor for the top resource for NCAA and MLB pitching coaches"
-              {...getOverrideProps(
-                overrides,
-                "Flex.Flex[0].Flex[0].Flex[0].Text[0]"
-              )}
-            ></Text>
-            <Text
-              fontFamily="HelveticaNeue-Light"
-              fontSize="14px"
-              fontWeight="300"
-              color="white"
-              lineHeight="24px"
-              textAlign="left"
-              display="flex"
-              direction="column"
-              justifyContent="flex-start"
-              width="400px"
-              grow="1"
-              basis="400px"
+            <IconFavoriteBorder
+              width="24px"
+              height="24px"
+              shrink="0"
+              overflow="hidden"
               position="relative"
               padding="0px 0px 0px 0px"
-              children="Current college head coach"
+              color="rgba(13.000000175088644,26.000000350177288,38.0000015348196,1)"
+              type="favorite_border"
+              fontSize="24px"
               {...getOverrideProps(
                 overrides,
-                "Flex.Flex[0].Flex[0].Flex[0].Text[0]"
+                "Flex.Flex[0].Flex[0].Flex[0].IconFavoriteBorder[0]"
               )}
-            ></Text>
+            ></IconFavoriteBorder>
           </Flex>
           <Text
-            fontFamily="HelveticaNeue"
+            fontFamily="Inter"
             fontSize="32px"
-            fontWeight="500"
-            color="white"
+            fontWeight="700"
+            color="rgba(13.000000175088644,26.000000350177288,38.0000015348196,1)"
             lineHeight="40px"
             textAlign="left"
             display="flex"
@@ -150,8 +120,8 @@ export default function CardG(props) {
             shrink="0"
             alignSelf="stretch"
             position="relative"
-            padding="20px 0px 0px 0px"
-            children="Jon Watson"
+            padding="0px 0px 0px 0px"
+            children="Classic Long Sleeve T-Shirt"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[0].Text[0]")}
           ></Text>
         </Flex>
@@ -172,29 +142,10 @@ export default function CardG(props) {
           {...getOverrideProps(overrides, "Flex.Flex[0].Flex[1]")}
         >
           <Text
-            fontFamily="HelveticaNeue-Light"
+            fontFamily="Inter"
             fontSize="16px"
-            fontWeight="300"
-            color="white"
-            lineHeight="24px"
-            textAlign="left"
-            display="flex"
-            direction="column"
-            justifyContent="flex-start"
-            letterSpacing="0.010000000000000009px"
-            width="740px"
-            shrink="0"
-            alignSelf="stretch"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            children="The RACERX Baseball Journal couldn’t have come at a better time since MLB teams and college baseball teams are using data analytics to find players to recruit and draft. Young ball players must learn to measure and monitor their performance if they want to advance. Baseball Journal is a must have for every ball player."
-            {...getOverrideProps(overrides, "Flex.Flex[0].Flex[1].Text[0]")}
-          ></Text>
-          <Text
-            fontFamily="HelveticaNeue-Light"
-            fontSize="16px"
-            fontWeight="300"
-            color="white"
+            fontWeight="400"
+            color="rgba(92.00000211596489,102.00000151991844,112.000000923872,1)"
             lineHeight="24px"
             textAlign="left"
             display="flex"
@@ -205,12 +156,50 @@ export default function CardG(props) {
             shrink="0"
             alignSelf="stretch"
             position="relative"
-            padding="20px 0px 0px 0px"
-            children="Phoenix Arizona"
+            padding="0px 0px 0px 0px"
+            children="Information about this product."
+            {...getOverrideProps(overrides, "Flex.Flex[0].Flex[1].Text[0]")}
+          ></Text>
+          <Text
+            fontFamily="Inter"
+            fontSize="16px"
+            fontWeight="400"
+            color="rgba(92.00000211596489,102.00000151991844,112.000000923872,1)"
+            lineHeight="24px"
+            textAlign="left"
+            display="flex"
+            direction="column"
+            justifyContent="flex-start"
+            letterSpacing="0.010000000000000009px"
+            width="496px"
+            shrink="0"
+            alignSelf="stretch"
+            position="relative"
+            padding="0px 0px 0px 0px"
+            children="Information about this product."
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[1].Text[1]")}
           ></Text>
         </Flex>
-        {/* <Flex
+        <Badge
+          padding="4px 8px 4px 8px"
+          display="flex"
+          shrink="0"
+          width="58px"
+          fontFamily="Inter"
+          fontWeight="700"
+          fontSize="16px"
+          color="rgba(13.000000175088644,26.000000350177288,38.0000015348196,1)"
+          textAlign="left"
+          lineHeight="20px"
+          direction="column"
+          justifyContent="flex-start"
+          letterSpacing="0.49px"
+          size="small"
+          variation="default"
+          children="New!"
+          {...getOverrideProps(overrides, "Flex.Flex[0].Badge[0]")}
+        ></Badge>
+        <Flex
           gap="16px"
           direction="row"
           alignItems="center"
@@ -233,28 +222,28 @@ export default function CardG(props) {
             <Rating
               display="flex"
               shrink="0"
-              height="32px"
-              size="medium"
-              color="blue"
+              height="36px"
+              size="large"
               {...getOverrideProps(
                 overrides,
                 "Flex.Flex[0].Flex[2].Flex[0].Rating[0]"
               )}
             ></Rating>
             <Text
-              fontFamily="HelveticaNeue-Light"
+              fontFamily="Inter"
               fontSize="16px"
               fontWeight="400"
-              color="white"
+              color="rgba(13.000000175088644,26.000000350177288,38.0000015348196,1)"
               lineHeight="22px"
               textAlign="left"
               display="flex"
               direction="column"
               justifyContent="flex-start"
+              textDecoration="underline"
               shrink="0"
               position="relative"
               padding="0px 0px 0px 0px"
-              children="Review"
+              children="Reviews"
               {...getOverrideProps(
                 overrides,
                 "Flex.Flex[0].Flex[2].Flex[0].Text[0]"
@@ -262,7 +251,7 @@ export default function CardG(props) {
             ></Text>
           </Flex>
           <Text
-            fontFamily="HelveticaNeue-Light"
+            fontFamily="Inter"
             fontSize="16px"
             fontWeight="700"
             color="rgba(13.000000175088644,26.000000350177288,38.0000015348196,1)"
@@ -276,10 +265,10 @@ export default function CardG(props) {
             basis="189px"
             position="relative"
             padding="0px 0px 0px 0px"
-            children=""
+            children="$99/Night"
             {...getOverrideProps(overrides, "Flex.Flex[0].Flex[2].Text[0]")}
           ></Text>
-        </Flex> */}
+        </Flex>
       </Flex>
     </Flex>
   );
