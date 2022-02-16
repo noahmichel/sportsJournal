@@ -38,3 +38,4 @@ export { default as MarketingFooter2 } from "./MarketingFooter2";
 export { default as FeaturesText2x2x } from "./FeaturesText2x2x";
 export { default as HeroLayout1x } from "./HeroLayout1x";
 export { default as CardGianChurch } from "./CardGianChurch";
+export { default as JournalHome } from "./JournalHome";

@@ -10,10 +10,10 @@ $(function(){  // $(document).ready shorthand
   $(document).ready(function() {
       
       /* Every time the window is scrolled ... */
-      $(window).scroll( function(){
+      $(window).scroll(function() {
       
           /* Check the location of each desired element */
-          $('.hideme').each( function(i){
+          $('.hideme').each(function(i) {
               
               var bottom_of_object = $(this).position().top + 100;
               var bottom_of_window = $(window).scrollTop() + $(window).height();
