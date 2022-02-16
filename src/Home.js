@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar2, MarketingFooter2, FeaturesText2x2x, HeroLayout1x, FAQItem, CardG, CardGianChurch } from './ui-components'
+import {NavBar2, MarketingFooter2, FeaturesText2x2x, HeroLayout1x, FAQItemHome1, CardGJon, CardGianChurch } from './ui-components'
 import './NavBar2.css'
 import $ from 'jquery'; 
 
@@ -35,8 +35,8 @@ function Home() {
         <NavBar2 class="Header"/>
         <HeroLayout1x/>
         <FeaturesText2x2x class ="hideme"/>
-        <FAQItem class ="hideme"/>
-        <CardG class ="hideme"/>
+        <FAQItemHome1 class ="hideme"/>
+        <CardGJon class ="hideme"/>
         <CardGianChurch class ="hideme"/>
         <MarketingFooter2 /> 
             
