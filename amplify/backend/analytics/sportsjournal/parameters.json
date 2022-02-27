@@ -1,0 +1,21 @@
+{
+    "appName": "sportsjournal",
+    "roleName": "pinpointLambdaRoleb4f27587",
+    "cloudformationPolicyName": "cloudformationPolicyb4f27587",
+    "cloudWatchPolicyName": "cloudWatchPolicyb4f27587",
+    "pinpointPolicyName": "pinpointPolicyb4f27587",
+    "authPolicyName": "pinpoint_amplify_b4f27587",
+    "unauthPolicyName": "pinpoint_amplify_b4f27587",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

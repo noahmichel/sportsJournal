@@ -63,5 +63,11 @@
       "service": "amplifyhosting",
       "type": "cicd"
     }
+  },
+  "analytics": {
+    "sportsjournal": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

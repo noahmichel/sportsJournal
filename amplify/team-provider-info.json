@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "sportsJournal": {}
+        "sportsJournal": {},
+        "true": {}
       },
       "hosting": {
         "amplifyhosting": {
