@@ -5,17 +5,20 @@
  **************************************************************************/
 
 export { default as CardD } from "./CardD";
+export { default as MobileHeader } from "./MobileHeader";
 export { default as SideBar } from "./SideBar";
 export { default as CardG } from "./CardG";
 export { default as Features4x1 } from "./Features4x1";
 export { default as HeroLayout1 } from "./HeroLayout1";
 export { default as HeroLayout2 } from "./HeroLayout2";
 export { default as ProfileA } from "./ProfileA";
+export { default as Bloglistmobile } from "./Bloglistmobile";
 export { default as FormCheckout } from "./FormCheckout";
 export { default as CardF } from "./CardF";
 export { default as FAQItem } from "./FAQItem";
 export { default as FeaturesText2x2 } from "./FeaturesText2x2";
 export { default as CardE } from "./CardE";
+export { default as Worklistmobile } from "./Worklistmobile";
 export { default as SocialA } from "./SocialA";
 export { default as Ampligram } from "./Ampligram";
 export { default as EditProfile } from "./EditProfile";
@@ -24,6 +27,7 @@ export { default as NavBar } from "./NavBar";
 export { default as HeroLayout3 } from "./HeroLayout3";
 export { default as Features2x3 } from "./Features2x3";
 export { default as Footer } from "./Footer";
+export { default as TaskManagementDashboard } from "./TaskManagementDashboard";
 export { default as CardB } from "./CardB";
 export { default as CardA } from "./CardA";
 export { default as Home } from "./Home";

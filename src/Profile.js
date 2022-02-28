@@ -69,20 +69,22 @@ function Profile() {
             
 <div style={{padding: '54px 0px 54px 0px'}}>
     <h2>
-Welcome to your Profile!
+    Welcome to your Profile!
     </h2>   
 
-<a href="Select your profile picture">
+  <a href="Select your profile picture">
     <input
         type="file"
         onChange={onProcessFile}
         ref={fileInput}
         hidden={true}
      />
-</a>
- <img src={image} onClick={onOpenFileDialog} />
+  </a>
+
+  <img src={image} onClick={onOpenFileDialog} />
             
             </div>
+            
             <MarketingFooter2/>
         </div>
 

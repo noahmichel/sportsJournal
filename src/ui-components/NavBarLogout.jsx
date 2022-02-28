@@ -39,14 +39,14 @@ const Button = styled.button`
 const Button2 = styled.button`
   color: #cccccc;
   cursor: pointer;
-  border: transparent;
+  border: 1px solid grey;
   padding: 4px 10px;
   min-width: 108px;
   font-size: 20px;
   border-radius: 4px;
   font-family: "HelveticaNeue-Light";
 
-  background: #3d74f5;
+  background: none;
 
   transition: all 0.2s ease-in;
 
