@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {NavBar2, MarketingFooter2, JournalHome, NavBarLogout } from './ui-components'
 import './NavBar2.css'
 import Amplify, { Auth, Hub } from "aws-amplify";
+import Advanced from './Advanced';
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 
 function Journal() {
 
@@ -23,21 +25,24 @@ function Journal() {
     if(user) {
 
         return (
-            <div>
-        <NavBarLogout class="Header"/>
-        <JournalHome/>
-        <MarketingFooter2/>
+          
+        <div className="Journal">
+
+          
+          <NavBarLogout class="Header"/>
+          <JournalHome/>
+          <MarketingFooter2/>
+
         </div>
         )
     } else {
         return (
+        <div className="Journal">
 
-        <div>
-            
-            <NavBar2 class="Header"/>
-            <JournalHome/>
-            <MarketingFooter2/>
-            
+          
+          <NavBar2 class="Header"/>
+          <JournalHome/>
+          <MarketingFooter2/>
             
         </div>
 

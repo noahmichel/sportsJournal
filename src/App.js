@@ -11,6 +11,7 @@ import Scouting from './Scouting';
 import Yearbook from './Yearbook';
 import Login from './Login';
 import Profile from './Profile';
+import Advanced from './Advanced';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/yearbook" component={Yearbook}/>
         <Route exact path="/login" component={Login}/>
         <Route exact path="/myProfile" component={Profile}/>
+        <Route exact path="/journal/advanced" component={Advanced}/>
         
       </div>
   );

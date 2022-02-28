@@ -10,15 +10,6 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 
-// async function signOut2() {
-//     try {
-//         await Auth.signOut();
-//     } catch (error) {
-//         console.log('error signing out: ', error);
-//     }
-// }
-
-
 const Button = styled.button`
   font-family: "HelveticaNeue-Light";
   cursor: pointer;

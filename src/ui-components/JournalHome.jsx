@@ -1,9 +1,8 @@
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Button, Flex, Icon, Image, Text, View } from "@aws-amplify/ui-react";
-// import Footer from "./Footer";
-
-
+import {Link} from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
 export default function JournalHome(props) {
   const { overrides: overridesProp, ...rest } = props;
@@ -292,12 +291,6 @@ export default function JournalHome(props) {
         children="Select what best fits you"
         {...getOverrideProps(overrides, "View.Text[16]")}
       ></Text>
-      {/* <Footer
-        position="absolute"
-        top="1859px"
-        left="0px"
-        {...getOverrideProps(overrides, "View.Footer[0]")}
-      ></Footer> */}
       <Text
         fontFamily="Inter"
         fontSize="30px"
@@ -332,23 +325,25 @@ export default function JournalHome(props) {
         children="Intermediate Journal"
         {...getOverrideProps(overrides, "View.Text[18]")}
       ></Text>
-      <Text
-        fontFamily="Inter"
-        fontSize="30px"
-        fontWeight="700"
-        color="rgb(46,204,113)"
-        lineHeight="35.15625px"
-        textAlign="left"
-        display="flex"
-        direction="column"
-        justifyContent="flex-start"
-        position="absolute"
-        top="1365px"
-        left="410px"
-        padding="0px 0px 0px 0px"
-        children="Advanced Journal"
-        {...getOverrideProps(overrides, "View.Text[19]")}
-      ></Text>
+      <Link to="/journal/advanced">
+        <Text
+          fontFamily="Inter"
+          fontSize="30px"
+          fontWeight="700"
+          color="rgb(46,204,113)"
+          lineHeight="35.15625px"
+          textAlign="left"
+          display="flex"
+          direction="column"
+          justifyContent="flex-start"
+          position="absolute"
+          top="1365px"
+          left="410px"
+          padding="0px 0px 0px 0px"
+          children="Advanced Journal"
+          {...getOverrideProps(overrides, "View.Text[19]")}
+        ></Text>
+      </Link>
       <Text
         fontFamily="Inter"
         fontSize="18px"

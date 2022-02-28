@@ -10,6 +10,7 @@ export { default as SideBar } from "./SideBar";
 export { default as CardG } from "./CardG";
 export { default as Features4x1 } from "./Features4x1";
 export { default as HeroLayout1 } from "./HeroLayout1";
+export { default as Inboxdashboardview } from "./Inboxdashboardview";
 export { default as HeroLayout2 } from "./HeroLayout2";
 export { default as ProfileA } from "./ProfileA";
 export { default as Bloglistmobile } from "./Bloglistmobile";
