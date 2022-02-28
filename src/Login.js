@@ -6,12 +6,7 @@ import Journal from './Journal';
 function Login() {
     return (
 
-        <div>
-            
-            <NavBar2 />
-            Login Here
-        
-        </div>
+        <div/>
 
     )
 }

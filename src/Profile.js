@@ -1,19 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import { withAuthenticator } from '@aws-amplify/ui-react'
-import {NavBar2, MarketingFooter2 } from './ui-components'
+import {NavBar2, MarketingFooter2, NavBarLogout } from './ui-components'
 import './NavBar2.css'
-import Amplify, { Analytics, Auth, Storage } from "aws-amplify";
+import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 import awsconfig from "./aws-exports";
 Amplify.configure(awsconfig);
-
-async function ionViewCanEnter() {
-  try {
-      await Auth.currentAuthenticatedUser();
-      return true;
-  } catch {
-      return false;
-  }
-}
 
 function Profile() {
 
@@ -44,6 +35,8 @@ function Profile() {
           .catch(err => console.log(err));
       };
     
+
+    //This is for default !!!!
     const avatar = Storage.get("Login.jpg");
     const [image, setImage] = useState(avatar);
     
@@ -70,9 +63,9 @@ function Profile() {
 
     return (
 
-        <div>
+      <div>
             
-            <NavBar2 class="Header"/>
+      <NavBarLogout class="Header"/>
             
 <div style={{padding: '54px 0px 54px 0px'}}>
     <h2>

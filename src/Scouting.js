@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar2, MarketingFooter2, FeaturesText2x2x, HeroLayout1x } from './ui-components'
+import { NavBarLogout } from './ui-components'
 import './NavBar2.css'
 import { withAuthenticator } from '@aws-amplify/ui-react'
 
@@ -8,11 +8,13 @@ function Scouting() {
 
         <div>
             
-            <NavBar2 class="Header"/>
+            <NavBarLogout class="Header"/>
             
-            Scouting Section
-            
-            
+            <div style={{padding: '54px 0px 54px 0px'}}>
+            <h2>
+            Scouts!
+            </h2>
+            </div>
         </div>
 
     )

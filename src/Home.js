@@ -3,8 +3,6 @@ import {NavBar2, MarketingFooter2, FeaturesText2x2x, HeroLayout1x, FAQItemHome1,
 import './NavBar2.css'
 import $ from 'jquery'; 
 import Amplify, { Auth, Hub } from "aws-amplify";
-import { Authenticator } from '@aws-amplify/ui-react';
-import { withAuthenticator } from '@aws-amplify/ui-react'
 
 $(function(){  // $(document).ready shorthand
     $('.monster').slideIn('fast');

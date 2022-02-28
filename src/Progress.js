@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar2, MarketingFooter2, FeaturesText2x2x, HeroLayout1x } from './ui-components'
+import { NavBarLogout } from './ui-components'
 import './NavBar2.css'
 import { withAuthenticator } from '@aws-amplify/ui-react'
 
@@ -7,12 +7,13 @@ function Progress() {
     return (
 
         <div>
+            <NavBarLogout class="Header"/>
             
-            <NavBar2 class="Header"/>
-            
-            Here is your progress!
-            
-            
+            <div style={{padding: '54px 0px 54px 0px'}}>
+            <h2>
+            View your progress!
+            </h2>
+            </div>
         </div>
 
     )
