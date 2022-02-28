@@ -6,6 +6,14 @@ import Amplify, { Analytics, Auth, Storage } from "aws-amplify";
 import awsconfig from "./aws-exports";
 Amplify.configure(awsconfig);
 
+async function ionViewCanEnter() {
+  try {
+      await Auth.currentAuthenticatedUser();
+      return true;
+  } catch {
+      return false;
+  }
+}
 
 function Profile() {
 
