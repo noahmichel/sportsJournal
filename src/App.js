@@ -12,6 +12,9 @@ import Yearbook from './Yearbook';
 import Login from './Login';
 import Profile from './Profile';
 import Advanced from './Advanced';
+import Intermediate from './Intermediate';
+import Beginner from './Beginner'
+import Print from './Print';
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
         <Route exact path="/login" component={Login}/>
         <Route exact path="/myProfile" component={Profile}/>
         <Route exact path="/journal/advanced" component={Advanced}/>
+        <Route exact path="/journal/intermediate" component={Intermediate}/>
+        <Route exact path="/journal/beginner" component={Beginner}/>
+        <Route exact path="/journal/print" component={Print}/>
         
       </div>
   );
