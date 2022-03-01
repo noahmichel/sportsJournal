@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import styled from 'styled-components';
 
-const Button = styled.button`
+const Button1 = styled.button`
   font-family: "HelveticaNeue-Light";
   width: 208px;
   height: 40px;
@@ -20,13 +20,14 @@ const Button = styled.button`
   position: absolute;
   background: #3d74f5;
   border-radius: 4px;
+  visibility: visible;
 
   transition: all 0.2s ease-in;
 
-   &:hover {
-     color: white;
-     border: 1px solid #cccccc;
+  &:hover {
+    color: white;
    }
+  
 `;
 
 const Text1 = styled.text`
@@ -83,6 +84,90 @@ const Text3 = styled.text`
    }
 `;
 
+const View1 = styled.div`
+cursor: pointer;
+width:418px;
+height:180px;
+position:absolute;
+top:460px;
+left:148px;
+border: none;
+
+border-radius:4px;
+padding:0px 0px 0px 0px;
+background: LightGray;
+box-shadow: 0px 2px 2px 0px #656565;
+
+   &:hover {
+    box-shadow: 0px 2px 2px -2px #656565;
+    background: white;
+   }
+`;
+
+const View2 = styled.div`
+cursor: pointer;
+width:418px;
+height:180px;
+position:absolute;
+top:460px;
+left:647px;
+border: none;
+
+border-radius:4px;
+padding:0px 0px 0px 0px;
+background: LightGray;
+box-shadow: 0px 2px 2px 0px #656565;
+
+   &:hover {
+    box-shadow: 0px 2px 2px -2px #656565;
+    background: white;
+   }
+`;
+
+const Text4 = styled.text`
+  
+  z-index:100;
+  position: relative;
+
+  font-family:HelveticaNeue-Light;
+  font-size: 20px;
+  font-weight: 300;
+  color: #21243d;
+  opacity: 1;
+  line-height: 30px;
+  textAlign: center;
+  display: flex;
+  direction: column;
+  justifyContent: flex-start;
+  width: 418px;
+  height: 200px;
+  padding: 80px 30px 0px 30px;
+  text-decoration: none;
+  
+`;
+
+const Text5 = styled.text`
+  
+  z-index:100;
+  position: relative;
+
+  font-family: HelveticaNeue;
+  font-size: 22px;
+  font-weight: 500;
+  color: black;
+  line-height: 60px;
+  textAlign: center;
+  display: flex;
+  direction: column;
+  justifyContent: flex-start;
+  width: 718px;
+  height: 200px;
+  padding-left: 232px;
+  padding-top: 40px;
+  text-decoration: none;
+  
+`;
+
 export default function JournalHome(props) {
   const { overrides: overridesProp, ...rest } = props;
   const overrides = { ...overridesProp };
@@ -115,7 +200,7 @@ export default function JournalHome(props) {
         ></Image>
       </Link>
       <Link to="/journal/advanced">
-        <Button
+        <Button1
           fontFamily="HelveticaNeue-Light"
           fontWeight="300"
           width="208px"
@@ -129,8 +214,21 @@ export default function JournalHome(props) {
           backgroundColor="rgb(46,204,113)"
           children="Resume"
           {...getOverrideProps(overrides, "View.View[0]")}
-        ></Button>
+        ></Button1>
       </Link>
+      <Divider
+          display="flex"
+          justifyContent="center"
+          alignSelf="center"
+          position="relative"
+          top="428px"
+          left="100px"
+          width="1000px"
+          shrink="0"
+          size="small"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "View.Divider[17]")}
+        ></Divider>
       <Text
         fontFamily="HelveticaNeue"
         fontSize="55px"
@@ -180,55 +278,36 @@ export default function JournalHome(props) {
         padding="0px 0px 0px 0px"
         backgroundColor="black"
         {...getOverrideProps(overrides, "View.View[1]")}
-      ></View>
+      >
+        <Link to="/journal/advanced" style={{textDecoration: 'none'}}>
+          <Text5
+            children="Design your own Journal"
+            {...getOverrideProps(overrides, "View.Text[14]")}
+          ></Text5>
+        </Link>
+      </View>
       <Link to="/journal/advanced">
-        <View
-          width="418px"
-          height="200px"
-          position="absolute"
-          top="460px"
-          left="148px"
-          boxShadow="0px 4px 10px rgba(0.7333333492279053, 0.8823529481887817, 0.9803921580314636, 0.25)"
-          borderRadius="4px"
-          padding="0px 0px 0px 0px"
-          backgroundColor="LightGray"
+        <View1
           {...getOverrideProps(overrides, "View.View[2]")}
-        ></View>
+        ><Link to="/journal/advanced" style={{textDecoration: 'none'}}>
+          <Text4
+            children="Personalize your journal to your style, focus on your goals and analytics"
+            {...getOverrideProps(overrides, "View.Text[6]")}
+          ></Text4>
+      </Link>
+      </View1>
       </Link>
       <Link to="/journal/print">
-        <View
-          width="418px"
-          height="200px"
-          position="absolute"
-          top="460px"
-          left="647px"
-          boxShadow="0px 4px 10px rgba(0.7333333492279053, 0.8823529481887817, 0.9803921580314636, 0.25)"
-          borderRadius="4px"
-          padding="0px 0px 0px 0px"
-          backgroundColor="LightGray"
+        <View2
           {...getOverrideProps(overrides, "View.View[3]")}
-        ></View>
+        >
+          <Link to="/journal/print" style={{textDecoration: 'none'}}>
+        <Text4
+          children="Want to write your journal by hand? Click here to print off an empty journal"
+          {...getOverrideProps(overrides, "View.Text[11]")}
+        ></Text4>
       </Link>
-      <Link to="/journal/advanced">
-        <Text
-          fontFamily="HelveticaNeue-Light"
-          fontSize="20px"
-          fontWeight="300"
-          color="rgba(33.00000183284283,36.00000165402889,61.00000016391277,1)"
-          lineHeight="30.46875px"
-          textAlign="center"
-          display="flex"
-          direction="column"
-          justifyContent="flex-start"
-          width="350px"
-          height="85px"
-          position="absolute"
-          top="545px"
-          left="171px"
-          padding="0px 0px 0px 0px"
-          children="Personalize your journal to your style, focus on your goals and analytics"
-          {...getOverrideProps(overrides, "View.Text[6]")}
-        ></Text>
+        </View2>
       </Link>
       <Link to="/journal/print">
         <Text
@@ -242,51 +321,11 @@ export default function JournalHome(props) {
           direction="column"
           justifyContent="flex-end"
           position="absolute"
-          top="480px"
+          top="476px"
           left="755px"
           padding="0px 0px 0px 0px"
           children="Print a blank Journal"
           {...getOverrideProps(overrides, "View.Text[7]")}
-        ></Text>
-      </Link>
-      <Link to="/journal/print">
-        <Text
-          fontFamily="HelveticaNeue-Light"
-          fontSize="20px"
-          fontWeight="300"
-          color="rgba(33.00000183284283,36.00000165402889,61.00000016391277,1)"
-          lineHeight="30.46875px"
-          textAlign="center"
-          display="flex"
-          direction="column"
-          justifyContent="flex-start"
-          width="350px"
-          height="85px"
-          position="absolute"
-          top="535px"
-          left="682px"
-          padding="0px 0px 0px 0px"
-          children="Want to write your journal by hand? Click here to print off an empty journal"
-          {...getOverrideProps(overrides, "View.Text[11]")}
-        ></Text>
-      </Link>
-      <Link to="/journal/advanced">
-        <Text
-          fontFamily="HelveticaNeue"
-          fontSize="22px"
-          fontWeight="500"
-          color="#000000"
-          lineHeight="60px"
-          textAlign="left"
-          display="flex"
-          direction="column"
-          justifyContent="flex-end"
-          position="absolute"
-          top="480px"
-          left="225px"
-          padding="0px 0px 0px 0px"
-          children="Design your own Journal"
-          {...getOverrideProps(overrides, "View.Text[14]")}
         ></Text>
       </Link>
       <Text
@@ -300,12 +339,22 @@ export default function JournalHome(props) {
         direction="column"
         justifyContent="flex-start"
         position="absolute"
-        top="700px"
+        top="672px"
         left="148px"
         padding="0px 0px 0px 0px"
-        children="Select what best fits you"
+        children="Select what fits best for you"
         {...getOverrideProps(overrides, "View.Text[16]")}
       ></Text>
+      <Divider
+          position="absolute"
+          top="738px"
+          left="148px"
+          width="40px"
+          shrink="0"
+          size="small"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "View.Divider[17]")}
+        ></Divider>
       <Link to="/journal/beginner">
         <Text1
           fontFamily="HelveticaNeue"
@@ -425,7 +474,7 @@ export default function JournalHome(props) {
         fontSize="16px"
         fontWeight="300"
         color="#FFFFFF"
-        lineHeight="18.75px"
+        lineHeight="25.75px"
         textAlign="left"
         display="flex"
         direction="column"
@@ -444,7 +493,7 @@ export default function JournalHome(props) {
         fontSize="16px"
         fontWeight="300"
         color="#FFFFFF"
-        lineHeight="18.75px"
+        lineHeight="25.75px"
         textAlign="left"
         display="flex"
         direction="column"
@@ -463,7 +512,7 @@ export default function JournalHome(props) {
         fontSize="16px"
         fontWeight="300"
         color="#FFFFFF"
-        lineHeight="18.75px"
+        lineHeight="25.75px"
         textAlign="left"
         display="flex"
         direction="column"

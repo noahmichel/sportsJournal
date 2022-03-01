@@ -2,7 +2,7 @@
 
     position: fixed;
     display: flex;
-    z-index: 1;
+    z-index: 200;
     height: 54px;
     max-width: auto;
 }
