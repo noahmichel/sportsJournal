@@ -29,17 +29,20 @@
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "signupAttributes": [
+          "EMAIL",
           "PREFERRED_USERNAME"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 6,
           "passwordPolicyCharacters": []
         },
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "OPTIONAL",
         "mfaTypes": [
-          "SMS"
+          "TOTP"
         ],
         "verificationMechanisms": [
           "EMAIL"

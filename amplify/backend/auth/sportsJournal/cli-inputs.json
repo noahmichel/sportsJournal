@@ -2,24 +2,25 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "sportsfddc9a8e",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "sports5d74793a",
     "userPoolName": "sportsJournal",
     "autoVerifiedAttributes": [
       "email"
     ],
-    "mfaConfiguration": "OFF",
+    "mfaConfiguration": "OPTIONAL",
     "mfaTypes": [
-      "SMS Text Message"
+      "TOTP"
     ],
-    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsAuthenticationMessage": "Your login code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Forgot password code: {####}",
-    "emailVerificationMessage": "Forgot password code: {####}",
+    "emailVerificationSubject": "RacerX Sports Journal forgot password code: {####}",
+    "emailVerificationMessage": "RacerX Sports Journal forgot password code: {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 6,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
+      "email",
       "preferred_username"
     ],
     "aliasAttributes": [],
@@ -27,12 +28,15 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "sportsfddc9a8e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "sports5d74793a_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "fddc9a8e",
+    "sharedId": "5d74793a",
     "resourceName": "sportsJournal",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
+    "usernameAttributes": [
+      "email"
+    ],
     "useDefault": "manual",
     "userPoolGroups": false,
     "userPoolGroupList": [],
@@ -40,20 +44,6 @@
     "thirdPartyAuth": false,
     "authProviders": [],
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": []
+    "useEnabledMfas": true
   }
 }
