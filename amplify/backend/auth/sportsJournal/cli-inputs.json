@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "sports5d74793a",
+    "resourceNameTruncated": "sports88d8f9b2",
     "userPoolName": "sportsJournal",
     "autoVerifiedAttributes": [
       "email"
@@ -20,23 +20,19 @@
     "passwordPolicyMinLength": 6,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email",
-      "preferred_username"
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "sports5d74793a_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "sports88d8f9b2_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "5d74793a",
+    "sharedId": "88d8f9b2",
     "resourceName": "sportsJournal",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
-    "usernameAttributes": [
-      "email"
-    ],
     "useDefault": "manual",
     "userPoolGroups": false,
     "userPoolGroupList": [],
