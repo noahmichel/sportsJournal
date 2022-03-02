@@ -46,8 +46,8 @@ export default function MarketingFooter2(props) {
         justifyContent="flex-start"
         letterSpacing="0.010000000000000009px"
         position="absolute"
-        left="40px"
-        top="336px"
+        left="20px"
+        top="370px"
         padding="0px 0px 0px 0px"
         children="While using RacerX Baseball Journal, you agree to have read and accepted our terms of use, cookie and privacy policy."
         {...getOverrideProps(overrides, "View.Text[0]")}
@@ -71,10 +71,11 @@ export default function MarketingFooter2(props) {
           padding="0px 0px 0px 0px"
           {...getOverrideProps(overrides, "View.Flex[0].Flex[0]")}
         >
+          <a href="https://www.facebook.com/racerxonline" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -89,10 +90,12 @@ export default function MarketingFooter2(props) {
             children="Visit us on Facebook"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[0]")}
           ></Text>
+          </a>
+          <a href="https://www.youtube.com/user/RacerXIllustrated" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -107,10 +110,12 @@ export default function MarketingFooter2(props) {
             children="Youtube"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[1]")}
           ></Text>
+          </a>
+          <a href="https://twitter.com/racerxonline" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -125,10 +130,12 @@ export default function MarketingFooter2(props) {
             children="Twitter"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[2]")}
           ></Text>
+          </a>
+          <a href="https://www.instagram.com/racerxonline/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -143,10 +150,12 @@ export default function MarketingFooter2(props) {
             children="Instagram"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[3]")}
           ></Text>
+          </a>
+          <a href="https://www.linkedin.com/company/racerx-marketplace/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -161,6 +170,7 @@ export default function MarketingFooter2(props) {
             children="LinkedIn"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[0].Text[4]")}
           ></Text>
+          </a>
         </Flex>
         <Flex
           gap="8px"
@@ -174,7 +184,7 @@ export default function MarketingFooter2(props) {
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -192,7 +202,7 @@ export default function MarketingFooter2(props) {
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -207,10 +217,11 @@ export default function MarketingFooter2(props) {
             children="Jim McArthur"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[1].Text[1]")}
           ></Text>
+          <a href="mailto:jakeymac944@gmail.com" style={{textDecoration: 'none'}}>
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -225,10 +236,12 @@ export default function MarketingFooter2(props) {
             children="jakeymac944@gmail.com"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[1].Text[2]")}
           ></Text>
+          </a>
+          <a href="http://www.racerxonline.com" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
           <Text
             fontFamily="HelveticaNeue-Light"
             fontSize="16px"
-            fontWeight="400"
+            fontWeight="300"
             color="rgba(255,255,255,1)"
             lineHeight="24px"
             textAlign="left"
@@ -240,15 +253,16 @@ export default function MarketingFooter2(props) {
             shrink="0"
             position="relative"
             padding="0px 0px 0px 0px"
-            children="Sources"
+            children="RacerX online"
             {...getOverrideProps(overrides, "View.Flex[0].Flex[1].Text[2]")}
           ></Text>
+          </a>
         </Flex>
       </Flex>
       <Text
         fontFamily="HelveticaNeue-Light"
         fontSize="16px"
-        fontWeight="400"
+        fontWeight="300"
         color="rgba(255,255,255,1)"
         lineHeight="24px"
         textAlign="right"
@@ -257,10 +271,10 @@ export default function MarketingFooter2(props) {
         justifyContent="flex-start"
         letterSpacing="0.010000000000000009px"
         position="absolute"
-        left="1050px"
+        left="1000px"
         top="336px"
         padding="0px 20px 0px 0px"
-        children="Baseball Journal Copyright 2021 by JMac Sports Marketing "
+        children="Baseball Journal Copyright 2022 JMac Sports Marketing "
         {...getOverrideProps(overrides, "View.Text[1]")}
       ></Text>
       <Flex
@@ -273,9 +287,9 @@ export default function MarketingFooter2(props) {
         {...getOverrideProps(overrides, "View.Flex[1]")}
       >
         <Text
-          fontFamily="HelveticaNeue"
+          fontFamily="HelveticaNeue-Light"
           fontSize="16px"
-          fontWeight="500"
+          fontWeight="300"
           color="rgba(255,255,255,1)"
           lineHeight="24px"
           textAlign="left"
@@ -291,10 +305,11 @@ export default function MarketingFooter2(props) {
         ></Text>
         <TextField
           display="flex"
+          fontSize="16px"
           textAlign="left"
           shrink="0"
           label="Search"
-          size="default"
+          size="medium"
           variation="default"
           {...getOverrideProps(overrides, "View.Flex[1].TextField[0]")}
         ></TextField>
