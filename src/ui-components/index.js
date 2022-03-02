@@ -66,3 +66,4 @@ export { default as HeroLayout1x } from "./HeroLayout1x";
 export { default as MarketingFooter2 } from "./MarketingFooter2";
 export { default as JournalHome } from "./JournalHome";
 export { default as NavBarLogout } from "./NavBarLogout";
+export { default as ProgressPanel} from "./ProgressPanel";
