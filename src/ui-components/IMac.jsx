@@ -12,7 +12,7 @@ export default function IMac(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="100vw"
+      width="1280px"
       height="720px"
       overflow="hidden"
       position="relative"
@@ -28,15 +28,11 @@ export default function IMac(props) {
         top="104px"
         left="94px"
         padding="0px 0px 0px 0px"
-        backgroundColor="black"
         {...getOverrideProps(overrides, "Shortiml")}
       >
-        <View 
-        {...getOverrideProps(overrides, "Promptjcq")}></View>
-        <View
-        {...getOverrideProps(overrides, "Response Iconsdxi")}></View>
-        <View
-        {...getOverrideProps(overrides, "Input/Textuts")}></View>
+        <View {...getOverrideProps(overrides, "Promptjcq")}></View>
+        <View {...getOverrideProps(overrides, "Response Iconsdxi")}></View>
+        <View {...getOverrideProps(overrides, "Input/Textuts")}></View>
       </View>
       <View
         width="501px"
@@ -45,7 +41,6 @@ export default function IMac(props) {
         top="223px"
         left="94px"
         padding="0px 0px 0px 0px"
-        backgroundColor="black"
         {...getOverrideProps(overrides, "Longuxf")}
       >
         <View {...getOverrideProps(overrides, "Promptxvy")}></View>
@@ -59,7 +54,6 @@ export default function IMac(props) {
         top="104px"
         left="687px"
         padding="0px 0px 0px 0px"
-        backgroundColor="black"
         {...getOverrideProps(overrides, "Shortnno")}
       >
         <View {...getOverrideProps(overrides, "Promptzjh")}></View>
@@ -73,7 +67,6 @@ export default function IMac(props) {
         top="231px"
         left="687px"
         padding="0px 0px 0px 0px"
-        backgroundColor="black"
         {...getOverrideProps(overrides, "Longpjt")}
       >
         <View {...getOverrideProps(overrides, "Promptcug")}></View>

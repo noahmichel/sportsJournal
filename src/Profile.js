@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { withAuthenticator } from '@aws-amplify/ui-react'
-import {NavBar2, MarketingFooter2, NavBarLogout } from './ui-components'
+import {NavBar2, MarketingFooter2, NavBarLogout, ProfileHome } from './ui-components'
 import './NavBar2.css'
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 import awsconfig from "./aws-exports";
@@ -81,29 +81,12 @@ function Profile() {
     return (
 
       <div>
-            
-      <NavBarLogout class="Header"/>
-            
-<div style={{padding: '54px 0px 54px 0px'}}>
-    <h2>
-    Welcome to your Profile!
-    </h2>   
-
-  <a href="Select your profile picture">
-    <input
-        type="file"
-        onChange={onProcessFile}
-        ref={fileInput}
-        hidden={true}
-     />
-  </a>
-
-  <img src={image} onClick={onOpenFileDialog} />
-            
-            </div>
-            
-            <MarketingFooter2/>
+        <NavBarLogout class="Header"/>
+        <div style={{padding: '54px 0px 0px 0px'}}>
+          <ProfileHome/>
+          <MarketingFooter2/>
         </div>
+      </div>
 
     )
 }
