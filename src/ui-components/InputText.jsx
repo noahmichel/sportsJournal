@@ -7,47 +7,48 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Image, Text, View } from "@aws-amplify/ui-react";
-export default function CardD(props) {
+import { Text, View } from "@aws-amplify/ui-react";
+export default function InputText(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="320px"
-      height="320px"
+      width="430.01px"
+      height="40.07px"
       position="relative"
       padding="0px 0px 0px 0px"
       {...rest}
-      {...getOverrideProps(overrides, "CardD")}
+      {...getOverrideProps(overrides, "InputText")}
     >
-      <Image
+      <View
         position="absolute"
-        top="0%"
+        top="0.16%"
         bottom="0%"
-        height="100%"
         left="0%"
         right="0%"
-        width="100%"
-        borderRadius="8px"
+        transformOrigin="top left"
+        transform="rotate(-0.01deg)"
+        borderRadius="4px"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "image")}
-      ></Image>
+        backgroundColor="rgba(240,240,240,1)"
+        {...getOverrideProps(overrides, "Rectangle 2")}
+      ></View>
       <Text
         fontFamily="Inter"
-        fontSize="32px"
-        fontWeight="700"
-        color="rgba(255,255,255,1)"
-        lineHeight="40px"
-        textAlign="center"
+        fontSize="18px"
+        fontWeight="400"
+        color="rgba(17,17,17,1)"
+        lineHeight="21.09375px"
+        textAlign="left"
         display="flex"
         direction="column"
         justifyContent="flex-start"
         position="absolute"
-        bottom="40px"
-        left="calc(50% - 59px - 0px)"
+        top="9px"
+        left="8px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Explore"
-        {...getOverrideProps(overrides, "Explore")}
+        children="Edit placeholder text"
+        {...getOverrideProps(overrides, "Edit placeholder text")}
       ></Text>
     </View>
   );

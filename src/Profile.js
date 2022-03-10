@@ -37,7 +37,7 @@ function Profile() {
     
 
     //This is for default !!!!
-    const avatar = Storage.get("Login.jpg");
+    const avatar = Storage.get("default-user.jpg")
     const [image, setImage] = useState(avatar);
     
       useEffect(() => {
@@ -50,6 +50,23 @@ function Profile() {
     
       const getProfilePicture = () => {
         Storage.get("profilePicture.png")
+          .then(url => {
+            var myRequest = new Request(url);
+            fetch(myRequest).then(function(response) {
+              if (response.status === 200) {
+                setImage(url);
+              } else {
+                getDefaultProfilePicture();
+              }
+            });
+          })
+          .catch(err => console.log(err));
+      };
+
+      const getDefaultProfilePicture = () => {
+        Storage.get("default-user.jpg", {
+          level: "public"
+        })
           .then(url => {
             var myRequest = new Request(url);
             fetch(myRequest).then(function(response) {

@@ -10,8 +10,7 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Image, View } from "@aws-amplify/ui-react";
 import HeroLayout3 from "./HeroLayout3";
 export default function HeroLayout2(props) {
-  const { overrides: overridesProp, ...rest } = props;
-  const overrides = { ...overridesProp };
+  const { overrides, ...rest } = props;
   return (
     <View
       width="1440px"
@@ -19,7 +18,7 @@ export default function HeroLayout2(props) {
       position="relative"
       padding="0px 0px 0px 0px"
       {...rest}
-      {...getOverrideProps(overrides, "View")}
+      {...getOverrideProps(overrides, "HeroLayout2")}
     >
       <Image
         position="absolute"
@@ -30,7 +29,7 @@ export default function HeroLayout2(props) {
         right="0%"
         width="100%"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "View.Image[0]")}
+        {...getOverrideProps(overrides, "image")}
       ></Image>
       <HeroLayout3
         height="858px"
@@ -41,7 +40,7 @@ export default function HeroLayout2(props) {
         bottom="0%"
         left="0%"
         right="0%"
-        {...getOverrideProps(overrides, "View.HeroLayout3[0]")}
+        {...getOverrideProps(overrides, "HeroLayout3")}
       ></HeroLayout3>
     </View>
   );

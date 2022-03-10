@@ -5,10 +5,11 @@
  **************************************************************************/
 
 /* eslint-disable */
-import React from "react";
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
+
 
 const Button = styled.button`
   font-family: "HelveticaNeue-Light";
@@ -67,6 +68,47 @@ export default function NavBarLogout(props) {
 
   const { navLogo, overrides: overridesProp, ...rest } = props;
   const overrides = { ...overridesProp };
+  Storage.configure({ track: true, level: "private" });
+  const avatar = Storage.get("default-user.jpg");
+  const [image, setImage] = useState(avatar);
+
+  useEffect(() => {
+    onPageRendered();
+  }, []);
+
+  const onPageRendered = async () => {
+    getProfilePicture();
+  };
+
+  const getProfilePicture = () => {
+    Storage.get("profilePicture.png")
+      .then(url => {
+        var myRequest = new Request(url);
+        fetch(myRequest).then(function(response) {
+          if (response.status === 200) {
+            setImage(url);
+          } else {
+            getDefaultProfilePicture();
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  const getDefaultProfilePicture = () => {
+    Storage.get("default-user.jpg", {
+      level: "public"
+    })
+      .then(url => {
+        var myRequest = new Request(url);
+        fetch(myRequest).then(function(response) {
+          if (response.status === 200) {
+            setImage(url);
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  };
   
   return (
     <Flex
@@ -203,7 +245,7 @@ export default function NavBarLogout(props) {
               borderRadius="160px"
               padding="0px 0px 0px 0px"
               border="3px solid white"
-              src={require('./default-user.jpg')}
+              src={image}
               {...getOverrideProps(overrides, "Flex.Flex[2].Image[0]")}
             ></Image>
           </Button3>
