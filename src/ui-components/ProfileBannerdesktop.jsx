@@ -11,7 +11,6 @@ import Canvaseditme from "./Canvaseditme";
 import { Text, View, Image } from "@aws-amplify/ui-react";
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 
-
 export default function ProfileBannerdesktop(props) {
   const { overrides, ...rest } = props;
 
@@ -26,7 +25,7 @@ export default function ProfileBannerdesktop(props) {
       const onProcessFile = e => {
         e.preventDefault();
         let reader = new FileReader();
-        let file = e.target.files[0];
+        let file = e.target.files[1];
         try {
           reader.readAsDataURL(file);
         } catch (err) {
@@ -237,7 +236,7 @@ export default function ProfileBannerdesktop(props) {
           position="absolute"
           top="0px"
           left="0px"
-          border="4px SOLID rgba(255,255,255,1)"
+          border="3px SOLID rgba(255,255,255,1)"
           borderRadius="64px"
           padding="0px 0px 0px 0px"
           backgroundColor="white"

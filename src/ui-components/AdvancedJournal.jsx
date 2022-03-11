@@ -7,17 +7,17 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Flex, Text, View } from "@aws-amplify/ui-react";
+import { Flex, Text, View, TextField } from "@aws-amplify/ui-react";
 export default function AdvancedJournal(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="1280px"
+      width="100vw"
       height="720px"
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      backgroundColor="rgba(255,255,255,1)"
+      backgroundColor="white"
       {...rest}
       {...getOverrideProps(overrides, "IMac")}
     >
@@ -26,21 +26,64 @@ export default function AdvancedJournal(props) {
         height="77px"
         position="absolute"
         top="104px"
-        left="94px"
+        left="85px"
         padding="0px 0px 0px 0px"
+        backgroundColor="white"
+        
         {...getOverrideProps(overrides, "Shortiml")}
       >
-        <View {...getOverrideProps(overrides, "Promptjcq")}></View>
+        <View 
+        {...getOverrideProps(overrides, "Promptjcq")}>
+        <Text
+          position="absolute"
+          width="9px"
+          height= "22px"
+          left= "0px"
+          top="5px"
+          fontFamily="HelveticaNeue-Light"
+          fontWeight="300"
+          fontSize="18px"
+          textAlign="right"
+          lineHeight="22px"
+          color="#888888"
+          children="1"
+          ></Text>
+          <Text
+          position="absolute"
+          width="224px"
+          height="29px"
+          left="-40px"
+          fontFamily="HelveticaNeue"
+          fontWeight="500"
+          lineHeight="29px"
+          fontSize="24px"
+          color="Black"
+          children="Opponent:"
+          ></Text>
+        </View>
         <View {...getOverrideProps(overrides, "Response Iconsdxi")}></View>
-        <View {...getOverrideProps(overrides, "Input/Textuts")}></View>
+        <View {...getOverrideProps(overrides, "Input/Textuts")}>
+          <TextField
+            border="1px solid black"
+            textAlign="left"
+            position="absolute"
+            color="Gray"
+            width="424px"
+            height="29px"
+            left="5px"
+            top="25px"
+            backgroundColor="white"
+          ></TextField>
+        </View>
       </View>
       <View
         width="501px"
         height="137px"
         position="absolute"
         top="223px"
-        left="94px"
+        left="85px"
         padding="0px 0px 0px 0px"
+        backgroundColor="black"
         {...getOverrideProps(overrides, "Longuxf")}
       >
         <View {...getOverrideProps(overrides, "Promptxvy")}></View>
@@ -54,6 +97,7 @@ export default function AdvancedJournal(props) {
         top="104px"
         left="687px"
         padding="0px 0px 0px 0px"
+        backgroundColor="gray"
         {...getOverrideProps(overrides, "Shortnno")}
       >
         <View {...getOverrideProps(overrides, "Promptzjh")}></View>
@@ -67,6 +111,7 @@ export default function AdvancedJournal(props) {
         top="231px"
         left="687px"
         padding="0px 0px 0px 0px"
+        backgroundColor="LightBlue"
         {...getOverrideProps(overrides, "Longpjt")}
       >
         <View {...getOverrideProps(overrides, "Promptcug")}></View>
@@ -120,6 +165,7 @@ export default function AdvancedJournal(props) {
         position="absolute"
         top="639px"
         left="1078px"
+        backgroundColor="black"
         {...getOverrideProps(overrides, "Structurezoe")}
       >
         <Flex {...getOverrideProps(overrides, "Structurekqt")}></Flex>
