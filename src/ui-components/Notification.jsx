@@ -8,16 +8,16 @@
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Text, View } from "@aws-amplify/ui-react";
-export default function Button(props) {
+export default function Notification(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="144px"
-      height="40px"
+      width="240px"
+      height="54px"
       position="relative"
       padding="0px 0px 0px 0px"
       {...rest}
-      {...getOverrideProps(overrides, "Button")}
+      {...getOverrideProps(overrides, "Notification")}
     >
       <View
         position="absolute"
@@ -25,30 +25,30 @@ export default function Button(props) {
         bottom="0%"
         left="0%"
         right="0%"
-        border="1px SOLID rgba(204,204,204,1)"
+        boxShadow="0px 2px 20px rgba(0, 0, 0, 0.10000000149011612)"
         borderRadius="4px"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Rectangle 4.1")}
+        backgroundColor="rgba(255,255,255,1)"
+        {...getOverrideProps(overrides, "Rectangle")}
       ></View>
       <Text
         fontFamily="Inter"
         fontSize="18px"
         fontWeight="400"
-        color="rgba(17,17,17,1)"
+        color="rgba(0,0,0,1)"
         lineHeight="21.09375px"
-        textAlign="center"
+        textAlign="left"
         display="flex"
         direction="column"
-        justifyContent="center"
+        justifyContent="flex-start"
+        width="202.21px"
         position="absolute"
-        top="0%"
-        bottom="0%"
-        left="0%"
-        right="0%"
+        top="16px"
+        left="16px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="View Preview"
-        {...getOverrideProps(overrides, "View Preview")}
+        children="Published successfully."
+        {...getOverrideProps(overrides, "Published successfully.")}
       ></Text>
     </View>
   );

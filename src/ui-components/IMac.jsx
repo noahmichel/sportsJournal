@@ -7,7 +7,13 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Flex, Text, View } from "@aws-amplify/ui-react";
+import Prompt from "./Prompt";
+import IconMenu from "./IconMenu";
+import Feathericontype from "./Feathericontype";
+import { Text, View } from "@aws-amplify/ui-react";
+import InputText from "./InputText";
+import Feathericoncheck from "./Feathericoncheck";
+import ResponseIcons from "./ResponseIcons";
 export default function IMac(props) {
   const { overrides, ...rest } = props;
   return (
@@ -28,11 +34,56 @@ export default function IMac(props) {
         top="104px"
         left="94px"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Shortiml")}
+        {...getOverrideProps(overrides, "Shortoqv")}
       >
-        <View {...getOverrideProps(overrides, "Promptjcq")}></View>
-        <View {...getOverrideProps(overrides, "Response Iconsdxi")}></View>
-        <View {...getOverrideProps(overrides, "Input/Textuts")}></View>
+        <Prompt
+          position="absolute"
+          top="0px"
+          left="-16px"
+          {...getOverrideProps(overrides, "Promptexu")}
+        ></Prompt>
+        <View
+          width="20px"
+          height="40px"
+          position="absolute"
+          top="37px"
+          left="-24px"
+          padding="0px 0px 0px 0px"
+          {...getOverrideProps(overrides, "Response Iconsenp")}
+        >
+          <IconMenu
+            position="absolute"
+            top="60%"
+            bottom="10%"
+            left="20%"
+            right="20%"
+            {...getOverrideProps(overrides, "Icon/Menudzf")}
+          ></IconMenu>
+          <Feathericontype
+            width="11px"
+            height="11px"
+            position="absolute"
+            top="calc(50% - 5.5px - 11.5px)"
+            left="calc(50% - 5.5px - 0.5px)"
+            {...getOverrideProps(overrides, "feather-icon / typetfl")}
+          ></Feathericontype>
+        </View>
+        <InputText
+          height="40px"
+          position="absolute"
+          top="37px"
+          left="0%"
+          right="0%"
+          {...getOverrideProps(overrides, "Input/Textkgb")}
+        ></InputText>
+        <Feathericoncheck
+          width="36px"
+          height="36px"
+          position="absolute"
+          top="calc(50% - 18px - -18.5px)"
+          left="calc(50% - 18px - -264.5px)"
+          {...getOverrideProps(overrides, "feather-icon / checkojj")}
+        ></Feathericoncheck>
       </View>
       <View
         width="501px"
@@ -41,11 +92,36 @@ export default function IMac(props) {
         top="223px"
         left="94px"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Longuxf")}
+        {...getOverrideProps(overrides, "Longsth")}
       >
-        <View {...getOverrideProps(overrides, "Promptxvy")}></View>
-        <View {...getOverrideProps(overrides, "Response Iconsppz")}></View>
-        <View {...getOverrideProps(overrides, "Input/Textbfv")}></View>
+        <Prompt
+          position="absolute"
+          top="0px"
+          left="-16px"
+          {...getOverrideProps(overrides, "Promptbnx")}
+        ></Prompt>
+        <ResponseIcons
+          position="absolute"
+          top="37px"
+          left="-24px"
+          {...getOverrideProps(overrides, "Response Iconskzn")}
+        ></ResponseIcons>
+        <InputText
+          height="100px"
+          position="absolute"
+          top="37px"
+          left="0%"
+          right="0%"
+          {...getOverrideProps(overrides, "Input/Textgiz")}
+        ></InputText>
+        <Feathericoncheck
+          width="36px"
+          height="36px"
+          position="absolute"
+          top="calc(50% - 18px - 12.5px)"
+          left="calc(50% - 18px - -266.5px)"
+          {...getOverrideProps(overrides, "feather-icon / checktpd")}
+        ></Feathericoncheck>
       </View>
       <View
         width="493px"
@@ -54,11 +130,56 @@ export default function IMac(props) {
         top="104px"
         left="687px"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Shortnno")}
+        {...getOverrideProps(overrides, "Shortwvj")}
       >
-        <View {...getOverrideProps(overrides, "Promptzjh")}></View>
-        <View {...getOverrideProps(overrides, "Response Iconsmoq")}></View>
-        <View {...getOverrideProps(overrides, "Input/Textcka")}></View>
+        <Prompt
+          position="absolute"
+          top="0px"
+          left="-16px"
+          {...getOverrideProps(overrides, "Promptcll")}
+        ></Prompt>
+        <View
+          width="20px"
+          height="40px"
+          position="absolute"
+          top="37px"
+          left="-24px"
+          padding="0px 0px 0px 0px"
+          {...getOverrideProps(overrides, "Response Iconsdnw")}
+        >
+          <IconMenu
+            position="absolute"
+            top="60%"
+            bottom="10%"
+            left="20%"
+            right="20%"
+            {...getOverrideProps(overrides, "Icon/Menufrv")}
+          ></IconMenu>
+          <Feathericontype
+            width="11px"
+            height="11px"
+            position="absolute"
+            top="calc(50% - 5.5px - 12.5px)"
+            left="calc(50% - 5.5px - 0.5px)"
+            {...getOverrideProps(overrides, "feather-icon / typebdn")}
+          ></Feathericontype>
+        </View>
+        <InputText
+          height="40px"
+          position="absolute"
+          top="37px"
+          left="0%"
+          right="0%"
+          {...getOverrideProps(overrides, "Input/Textrdd")}
+        ></InputText>
+        <Feathericoncheck
+          width="36px"
+          height="36px"
+          position="absolute"
+          top="calc(50% - 18px - -16.5px)"
+          left="calc(50% - 18px - -264.5px)"
+          {...getOverrideProps(overrides, "feather-icon / checkknh")}
+        ></Feathericoncheck>
       </View>
       <View
         width="493px"
@@ -67,11 +188,36 @@ export default function IMac(props) {
         top="231px"
         left="687px"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Longpjt")}
+        {...getOverrideProps(overrides, "Longlrf")}
       >
-        <View {...getOverrideProps(overrides, "Promptcug")}></View>
-        <View {...getOverrideProps(overrides, "Response Iconsggn")}></View>
-        <View {...getOverrideProps(overrides, "Input/Textgau")}></View>
+        <Prompt
+          position="absolute"
+          top="0px"
+          left="-16px"
+          {...getOverrideProps(overrides, "Promptmft")}
+        ></Prompt>
+        <ResponseIcons
+          position="absolute"
+          top="37px"
+          left="-24px"
+          {...getOverrideProps(overrides, "Response Iconshmq")}
+        ></ResponseIcons>
+        <Feathericoncheck
+          width="36px"
+          height="36px"
+          position="absolute"
+          top="calc(50% - 18px - 11.5px)"
+          left="calc(50% - 18px - -264.5px)"
+          {...getOverrideProps(overrides, "feather-icon / checktwh")}
+        ></Feathericoncheck>
+        <InputText
+          height="100px"
+          position="absolute"
+          top="37px"
+          left="0%"
+          right="0%"
+          {...getOverrideProps(overrides, "Input/Textebv")}
+        ></InputText>
       </View>
       <Text
         fontFamily="Inter"
@@ -90,8 +236,8 @@ export default function IMac(props) {
         transform="rotate(0deg)"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Example"
-        {...getOverrideProps(overrides, "Examplejtf")}
+        children="Analytics and Data"
+        {...getOverrideProps(overrides, "Analytics and Data")}
       ></Text>
       <Text
         fontFamily="Inter"
@@ -110,20 +256,9 @@ export default function IMac(props) {
         transform="rotate(0deg)"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Example"
-        {...getOverrideProps(overrides, "Examplerpn")}
+        children="Mental"
+        {...getOverrideProps(overrides, "Mental")}
       ></Text>
-      <View
-        padding="0px 0px 0px 0px"
-        width="102px"
-        height="45px"
-        position="absolute"
-        top="639px"
-        left="1078px"
-        {...getOverrideProps(overrides, "Structurezoe")}
-      >
-        <Flex {...getOverrideProps(overrides, "Structurekqt")}></Flex>
-      </View>
     </View>
   );
 }

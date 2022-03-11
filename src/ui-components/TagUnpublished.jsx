@@ -8,16 +8,16 @@
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Text, View } from "@aws-amplify/ui-react";
-export default function Button(props) {
+export default function TagUnpublished(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="144px"
-      height="40px"
+      width="102px"
+      height="24px"
       position="relative"
       padding="0px 0px 0px 0px"
       {...rest}
-      {...getOverrideProps(overrides, "Button")}
+      {...getOverrideProps(overrides, "TagUnpublished")}
     >
       <View
         position="absolute"
@@ -25,17 +25,17 @@ export default function Button(props) {
         bottom="0%"
         left="0%"
         right="0%"
-        border="1px SOLID rgba(204,204,204,1)"
         borderRadius="4px"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Rectangle 4.1")}
+        backgroundColor="rgba(240,240,240,1)"
+        {...getOverrideProps(overrides, "Rectangle 5")}
       ></View>
       <Text
         fontFamily="Inter"
-        fontSize="18px"
+        fontSize="12px"
         fontWeight="400"
         color="rgba(17,17,17,1)"
-        lineHeight="21.09375px"
+        lineHeight="14.0625px"
         textAlign="center"
         display="flex"
         direction="column"
@@ -47,8 +47,8 @@ export default function Button(props) {
         right="0%"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="View Preview"
-        {...getOverrideProps(overrides, "View Preview")}
+        children="UNPUBLISHED"
+        {...getOverrideProps(overrides, "UNPUBLISHED")}
       ></Text>
     </View>
   );

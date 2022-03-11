@@ -7,7 +7,7 @@
 import React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { ViewProps } from "@aws-amplify/ui-react";
-export declare type ButtonProps = React.PropsWithChildren<Partial<ViewProps> & {
+export declare type InputOptionEditorProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: EscapeHatchProps | undefined | null;
 }>;
-export default function Button(props: ButtonProps): React.ReactElement;
+export default function InputOptionEditor(props: InputOptionEditorProps): React.ReactElement;

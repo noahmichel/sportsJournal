@@ -8,48 +8,45 @@
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Text, View } from "@aws-amplify/ui-react";
-export default function Button(props) {
+import IconShort from "./IconShort";
+export default function SubmenuTypeRow(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="144px"
-      height="40px"
+      width="55px"
+      height="24px"
       position="relative"
       padding="0px 0px 0px 0px"
       {...rest}
-      {...getOverrideProps(overrides, "Button")}
+      {...getOverrideProps(overrides, "SubmenuTypeRow")}
     >
-      <View
-        position="absolute"
-        top="0%"
-        bottom="0%"
-        left="0%"
-        right="0%"
-        border="1px SOLID rgba(204,204,204,1)"
-        borderRadius="4px"
-        padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Rectangle 4.1")}
-      ></View>
       <Text
         fontFamily="Inter"
-        fontSize="18px"
+        fontSize="12px"
         fontWeight="400"
         color="rgba(17,17,17,1)"
-        lineHeight="21.09375px"
-        textAlign="center"
+        lineHeight="14.0625px"
+        textAlign="left"
         display="flex"
         direction="column"
         justifyContent="center"
+        width="35px"
         position="absolute"
         top="0%"
         bottom="0%"
-        left="0%"
-        right="0%"
+        left="20px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="View Preview"
-        {...getOverrideProps(overrides, "View Preview")}
+        children="Short"
+        {...getOverrideProps(overrides, "Short")}
       ></Text>
+      <IconShort
+        position="absolute"
+        top="25%"
+        bottom="25%"
+        left="0px"
+        {...getOverrideProps(overrides, "Icon/Short")}
+      ></IconShort>
     </View>
   );
 }

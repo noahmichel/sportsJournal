@@ -7,7 +7,7 @@
 import React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { ViewProps } from "@aws-amplify/ui-react";
-export declare type ButtonProps = React.PropsWithChildren<Partial<ViewProps> & {
+export declare type Structure1Props = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: EscapeHatchProps | undefined | null;
 }>;
-export default function Button(props: ButtonProps): React.ReactElement;
+export default function Structure1(props: Structure1Props): React.ReactElement;

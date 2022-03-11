@@ -25,7 +25,7 @@ export default function ProfileBannerdesktop(props) {
       const onProcessFile = e => {
         e.preventDefault();
         let reader = new FileReader();
-        let file = e.target.files[1];
+        let file = e.target.files[0];
         try {
           reader.readAsDataURL(file);
         } catch (err) {

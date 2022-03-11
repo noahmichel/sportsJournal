@@ -7,56 +7,66 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import ProfileBannerdesktop from "./ProfileBannerdesktop";
 import { Text, View } from "@aws-amplify/ui-react";
-export default function Canvaseditme(props) {
+export default function MacBookPro(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="1680px"
-      height="240px"
+      width="1440px"
+      height="900px"
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
       backgroundColor="rgba(255,255,255,1)"
       {...rest}
-      {...getOverrideProps(overrides, "Canvaseditme")}
+      {...getOverrideProps(overrides, "MacBookPro")}
     >
+      <ProfileBannerdesktop
+        width="1230px"
+        position="absolute"
+        top="0px"
+        left="210px"
+        {...getOverrideProps(overrides, "Profile Banner - desktop")}
+      ></ProfileBannerdesktop>
       <View
         padding="0px 0px 0px 0px"
-        width="1680px"
-        height="240px"
+        width="209px"
+        height="900px"
         position="absolute"
         top="0px"
         left="0px"
-        {...getOverrideProps(overrides, "Placeholder")}
+        {...getOverrideProps(overrides, "Sidebar placeholder")}
       >
         <View
+          width="209px"
+          height="900px"
           position="absolute"
           top="0px"
-          bottom="0px"
-          left="0%"
-          right="0%"
+          left="0px"
+          boxShadow="0px 0px 0px rgba(0.8980392217636108, 0.8980392217636108, 0.8980392217636108, 1)"
           padding="0px 0px 0px 0px"
-          backgroundColor="rgba(196,196,196,1)"
-          {...getOverrideProps(overrides, "Rectangle 1")}
+          backgroundColor="rgba(254,254,254,1)"
+          {...getOverrideProps(overrides, "Rectangle 2")}
         ></View>
         <Text
           fontFamily="Helvetica"
-          fontSize="40px"
+          fontSize="26px"
           fontWeight="700"
-          color="rgba(78,78,78,1)"
-          lineHeight="46.875px"
+          color="rgba(15,15,15,1)"
+          lineHeight="30.46875px"
           textAlign="center"
           display="flex"
           direction="column"
           justifyContent="flex-start"
           position="absolute"
-          top="calc(50% - 23px - 0px)"
-          left="calc(50% - 110.5px - -0.5px)"
+          top="calc(50% - 15px - 339px)"
+          left="27.27%"
+          right="26.79%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Replace Me"
-          {...getOverrideProps(overrides, "Replace Me")}
+          children="Sidebar"
+          {...getOverrideProps(overrides, "Sidebar")}
         ></Text>
       </View>
     </View>
