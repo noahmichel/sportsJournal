@@ -5,42 +5,126 @@
  **************************************************************************/
 
 /* eslint-disable */
-import React from "react";
+import React, {useEffect, useState} from 'react'
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Text, View } from "@aws-amplify/ui-react";
+import { Text, View, Image } from "@aws-amplify/ui-react";
+import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
+
 export default function Canvaseditme(props) {
   const { overrides, ...rest } = props;
+
+  Storage.configure({ track: true, level: "private" });
+
+    let fileInput = React.createRef();
+    
+      const onOpenFileDialog = () => {
+        fileInput.current.click();
+      };
+    
+      const onProcessFile = e => {
+        e.preventDefault();
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        try {
+          reader.readAsDataURL(file);
+        } catch (err) {
+          console.log(err);
+        }
+        reader.onloadend = () => {
+          setImage(reader.result);
+        };
+        Storage.put("headerPicture.png", file, {
+          contentType: "image/png"
+        })
+          .then(result => console.log(result))
+          .catch(err => console.log(err));
+      };
+    
+
+    //This is for default !!!!
+    const avatar = Storage.get("default-header.jpg")
+    const [image, setImage] = useState(avatar);
+    
+      useEffect(() => {
+        onPageRendered();
+      }, []);
+    
+      const onPageRendered = async () => {
+        getHeaderPicture();
+      };
+    
+      const getHeaderPicture = () => {
+        Storage.get("headerPicture.png")
+          .then(url => {
+            var myRequest = new Request(url);
+            fetch(myRequest).then(function(response) {
+              if (response.status === 200) {
+                setImage(url);
+              } else {
+                getDefaultHeaderPicture();
+              }
+            });
+          })
+          .catch(err => console.log(err));
+      };
+
+      const getDefaultHeaderPicture = () => {
+        Storage.get("default-header.jpg", {
+          level: "public"
+        })
+          .then(url => {
+            var myRequest = new Request(url);
+            fetch(myRequest).then(function(response) {
+              if (response.status === 200) {
+                setImage(url);
+              }
+            });
+          })
+          .catch(err => console.log(err));
+      };
+
   return (
     <View
-      width="1680px"
+      width="100vw"
       height="240px"
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      backgroundColor="rgba(255,255,255,1)"
+      backgroundColor="#555B6E"
       {...rest}
       {...getOverrideProps(overrides, "Canvaseditme")}
     >
       <View
         padding="0px 0px 0px 0px"
-        width="1680px"
+        width="100vw"
         height="240px"
-        position="absolute"
+        position="center"
         top="0px"
         left="0px"
-        {...getOverrideProps(overrides, "Placeholder")}
-      >
-        <View
+        {...getOverrideProps(overrides)}
+      ><a href="Select your profile picture">
+      <input
+      type="file"
+      onChange={onProcessFile}
+      ref={fileInput}
+      hidden={true}
+      />
+    </a>
+        <Image
           position="absolute"
+          width="100vw"
+          height="240px"
           top="0px"
           bottom="0px"
           left="0%"
           right="0%"
           padding="0px 0px 0px 0px"
-          backgroundColor="rgba(196,196,196,1)"
-          {...getOverrideProps(overrides, "Rectangle 1")}
-        ></View>
-        <Text
+          border="3px solid white"
+          src={image}
+          onClick={onOpenFileDialog}
+          {...getOverrideProps(overrides)}
+        ></Image>
+        {/* <Text
           fontFamily="Helvetica"
           fontSize="40px"
           fontWeight="700"
@@ -57,7 +141,7 @@ export default function Canvaseditme(props) {
           whiteSpace="pre-wrap"
           children="Replace Me"
           {...getOverrideProps(overrides, "Replace Me")}
-        ></Text>
+        ></Text> */}
       </View>
     </View>
   );
