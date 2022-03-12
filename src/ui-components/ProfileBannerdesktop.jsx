@@ -216,11 +216,11 @@ export default function ProfileBannerdesktop(props) {
       </View>
       <View
         padding="0px 0px 0px 0px"
-        width="128px"
-        height="128px"
+        width="248px"
+        height="248px"
         position="absolute"
-        top="148px"
-        left="26px"
+        top="98px"
+        left="64px"
         {...getOverrideProps(overrides, "Profile picture")}
       ><a href="Select your profile picture">
         <input
@@ -231,13 +231,13 @@ export default function ProfileBannerdesktop(props) {
         />
       </a>
         <Image
-          width="128px"
-          height="128px"
+          width="248px"
+          height="248px"
           position="absolute"
           top="0px"
           left="0px"
           border="3px SOLID rgba(255,255,255,1)"
-          borderRadius="64px"
+          borderRadius="248px"
           padding="0px 0px 0px 0px"
           backgroundColor="white"
           src={image}
