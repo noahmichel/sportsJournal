@@ -163,7 +163,7 @@ const RadioButton = styled.input`
   }
 `;
 
-export default function AnswerQuestion(props) {
+export default function AnswerQuestionComplete(props) {
   const { overrides, ...rest } = props;
 
   Storage.configure({ track: true, level: "private" });
@@ -208,31 +208,31 @@ today2 = mm + ' / ' + dd + ' / ' + yyyy;
 
 
   const bestGame = () => {
-      Storage.put(today + "begUserInfo.txt", "performance: best game", {
+      Storage.put(today + "begUserInfo.txt", "performance: Best Game", {
         contentType: "plain/text"
       })
   }
 
   const goodGame = () => {
-    Storage.put(today + "begUserInfo.txt", "performance: good game", {
+    Storage.put(today + "begUserInfo.txt", "performance: Good Game", {
       contentType: "plain/text"
     })
 }
 
 const averageGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: average game", {
+  Storage.put(today + "begUserInfo.txt", "performance: Average Game", {
     contentType: "plain/text"
   })
 }
 
 const poorGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: poor game", {
+  Storage.put(today + "begUserInfo.txt", "performance: Poor Game", {
     contentType: "plain/text"
   })
 }
 
 const worstGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: worst game", {
+  Storage.put(today + "begUserInfo.txt", "performance: Worst Game", {
     contentType: "plain/text"
   })
 }
@@ -412,7 +412,7 @@ const [select, setSelect] = useState();
         left="575px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Fill out how you felt you played today."
+        children="Fill out how you you felt you played today."
         {...getOverrideProps(
           overrides,
           "Fill out how you you felt you played today."
@@ -449,7 +449,7 @@ const [select, setSelect] = useState();
         src={image}
         {...getOverrideProps(overrides, "Rectangle 274")}
       ></Image>
-      <Link to="/journal/beginner2" style={{textDecoration: 'none'}}>
+      <Link to="/journal" style={{textDecoration: 'none'}}>
         <Button
           children="Next"
           {...getOverrideProps(overrides, "Next")}
@@ -497,7 +497,7 @@ const [select, setSelect] = useState();
           {...getOverrideProps(overrides, "Exit")}
         ></Button2>
       </Link>
-      <Link to="/journal" style={{textDecoration: 'none'}}>
+      <Link to="/journal/beginner5" style={{textDecoration: 'none'}}>
         <Button3
           children="Previous"
           {...getOverrideProps(overrides, "Exit")}

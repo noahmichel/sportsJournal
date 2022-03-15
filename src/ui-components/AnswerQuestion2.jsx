@@ -163,7 +163,7 @@ const RadioButton = styled.input`
   }
 `;
 
-export default function AnswerQuestion(props) {
+export default function AnswerQuestion2(props) {
   const { overrides, ...rest } = props;
 
   Storage.configure({ track: true, level: "private" });
@@ -207,34 +207,37 @@ var yyyy = today2.getFullYear();
 today2 = mm + ' / ' + dd + ' / ' + yyyy;
 
 
-  const bestGame = () => {
-      Storage.put(today + "begUserInfo.txt", "performance: best game", {
-        contentType: "plain/text"
-      })
+  const bestGame = async () => {
+    const result = await Storage.get(today + "begUserInfo.txt", { contentType: 'text/plain', download: true });
+
+    // data.Body is a Blob
+    result.Body.text().then(string => { 
+        Storage.put(today + "begUserInfo.txt", string + "\nsleep: well rested", {
+            contentType: "plain/text"
+          })
+});
   }
 
-  const goodGame = () => {
-    Storage.put(today + "begUserInfo.txt", "performance: good game", {
-      contentType: "plain/text"
-    })
+const averageGame = async () => {
+    const result = await Storage.get(today + "begUserInfo.txt", { contentType: 'text/plain', download: true });
+
+    // data.Body is a Blob
+    result.Body.text().then(string => { 
+        Storage.put(today + "begUserInfo.txt", string + "\nsleep: average rested", {
+            contentType: "plain/text"
+          })
+});
 }
 
-const averageGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: average game", {
-    contentType: "plain/text"
-  })
-}
+const worstGame = async () => {
+    const result = await Storage.get(today + "begUserInfo.txt", { contentType: 'text/plain', download: true });
 
-const poorGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: poor game", {
-    contentType: "plain/text"
-  })
-}
-
-const worstGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: worst game", {
-    contentType: "plain/text"
-  })
+    // data.Body is a Blob
+    result.Body.text().then(string => { 
+        Storage.put(today + "begUserInfo.txt", string + "\nsleep: tired", {
+            contentType: "plain/text"
+          })
+});
 }
 
 const [select, setSelect] = useState();
@@ -282,7 +285,7 @@ const [select, setSelect] = useState();
         left="75px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="How did you play today?"
+        children="How did you sleep last night?"
         {...getOverrideProps(overrides, "How did you play today?")}
       ></Text>
       <Text
@@ -321,19 +324,7 @@ const [select, setSelect] = useState();
           onClick={bestGame}
         />
         <RadioButtonLabel/>
-        <div>Best Game</div>
-      </Item>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
-          value="good"
-          checked={select === "good"}
-          onChange={event => handleSelectChange(event)}
-          onClick={goodGame}
-        />
-        <RadioButtonLabel />
-        <div>Good</div>
+        <div>Fully Rested</div>
       </Item>
       <Item>
         <RadioButton
@@ -351,25 +342,13 @@ const [select, setSelect] = useState();
         <RadioButton
           type="radio"
           name="radio"
-          value="poor"
-          checked={select === "poor"}
-          onChange={event => handleSelectChange(event)}
-          onClick={poorGame}
-        />
-        <RadioButtonLabel />
-        <div>Poor</div>
-      </Item>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
           value="worst"
           checked={select === "worst"}
           onChange={event => handleSelectChange(event)}
           onClick={worstGame}
         />
         <RadioButtonLabel />
-        <div>Worst Game</div>
+        <div>Tired</div>
       </Item>
     </Wrapper>
 
@@ -412,7 +391,7 @@ const [select, setSelect] = useState();
         left="575px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Fill out how you felt you played today."
+        children="Fill out how you slept last night."
         {...getOverrideProps(
           overrides,
           "Fill out how you you felt you played today."
@@ -449,7 +428,7 @@ const [select, setSelect] = useState();
         src={image}
         {...getOverrideProps(overrides, "Rectangle 274")}
       ></Image>
-      <Link to="/journal/beginner2" style={{textDecoration: 'none'}}>
+      <Link to="/journal/beginner3" style={{textDecoration: 'none'}}>
         <Button
           children="Next"
           {...getOverrideProps(overrides, "Next")}
@@ -497,7 +476,7 @@ const [select, setSelect] = useState();
           {...getOverrideProps(overrides, "Exit")}
         ></Button2>
       </Link>
-      <Link to="/journal" style={{textDecoration: 'none'}}>
+      <Link to="/journal/beginner" style={{textDecoration: 'none'}}>
         <Button3
           children="Previous"
           {...getOverrideProps(overrides, "Exit")}

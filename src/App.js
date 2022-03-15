@@ -16,6 +16,11 @@ import Intermediate from './Intermediate';
 import Beginner from './Beginner'
 import Print from './Print';
 import Selection from './Selection'
+import Beginner2 from './Beginner2'
+import Beginner3 from './Beginner3'
+import Beginner4 from './Beginner4'
+import Beginner5 from './Beginner5'
+import BeginnerComplete from './BeginnerComplete';
 
 function App() {
   return (
@@ -34,6 +39,11 @@ function App() {
         <Route exact path="/journal/beginner" component={Beginner}/>
         <Route exact path="/journal/print" component={Print}/>
         <Route exact path="/journal/selection" component={Selection}/>
+        <Route exact path="/journal/beginner2" component={Beginner2}/>
+        <Route exact path="/journal/beginner3" component={Beginner3}/>
+        <Route exact path="/journal/beginner4" component={Beginner4}/>
+        <Route exact path="/journal/beginner5" component={Beginner5}/>
+        <Route exact path="/journal/beginnerComplete" component={BeginnerComplete}/>
         
       </div>
   );

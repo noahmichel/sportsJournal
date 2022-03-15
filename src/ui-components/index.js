@@ -86,4 +86,9 @@ export { default as AdvancedJournal } from "./AdvancedJournal";
 export { default as ProfileBannerdesktop } from "./ProfileBannerdesktop";
 export { default as ProfileBannermobile } from "./ProfileBannermobile";
 export { default as ProfileHome } from "./ProfileHome";
+export { default as AnswerQuestion2 } from "./AnswerQuestion2";
+export { default as AnswerQuestion3 } from "./AnswerQuestion3";
+export { default as AnswerQuestion4 } from "./AnswerQuestion4";
+export { default as AnswerQuestion5 } from "./AnswerQuestion5";
+export { default as AnswerQuestionComplete } from "./AnswerQuestionComplete";
 
