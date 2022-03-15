@@ -289,7 +289,7 @@ export default function JournalHome(props) {
       <Link to="/journal/advanced">
         <View1
           {...getOverrideProps(overrides, "View.View[2]")}
-        ><Link to="/journal/advanced" style={{textDecoration: 'none'}}>
+        ><Link to="/journal/selection" style={{textDecoration: 'none'}}>
           <Text4
             children="Personalize your journal to your style, focus on your goals and analytics"
             {...getOverrideProps(overrides, "View.Text[6]")}

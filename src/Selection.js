@@ -1,20 +1,20 @@
 import React from 'react'
-import { NavBarLogout, Progress2, ProgressHome } from './ui-components'
+import { NavBarLogout, Progress2, ProgressHome, SelectTopic } from './ui-components'
 import './NavBar2.css'
 import { withAuthenticator } from '@aws-amplify/ui-react'
 
-function Progress() {
+function Selection() {
     return (
 
         <div>
             <NavBarLogout class="Header"/>
             
             <div style={{padding: '54px 0px 0px 0px'}}>
-            <Progress2/>
+            <SelectTopic/>
             </div>
         </div>
 
     )
 }
 
-export default withAuthenticator(Progress);
+export default withAuthenticator(Selection);

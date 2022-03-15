@@ -15,6 +15,7 @@ import Advanced from './Advanced';
 import Intermediate from './Intermediate';
 import Beginner from './Beginner'
 import Print from './Print';
+import Selection from './Selection'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/journal/intermediate" component={Intermediate}/>
         <Route exact path="/journal/beginner" component={Beginner}/>
         <Route exact path="/journal/print" component={Print}/>
+        <Route exact path="/journal/selection" component={Selection}/>
         
       </div>
   );
