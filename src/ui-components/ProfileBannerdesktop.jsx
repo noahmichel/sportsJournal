@@ -236,10 +236,10 @@ export default function ProfileBannerdesktop(props) {
           position="absolute"
           top="0px"
           left="0px"
-          border="3px SOLID rgba(255,255,255,1)"
+          border="3px SOLID rgba(196,196,196,0.4)"
           borderRadius="248px"
           padding="0px 0px 0px 0px"
-          backgroundColor="white"
+          backgroundColor="rgba(196,196,196,0.39)"
           src={image}
           onClick={onOpenFileDialog}
           {...getOverrideProps(overrides, "Total overlay")}

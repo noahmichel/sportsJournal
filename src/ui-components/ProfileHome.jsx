@@ -14,11 +14,11 @@ export default function ProfileHome(props) {
   return (
     <View
       width="100vw"
-      height="900px"
+      height="350px"
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      backgroundColor="LightGray"
+      backgroundColor="black"
       {...rest}
       {...getOverrideProps(overrides, "MacBookPro")}
     >

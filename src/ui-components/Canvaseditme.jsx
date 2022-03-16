@@ -119,7 +119,7 @@ export default function Canvaseditme(props) {
           left="0%"
           right="0%"
           padding="0px 0px 0px 0px"
-          border="3px solid white"
+          border="3px solid rgba(196,196,196,0.4)"
           src={image}
           onClick={onOpenFileDialog}
           {...getOverrideProps(overrides)}
