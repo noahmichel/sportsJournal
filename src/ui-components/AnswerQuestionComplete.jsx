@@ -8,10 +8,16 @@
 import React, {Children, useEffect, useState} from 'react'
 import ReactDOM from "react-dom";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Text, View, Image, RadioGroupField } from "@aws-amplify/ui-react";
+import { Text, View, Image, RadioGroupField, Flex } from "@aws-amplify/ui-react";
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import { lazyload } from 'react-lazyload';
+
+lazyload({
+  height: 200,
+  once: true,
+})
 
 
 const Button = styled.button`
@@ -94,7 +100,7 @@ const Button4 = styled.button`
   font-size: 24px;
   position: absolute;
   top: 526px;
-  left: 975px;
+  left: 960px;
   display: flex;
   text-align: center;
   font-weight: 500;
@@ -104,63 +110,6 @@ const Button4 = styled.button`
    &:hover {
     color: Lightgreen;
    }
-`;
-
-const Wrapper = styled.div`
-  height: auto;
-  width: 100%;
-  padding: 0px 16px 24px 16px;
-  box-sizing: border-box;
-`;
-
-const Item = styled.div`
-  color: white;
-  display: flex;
-  align-items: center;
-  height: 34px;
-  position: relative;
-  border-radius: 2px;
-  margin-bottom: 0px;
-`;
-
-const RadioButtonLabel = styled.label`
-  position: absolute;
-  text-align: center;
-  top: 25%;
-  left: 4px;
-  width: 20px;
-  height: 20px;
-  border: 1px SOLID black;
-  border-radius: 50%;
-  background: #cccccc;
-  
-`;
-
-const RadioButton = styled.input`
-  opacity: 0;
-  z-index: 1;
-  cursor: pointer;
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-  &:hover ~ ${RadioButtonLabel} {
-    background: white;
-    &::after {
-      font-family: "HelveticaNeue";
-      color: white;
-      width: 12px;
-      height: 12px;
-      margin: 4px;
-      }
-  }
-  &:checked + ${Item} {
-    background: lawngreen;
-    border: 2px solid yellowgreen;
-  }
-  &:checked + ${RadioButtonLabel} {
-    background: #3d74f5;
-    border: 1px solid black;
-  }
 `;
 
 export default function AnswerQuestionComplete(props) {
@@ -204,38 +153,7 @@ var today2 = new Date();
 var dd = String(today2.getDate()).padStart(2, '0');
 var mm = String(today2.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today2.getFullYear();
-today2 = mm + ' / ' + dd + ' / ' + yyyy;
-
-
-  const bestGame = () => {
-      Storage.put(today + "begUserInfo.txt", "performance: Best Game", {
-        contentType: "plain/text"
-      })
-  }
-
-  const goodGame = () => {
-    Storage.put(today + "begUserInfo.txt", "performance: Good Game", {
-      contentType: "plain/text"
-    })
-}
-
-const averageGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: Average Game", {
-    contentType: "plain/text"
-  })
-}
-
-const poorGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: Poor Game", {
-    contentType: "plain/text"
-  })
-}
-
-const worstGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: Worst Game", {
-    contentType: "plain/text"
-  })
-}
+today2 = mm + '/' + dd + '/' + yyyy;
 
 const [select, setSelect] = useState();
 
@@ -273,16 +191,17 @@ const [select, setSelect] = useState();
         fontWeight="500"
         color="white"
         lineHeight="38.671875px"
-        textAlign="left"
+        textAlign="center"
         display="flex"
         direction="column"
         justifyContent="center"
         position="absolute"
+        width="1125px"
         top="100px"
-        left="75px"
+        left="50px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="How did you play today?"
+        children="Success!"
         {...getOverrideProps(overrides, "How did you play today?")}
       ></Text>
       <Text
@@ -291,164 +210,42 @@ const [select, setSelect] = useState();
         fontWeight="300"
         color="white"
         lineHeight="23.4375px"
-        textAlign="left"
+        textAlign="center"
         display="flex"
         direction="column"
         justifyContent="center"
         position="absolute"
-        top="145px"
-        left="80px"
+        width="1125px"
+        top="150px"
+        left="50px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Answer the question below"
+        children="Your responses for beginner journal have been recorded"
         {...getOverrideProps(overrides, "Answer the question below")}
       ></Text>
-      <RadioGroupField 
-      name="Performance"
-      size="large"
+      <Flex
+      backgroundColor="black"
+      display="flex"
+      textAlign="center"
+      justifyContent="center"
       position="absolute"
-      top="260px"
-      left="555px"
-      >
-    <Wrapper>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
-          value="best"
-          checked={select === "best"}
-          onChange={event => handleSelectChange(event)}
-          onClick={bestGame}
-        />
-        <RadioButtonLabel/>
-        <div>Best Game</div>
-      </Item>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
-          value="good"
-          checked={select === "good"}
-          onChange={event => handleSelectChange(event)}
-          onClick={goodGame}
-        />
-        <RadioButtonLabel />
-        <div>Good</div>
-      </Item>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
-          value="average"
-          checked={select === "average"}
-          onChange={event => handleSelectChange(event)}
-          onClick={averageGame}
-        />
-        <RadioButtonLabel />
-        <div>Average</div>
-      </Item>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
-          value="poor"
-          checked={select === "poor"}
-          onChange={event => handleSelectChange(event)}
-          onClick={poorGame}
-        />
-        <RadioButtonLabel />
-        <div>Poor</div>
-      </Item>
-      <Item>
-        <RadioButton
-          type="radio"
-          name="radio"
-          value="worst"
-          checked={select === "worst"}
-          onChange={event => handleSelectChange(event)}
-          onClick={worstGame}
-        />
-        <RadioButtonLabel />
-        <div>Worst Game</div>
-      </Item>
-    </Wrapper>
-
-        {/* <Radio type="radio" value="best game" onClick={bestGame}>Best Game</Radio>
-        <Radio type="radio" value="good" onClick={goodGame}>Good</Radio>
-        <Radio type="radio" value="average" onClick={averageGame}>Average</Radio>
-        <Radio type="radio" value="poor" onClick={poorGame}>Poor</Radio>
-        <Radio type="radio" value="worst game" onClick={worstGame}>Worst Game</Radio> */}
-      </RadioGroupField>
-      <Text
-        fontFamily="HelveticaNeue-Light"
-        fontSize="20px"
-        fontWeight="300"
-        color="white"
-        lineHeight="26.953125px"
-        textAlign="left"
-        display="flex"
-        direction="column"
-        justifyContent="center"
-        position="absolute"
-        top="230px"
-        left="575px"
-        padding="0px 0px 0px 0px"
-        whiteSpace="pre-wrap"
-        children="Choose answer"
-        {...getOverrideProps(overrides, "Choose answer")}
-      ></Text>
-      <Text
-        fontFamily="HelveticaNeue"
-        fontSize="24px"
-        fontWeight="500"
-        color="white"
-        lineHeight="23.4375px"
-        textAlign="left"
-        display="flex"
-        direction="column"
-        justifyContent="center"
-        position="absolute"
-        top="200px"
-        left="575px"
-        padding="0px 0px 0px 0px"
-        whiteSpace="pre-wrap"
-        children="Fill out how you you felt you played today."
-        {...getOverrideProps(
-          overrides,
-          "Fill out how you you felt you played today."
-        )}
-      ></Text>
-      <Text
-        fontFamily="HelveticaNeue-Light"
-        fontSize="20px"
-        fontWeight="300"
-        color="white"
-        lineHeight="38.671875px"
-        textAlign="left"
-        display="flex"
-        direction="column"
-        justifyContent="center"
-        position="absolute"
-        top="100px"
-        left="1025px"
-        padding="0px 0px 0px 0px"
-        whiteSpace="pre-wrap"
-        children="Question 1/5"
-        {...getOverrideProps(overrides, "Question 1/5")}
-      ></Text>
-      <Image
-        width="450px"
-        height="270px"
-        position="absolute"
-        top="200px"
-        left="75px"
-        boxShadow="0px 15px 40px rgba(0.9291666746139526, 0.9291666746139526, 0.9291666746139526, 1)"
-        borderRadius="30px"
-        padding="0px 0px 0px 0px"
-        backgroundColor="black"
-        src={image}
-        {...getOverrideProps(overrides, "Rectangle 274")}
-      ></Image>
+      width="450px"
+      top="200px"
+      height="270px"
+      borderRadius="30px"
+      left="390px"
+      ><Image
+          src={image}
+          width="450px"
+          height="270px"
+          top="0px"
+          position="relative"
+          justifyContent="center"
+          boxShadow="0px 15px 40px rgba(0.9291666746139526, 0.9291666746139526, 0.9291666746139526, 1)"
+          borderRadius="30px"
+          {...getOverrideProps(overrides, "Rectangle 274")}
+        ></Image>
+      </Flex>
       <Link to="/journal" style={{textDecoration: 'none'}}>
         <Button
           children="Next"
@@ -497,17 +294,12 @@ const [select, setSelect] = useState();
           {...getOverrideProps(overrides, "Exit")}
         ></Button2>
       </Link>
-      <Link to="/journal/beginner5" style={{textDecoration: 'none'}}>
-        <Button3
-          children="Previous"
-          {...getOverrideProps(overrides, "Exit")}
-        ></Button3>
-      </Link>
-      <Button4
-        children="Submit"
-        onClick={()=>{ alert('Information Recorded: Success'); }}
+      <Link to="/progress" style={{textDecoration: 'none'}}>
+        <Button4
+        children="Progress"
         {...getOverrideProps(overrides, "Exit")}
-      ></Button4>
+        ></Button4>
+      </Link>
     </View>
   );
 }

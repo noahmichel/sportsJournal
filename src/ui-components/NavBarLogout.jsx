@@ -142,6 +142,7 @@ export default function NavBarLogout(props) {
             height="32px"
             position="relative"
             src={require('./baseballIcon.png')}
+            alt="null"
             {...getOverrideProps(overrides, "Flex.Flex[0].Icon[0]")}
           ></Image>
         </Link>

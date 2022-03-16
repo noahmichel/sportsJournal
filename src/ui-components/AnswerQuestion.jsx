@@ -12,6 +12,12 @@ import { Text, View, Image, RadioGroupField } from "@aws-amplify/ui-react";
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import { lazyload } from 'react-lazyload';
+
+lazyload({
+  height: 200,
+  once: true,
+})
 
 
 const Button = styled.button`
@@ -204,7 +210,7 @@ var today2 = new Date();
 var dd = String(today2.getDate()).padStart(2, '0');
 var mm = String(today2.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today2.getFullYear();
-today2 = mm + ' / ' + dd + ' / ' + yyyy;
+today2 = mm + '/' + dd + '/' + yyyy;
 
 
   const bestGame = () => {
@@ -437,6 +443,7 @@ const [select, setSelect] = useState();
         {...getOverrideProps(overrides, "Question 1/5")}
       ></Text>
       <Image
+        loading="eager"
         width="450px"
         height="270px"
         position="absolute"

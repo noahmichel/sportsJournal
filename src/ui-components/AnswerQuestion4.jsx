@@ -12,6 +12,12 @@ import { Text, View, Image, RadioGroupField } from "@aws-amplify/ui-react";
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import { lazyload } from 'react-lazyload';
+
+lazyload({
+  height: 200,
+  once: true,
+})
 
 
 const Button = styled.button`
@@ -204,37 +210,62 @@ var today2 = new Date();
 var dd = String(today2.getDate()).padStart(2, '0');
 var mm = String(today2.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today2.getFullYear();
-today2 = mm + ' / ' + dd + ' / ' + yyyy;
+today2 = mm + '/' + dd + '/' + yyyy;
 
 
-  const bestGame = () => {
-      Storage.put(today + "begUserInfo.txt", "performance: Best Game", {
-        contentType: "plain/text"
-      })
-  }
+const bestGame = async () => {
+  const result = await Storage.get(today + "begUserInfo.txt", { contentType: 'text/plain', download: true });
 
-  const goodGame = () => {
-    Storage.put(today + "begUserInfo.txt", "performance: Good Game", {
-      contentType: "plain/text"
-    })
+  // data.Body is a Blob
+  result.Body.text().then(string => { 
+      Storage.put(today + "begUserInfo.txt", string + "\nhits: 3+", {
+          contentType: "plain/text"
+        })
+});
 }
 
-const averageGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: Average Game", {
-    contentType: "plain/text"
-  })
+const goodGame = async () => {
+  const result = await Storage.get(today + "begUserInfo.txt", { contentType: 'text/plain', download: true });
+
+  // data.Body is a Blob
+  result.Body.text().then(string => { 
+      Storage.put(today + "begUserInfo.txt", string + "\nhits: 1-2", {
+          contentType: "plain/text"
+        })
+});
 }
 
-const poorGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: Poor Game", {
-    contentType: "plain/text"
-  })
+const averageGame = async () => {
+  const result = await Storage.get(today + "begUserInfo.txt", { contentType: 'text/plain', download: true });
+
+  // data.Body is a Blob
+  result.Body.text().then(string => { 
+      Storage.put(today + "begUserInfo.txt", string + "\nhits: 0", {
+          contentType: "plain/text"
+        })
+});
 }
 
-const worstGame = () => {
-  Storage.put(today + "begUserInfo.txt", "performance: Worst Game", {
-    contentType: "plain/text"
-  })
+const poorGame = async () => {
+  const result = await Storage.get(today + "begUserInfo.txt", { contentType: 'text/plain', download: true });
+
+  // data.Body is a Blob
+  result.Body.text().then(string => { 
+      Storage.put(today + "begUserInfo.txt", string + "\nhits: no at bats", {
+          contentType: "plain/text"
+        })
+});
+}
+
+const worstGame = async () => {
+  const result = await Storage.get(today + "begUserInfo.txt", { contentType: 'text/plain', download: true });
+
+  // data.Body is a Blob
+  result.Body.text().then(string => { 
+      Storage.put(today + "begUserInfo.txt", string + "\nhits: bp", {
+          contentType: "plain/text"
+        })
+});
 }
 
 const [select, setSelect] = useState();
@@ -282,7 +313,7 @@ const [select, setSelect] = useState();
         left="75px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="How did you play today?"
+        children="How many hits did you have today?"
         {...getOverrideProps(overrides, "How did you play today?")}
       ></Text>
       <Text
@@ -321,7 +352,7 @@ const [select, setSelect] = useState();
           onClick={bestGame}
         />
         <RadioButtonLabel/>
-        <div>Best Game</div>
+        <div>3+</div>
       </Item>
       <Item>
         <RadioButton
@@ -333,7 +364,7 @@ const [select, setSelect] = useState();
           onClick={goodGame}
         />
         <RadioButtonLabel />
-        <div>Good</div>
+        <div>1-2</div>
       </Item>
       <Item>
         <RadioButton
@@ -345,7 +376,7 @@ const [select, setSelect] = useState();
           onClick={averageGame}
         />
         <RadioButtonLabel />
-        <div>Average</div>
+        <div>0</div>
       </Item>
       <Item>
         <RadioButton
@@ -357,7 +388,7 @@ const [select, setSelect] = useState();
           onClick={poorGame}
         />
         <RadioButtonLabel />
-        <div>Poor</div>
+        <div>No At Bats</div>
       </Item>
       <Item>
         <RadioButton
@@ -369,7 +400,7 @@ const [select, setSelect] = useState();
           onClick={worstGame}
         />
         <RadioButtonLabel />
-        <div>Worst Game</div>
+        <div>Batting Practice</div>
       </Item>
     </Wrapper>
 
@@ -412,7 +443,7 @@ const [select, setSelect] = useState();
         left="575px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Fill out how you you felt you played today."
+        children="Fill out how you felt you hit today."
         {...getOverrideProps(
           overrides,
           "Fill out how you you felt you played today."
@@ -433,8 +464,8 @@ const [select, setSelect] = useState();
         left="1025px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Question 1/5"
-        {...getOverrideProps(overrides, "Question 1/5")}
+        children="Question 4/5"
+        {...getOverrideProps(overrides, "Question 4/5")}
       ></Text>
       <Image
         width="450px"
