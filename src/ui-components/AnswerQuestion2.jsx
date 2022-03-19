@@ -172,34 +172,6 @@ const RadioButton = styled.input`
 export default function AnswerQuestion2(props) {
   const { overrides, ...rest } = props;
 
-  Storage.configure({ track: true, level: "private" });
-  
-  const avatar = Storage.get("default-user.jpg");
-  const [image, setImage] = useState(avatar);
-
-  useEffect(() => {
-    onPageRendered();
-  }, []);
-
-  const onPageRendered = async () => {
-    getProfilePicture();
-  };
-
-  const getProfilePicture = () => {
-      Storage.get("baseball.jpg", {
-      level: "public"
-      })
-      .then(url => {
-        var myRequest = new Request(url);
-        fetch(myRequest).then(function(response) {
-          if (response.status === 200) {
-            setImage(url);
-          }
-        });
-      })
-      .catch(err => console.log(err));
-  };
-
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -431,7 +403,7 @@ const [select, setSelect] = useState();
         borderRadius="30px"
         padding="0px 0px 0px 0px"
         backgroundColor="black"
-        src={image}
+        src={require('./baseball.jpg')}
         {...getOverrideProps(overrides, "Rectangle 274")}
       ></Image>
       <Link to="/journal/beginner3" style={{textDecoration: 'none'}}>
