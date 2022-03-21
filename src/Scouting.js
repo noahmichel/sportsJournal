@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBarLogout, MarketingFooter2 } from './ui-components'
+import { NavBarLogout, MarketingFooter2, MacBookPro141 } from './ui-components'
 import './NavBar2.css'
 import { withAuthenticator } from '@aws-amplify/ui-react'
 
@@ -14,6 +14,7 @@ function Scouting() {
                 <h2 style={{backgroundColor: 'black', color: 'white', fontFamily: 'HelveticaNeue-Light', fontWeight: '300'}}>
                 Scouting, Coming Soon!
                 </h2>
+                {/* <MacBookPro141/> */}
             </div>
             <MarketingFooter2 /> 
         </div>

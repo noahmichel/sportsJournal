@@ -27,20 +27,20 @@ type CommentMetaData = {
 export declare class Logos {
   readonly id: string;
   readonly image_url: string;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
   constructor(init: ModelInit<Logos, LogosMetaData>);
   static copyOf(source: Logos, mutator: (draft: MutableModel<Logos, LogosMetaData>) => MutableModel<Logos, LogosMetaData> | void): Logos;
 }
 
 export declare class Author {
   readonly id: string;
-  readonly firstName?: string;
-  readonly lastName?: string;
-  readonly Blog?: Blog;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  readonly authorBlogId?: string;
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly Blog?: Blog | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly authorBlogId?: string | null;
   constructor(init: ModelInit<Author, AuthorMetaData>);
   static copyOf(source: Author, mutator: (draft: MutableModel<Author, AuthorMetaData>) => MutableModel<Author, AuthorMetaData> | void): Author;
 }
@@ -48,9 +48,9 @@ export declare class Author {
 export declare class Blog {
   readonly id: string;
   readonly blogDesc: string;
-  readonly posts?: (Post | null)[];
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
+  readonly posts?: (Post | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
   constructor(init: ModelInit<Blog, BlogMetaData>);
   static copyOf(source: Blog, mutator: (draft: MutableModel<Blog, BlogMetaData>) => MutableModel<Blog, BlogMetaData> | void): Blog;
 }
@@ -59,9 +59,9 @@ export declare class Post {
   readonly id: string;
   readonly title: string;
   readonly blogID: string;
-  readonly comments?: (Comment | null)[];
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
+  readonly comments?: (Comment | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
   constructor(init: ModelInit<Post, PostMetaData>);
   static copyOf(source: Post, mutator: (draft: MutableModel<Post, PostMetaData>) => MutableModel<Post, PostMetaData> | void): Post;
 }
@@ -70,8 +70,8 @@ export declare class Comment {
   readonly id: string;
   readonly postID: string;
   readonly content: string;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
   constructor(init: ModelInit<Comment, CommentMetaData>);
   static copyOf(source: Comment, mutator: (draft: MutableModel<Comment, CommentMetaData>) => MutableModel<Comment, CommentMetaData> | void): Comment;
 }
