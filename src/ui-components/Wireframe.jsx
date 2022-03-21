@@ -7,29 +7,60 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Icon, View, Text } from "@aws-amplify/ui-react";
+import { Icon, View, Text, TextField} from "@aws-amplify/ui-react";
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
+import styled from 'styled-components';
 
+const Button = styled.button`
+  font-family: "HelveticaNeue";
+  font-weight: 500;
+  position: absolute;
+  top: 240px;
+  left: 48px;
+  cursor: pointer;
+  color: #3d74f5;
+  border: none;
+  background: none;
+  font-size: 20px;
+
+  transition: all 0.2s ease-in;
+
+   &:hover {
+    text-decoration: underline;
+   }
+`;
+
+const Button2 = styled.button`
+  font-family: "HelveticaNeue";
+  font-weight: 500;
+  position: absolute;
+  top: 180px;
+  left: 535px;
+  cursor: pointer;
+  color: #3d74f5;
+  border: none;
+  background: none;
+  font-size: 20px;
+
+  transition: all 0.2s ease-in;
+
+   &:hover {
+    text-decoration: underline;
+   }
+`;
+
+
+var username;
+var email;
+
+  Auth.currentAuthenticatedUser().then((user) => {
+    username = user.username;
+    email = user.attributes.email;
+  });
 
 export default function Wireframe(props) {
   const { overrides, ...rest } = props;
 
-  
-    Auth.currentAuthenticatedUser({
-      bypassCache: true  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-  }).then(user => console.log(user))
-  .catch(err => console.log(err));
-  
-
-  var userName = " ";
-
-const getUsername = () => {
-  Auth.currentSession()
-    .then((data) => {
-       userName = data
-       return userName
-    }).catch(err => console.log(err));
-  }
   return (
     <View
       width="100vw"
@@ -43,7 +74,7 @@ const getUsername = () => {
       {...getOverrideProps(overrides, "Wireframe")}
     >
       <View
-        width="251.65px"
+        width="306.26px"
         height="53.13px"
         position="absolute"
         top="141.83px"
@@ -53,8 +84,14 @@ const getUsername = () => {
         {...getOverrideProps(overrides, "Rectangle 2")}
       >
         <Text
+        padding="0px 12px"
+        lineHeight="53.13px"
+        textAlign="left"
+        fontFamily="HelveticaNeue"
+        fontSize="42px"
+        fontWeight="500"
         color="white"
-        children={console.log()}
+        children={username}
         ></Text>
       </View>
       <View
@@ -136,7 +173,29 @@ const getUsername = () => {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(196,196,196,0.39)"
         {...getOverrideProps(overrides, "Rectangle 3")}
-      ></View>
+      ><Text
+        padding="0px 12px"
+        lineHeight="28.04px"
+        textAlign="left"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="20px"
+        fontWeight="300"
+        color="white"
+        children={email}
+        ></Text>
+      </View>
+      <Button
+        border="none"
+        fontFamily="HelveticaNeue-Light"
+        position="absolute"
+        top="246.77px"
+        left="52px"
+        fontWeight="300"
+        padding="0px 0px 0px 0px"
+        color="#3d74f5"
+        children="edit profile"
+        {...getOverrideProps(overrides, "Rectangle 3")}
+      ></Button>
       <View
         borderRadius="50%"
         width="23.62px"
@@ -263,7 +322,21 @@ const getUsername = () => {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(196,196,196,0.39)"
         {...getOverrideProps(overrides, "Rectangle 7")}
-      ></View>
+      >
+        <TextField
+        border="2px SOLID rgba(196,196,196,0.8)"
+        fontFamily="HelveticaNeue-Light"
+        color="white"
+        position="relative"
+        textAlign="left"
+        top="65px"
+        width="570px"
+        padding="0px"
+        isMultiline={true}
+        maxLength={500}
+        outerEndComponent={<Button2 children="save"/>}
+        ></TextField>
+      </View>
       <View
         width="62.73px"
         height="28.78px"
@@ -296,25 +369,26 @@ const getUsername = () => {
         {...getOverrideProps(overrides, "Rectangle 34")}
       ></View>
       <View
-        width="62.73px"
-        height="28.78px"
+        width="306.26px"
+        height="28.04px"
         position="absolute"
-        top="349.2px"
-        left="929.46px"
-        padding="0px 0px 0px 0px"
-        backgroundColor="rgba(0,0,0,0.25)"
-        {...getOverrideProps(overrides, "Rectangle 9")}
-      ></View>
-      <View
-        width="251.65px"
-        height="53.13px"
-        position="absolute"
-        top="76.88px"
+        top="120px"
         left="406.97px"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(196,196,196,0.39)"
         {...getOverrideProps(overrides, "Rectangle 36")}
-      ></View>
+      >
+        <Text
+        padding="0px 12px"
+        lineHeight="28.04px"
+        textAlign="left"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="20px"
+        fontWeight="300"
+        color="white"
+        children="My Profile"
+        ></Text>
+      </View>
       <View
         width="251.65px"
         height="32.47px"
@@ -324,7 +398,18 @@ const getUsername = () => {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(196,196,196,0.8)"
         {...getOverrideProps(overrides, "Rectangle 37")}
-      ></View>
+      >
+        <Text
+        padding="0px 12px"
+        lineHeight="32.47px"
+        textAlign="left"
+        fontFamily="HelveticaNeue"
+        fontSize="24px"
+        fontWeight="500"
+        color="white"
+        children="Biography"
+        ></Text>
+      </View>
       <View
         width="251.65px"
         height="32.47px"
