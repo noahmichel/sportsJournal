@@ -49,14 +49,36 @@ const Button2 = styled.button`
    }
 `;
 
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
 
 var username;
 var email;
+var newBio;
 
   Auth.currentAuthenticatedUser().then((user) => {
     username = user.username;
     email = user.attributes.email;
   });
+
+  const saveBio = (bioText) => {
+    Storage.put("bio.txt", bioText, {
+      contentType: "plain/text"
+    })
+  }
+  var bioText = "";
+  // setInterval(function(){ 
+    Storage.get('bio.txt', { download: true }).then(result => {
+      result.Body.text().then(string => { bioText=string; console.log(bioText); })
+    })
+// }, 1000);
+
 
 export default function Wireframe(props) {
   const { overrides, ...rest } = props;
@@ -325,16 +347,21 @@ export default function Wireframe(props) {
       >
         <TextField
         border="2px SOLID rgba(196,196,196,0.8)"
+        placeholder="All About You!"
         fontFamily="HelveticaNeue-Light"
         color="white"
         position="relative"
         textAlign="left"
         top="65px"
         width="570px"
-        padding="0px"
+        padding="0px 10px 0px 10px"
         isMultiline={true}
         maxLength={500}
-        outerEndComponent={<Button2 children="save"/>}
+        defaultValue={bioText}
+        onChange={(e) => newBio = e.currentTarget.value}
+        outerEndComponent={<Button2 
+          onClick={() => saveBio(newBio)}
+          children="save"/>}
         ></TextField>
       </View>
       <View
