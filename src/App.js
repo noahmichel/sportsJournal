@@ -21,6 +21,7 @@ import Beginner3 from './Beginner3'
 import Beginner4 from './Beginner4'
 import Beginner5 from './Beginner5'
 import BeginnerComplete from './BeginnerComplete';
+import ProfilePublished from './ProfilePublished';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
         <Route exact path="/scouting" component={Scouting}/>
         <Route exact path="/yearbook" component={Yearbook}/>
         <Route exact path="/login" component={Login}/>
-        <Route exact path="/myProfile" component={Profile}/>
+        <Route exact path="/myProfile" component={ProfilePublished}/>
         <Route exact path="/journal/advanced" component={Advanced}/>
         <Route exact path="/journal/intermediate" component={Intermediate}/>
         <Route exact path="/journal/beginner" component={Beginner}/>
@@ -44,6 +45,7 @@ function App() {
         <Route exact path="/journal/beginner4" component={Beginner4}/>
         <Route exact path="/journal/beginner5" component={Beginner5}/>
         <Route exact path="/journal/beginnerComplete" component={BeginnerComplete}/>
+        <Route exact path="/myProfile/edit" component={Profile}/>
         
       </div>
   );

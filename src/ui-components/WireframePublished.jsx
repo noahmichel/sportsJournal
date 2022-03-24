@@ -7,7 +7,7 @@
 /* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Icon, View, Text, TextField, SelectField} from "@aws-amplify/ui-react";
+import { Icon, View, Text, TextField, SelectField, Image} from "@aws-amplify/ui-react";
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
@@ -201,7 +201,7 @@ var age;
     }
 
 
-export default function Wireframe(props) {
+export default function WireframePublished(props) {
   const { overrides, ...rest } = props;
 
   return (
@@ -349,18 +349,18 @@ export default function Wireframe(props) {
         children={email}
         ></Text>
       </View>
-      <Link to="/myProfile">
+      <Link to="/myProfile/edit">
         <Button
-          border="none"
-          fontFamily="HelveticaNeue-Light"
-          position="absolute"
-          top="246.77px"
-          left="52px"
-          fontWeight="300"
-          padding="0px 0px 0px 0px"
-          color="#3d74f5"
-          children="publish changes"
-          {...getOverrideProps(overrides, "Rectangle 3")}
+            border="none"
+            fontFamily="HelveticaNeue-Light"
+            position="absolute"
+            top="246.77px"
+            left="52px"
+            fontWeight="300"
+            padding="0px 0px 0px 0px"
+            color="#3d74f5"
+            children="edit profile"
+            {...getOverrideProps(overrides, "Rectangle 3")}
         ></Button>
       </Link>
       <View
@@ -372,8 +372,7 @@ export default function Wireframe(props) {
         top="290.9px"
         left="52px"
         {...getOverrideProps(overrides, "Ellipse 2")}
-      >
-        <Text
+      ><Text
           padding="0px 32px"
           lineHeight="24px"
           textAlign="Center"
@@ -383,15 +382,20 @@ export default function Wireframe(props) {
           color="white"
           children="Gender"
         ></Text>
-        <Select1
-        onChange={event => saveGender(event)}
-        defaultValue={gender}>
-        <option value="" hidden>Not specified</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-        </Select1>
       </View>
+      <Text
+        position="absolute"
+        top="290.9px"
+        left="75px"
+        padding="0px 120px"
+        lineHeight="24px"
+        textAlign="Center"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="24px"
+        fontWeight="300"
+        color="rgb(204,204,204)"
+        children={gender}
+        ></Text>
       <View
         borderRadius="50%"
         width="23.62px"
@@ -412,37 +416,20 @@ export default function Wireframe(props) {
           color="white"
           children="Height"
         ></Text>
-        <Select1
-        onChange={event => saveHeight(event)}
-        defaultValue={height}>
-        <option value="" hidden>Not specified</option>
-        <option value="5' or shorter">5' or shorter</option>
-        <option value="5'1">5'1</option>
-        <option value="5'2">5'2</option>
-        <option value="5'3">5'3</option>
-        <option value="5'4">5'4</option>
-        <option value="5'5">5'5</option>
-        <option value="5'6">5'6</option>
-        <option value="5'7">5'7</option>
-        <option value="5'8">5'8</option>
-        <option value="5'9">5'9</option>
-        <option value="5'10">5'10</option>
-        <option value="5'11">5'11</option>
-        <option value="6'">6'</option>
-        <option value="6'1">6'1</option>
-        <option value="6'2">6'2</option>
-        <option value="6'3">6'3</option>
-        <option value="6'4">6'4</option>
-        <option value="6'5">6'5</option>
-        <option value="6'6">6'6</option>
-        <option value="6'7">6'7</option>
-        <option value="6'8">6'8</option>
-        <option value="6'9">6'9</option>
-        <option value="6'10">6'10</option>
-        <option value="6'11">6'11</option>
-        <option value="7' or taller">7' or taller</option>
-        </Select1>
       </View>
+      <Text
+        position="absolute"
+        top="342.56px"
+        left="75px"
+        padding="0px 120px"
+        lineHeight="24px"
+        textAlign="Center"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="24px"
+        fontWeight="300"
+        color="rgb(204,204,204)"
+        children={height}
+        ></Text>
       <View
         borderRadius="50%"
         width="23.62px"
@@ -463,53 +450,20 @@ export default function Wireframe(props) {
           color="white"
           children="Weight"
         ></Text>
-        <Select1
-        onChange={event => saveWeight(event)}
-        defaultValue={weight}>
-        <option value="" hidden>Not specified</option>
-        <option value="100lbs or less">100lbs or less</option>
-        <option value="105lbs">105lbs</option>
-        <option value="110lbs">110lbs</option>
-        <option value="115lbs">115lbs</option>
-        <option value="120lbs">120lbs</option>
-        <option value="125lbs">125lbs</option>
-        <option value="130lbs">130lbs</option>
-        <option value="135lbs">135lbs</option>
-        <option value="140lbs">140lbs</option>
-        <option value="145lbs">145lbs</option>
-        <option value="150lbs">150lbs</option>
-        <option value="155lbs">155lbs</option>
-        <option value="160lbs">160lbs</option>
-        <option value="165lbs">165lbs</option>
-        <option value="170lbs">170lbs</option>
-        <option value="175lbs">175lbs</option>
-        <option value="180lbs">180lbs</option>
-        <option value="185lbs">185lbs</option>
-        <option value="190lbs">190lbs</option>
-        <option value="195lbs">195lbs</option>
-        <option value="200lbs">200lbs</option>
-        <option value="205lbs">205lbs</option>
-        <option value="210lbs">210lbs</option>
-        <option value="215lbs">215lbs</option>
-        <option value="220lbs">220lbs</option>
-        <option value="225lbs">225lbs</option>
-        <option value="230lbs">230lbs</option>
-        <option value="235lbs">235lbs</option>
-        <option value="240lbs">240lbs</option>
-        <option value="245lbs">245lbs</option>
-        <option value="250lbs">250lbs</option>
-        <option value="255lbs">255lbs</option>
-        <option value="260lbs">260lbs</option>
-        <option value="265lbs">265lbs</option>
-        <option value="270lbs">270lbs</option>
-        <option value="275lbs">275lbs</option>
-        <option value="280lbs">280lbs</option>
-        <option value="285lbs">285lbs</option>
-        <option value="290lbs">290lbs</option>
-        <option value="295lbs">295lbs</option>
-        <option value="300lbs or heavier">300lbs or heavier</option>
-        </Select1>
       </View>
+      <Text
+        position="absolute"
+        top="394.22px"
+        left="75px"
+        padding="0px 120px"
+        lineHeight="24px"
+        textAlign="Center"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="24px"
+        fontWeight="300"
+        color="rgb(204,204,204)"
+        children={weight}
+        ></Text>
       <View
         borderRadius="50%"
         width="23.62px"
@@ -530,43 +484,20 @@ export default function Wireframe(props) {
           color="white"
           children="Age"
         ></Text>
-        <Select1
-        onChange={event => saveAge(event)}
-        defaultValue={age}>
-        <option value="" hidden>Not specified</option>
-        <option value="10 or younger">10 or younger</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-        <option value="17">17</option>
-        <option value="18">18</option>
-        <option value="19">19</option>
-        <option value="20">20</option>
-        <option value="21">21</option>
-        <option value="22">22</option>
-        <option value="23">23</option>
-        <option value="24">24</option>
-        <option value="25">25</option>
-        <option value="26">26</option>
-        <option value="27">27</option>
-        <option value="28">28</option>
-        <option value="29">29</option>
-        <option value="30">30</option>
-        <option value="31">31</option>
-        <option value="32">32</option>
-        <option value="33">33</option>
-        <option value="34">34</option>
-        <option value="35">35</option>
-        <option value="36">36</option>
-        <option value="37">37</option>
-        <option value="38">38</option>
-        <option value="39">39</option>
-        <option value="40 or older">40 or older</option>
-        </Select1>
       </View>
+      <Text
+        position="absolute"
+        top="445.88px"
+        left="75px"
+        padding="0px 120px"
+        lineHeight="24px"
+        textAlign="Center"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="24px"
+        fontWeight="300"
+        color="rgb(204,204,204)"
+        children={age + " years old"}
+        ></Text>
       <View
         width="248.7px"
         height="237.63px"
@@ -632,37 +563,24 @@ export default function Wireframe(props) {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(196,196,196,0.39)"
         {...getOverrideProps(overrides, "Rectangle 7")}
-      >
-        <TextField
-        border="2px SOLID rgba(196,196,196,0.8)"
-        placeholder="All About You!"
-        fontFamily="HelveticaNeue-Light"
-        lineHeight="28px"
-        color="white"
-        position="relative"
-        textAlign="left"
-        top="65px"
-        width="570px"
-        padding="0px 10px 0px 10px"
-        isMultiline={true}
-        maxLength={500}
-        defaultValue={bioText}
-        onChange={(e) => newBio = e.currentTarget.value}
-        outerEndComponent={<Button2 
-          onClick={() => saveBio(newBio)}
-          children="save"/>}
-        ></TextField>
-      </View>
-      <View
-        width="62.73px"
-        height="28.78px"
-        position="absolute"
-        top="441.45px"
-        left="929.46px"
-        padding="0px 0px 0px 0px"
-        backgroundColor="rgba(0,0,0,0.25)"
-        {...getOverrideProps(overrides, "Rectangle 10")}
       ></View>
+      <Text
+        height="222px"
+        width="602.93px"
+        position="absolute"
+        top="250px"
+        left="406.97px"
+        padding="0px 30px 0px 30px"
+        lineHeight="24px"
+        textAlign="left"
+        fontFamily="HelveticaNeue-Light"
+        lineHeight="30px"
+        fontSize="24px"
+        fontWeight="300"
+        color="rgb(204,204,204)"
+        children={bioText}
+        ></Text>
+      
       <View
         width="602.93px"
         height="64.94px"
@@ -673,16 +591,6 @@ export default function Wireframe(props) {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(196,196,196,0.39)"
         {...getOverrideProps(overrides, "Rectangle 35")}
-      ></View>
-      <View
-        width="62.73px"
-        height="28.78px"
-        position="absolute"
-        top="547.72px"
-        left="929.46px"
-        padding="0px 0px 0px 0px"
-        backgroundColor="rgba(0,0,0,0.25)"
-        {...getOverrideProps(overrides, "Rectangle 34")}
       ></View>
       <View
         width="195px"
@@ -727,118 +635,106 @@ export default function Wireframe(props) {
         ></Text>
       </View>
       <View
-        width="251.65px"
+        width="320px"
         height="32.47px"
         position="absolute"
         top="439.23px"
-        left="422.47px"
+        left="430px"
         padding="0px 0px 0px 0px"
         backgroundColor="#C4C4C4"
         borderRadius="2px"
         {...getOverrideProps(overrides, "Rectangle 38")}
-      >
-        <TextField
-        border="none"
-        borderRadius="2px"
-        placeholder="Enter your Team 1"
-        fontFamily="HelveticaNeue-Light"
-        lineHeight="20px"
+      ><Text
+        fontFamily="HelveticaNeue"
         color="black"
-        position="relative"
-        textAlign="left"
-        top="-8px"
-        width="250px"
-        height="32.47px"
-        padding="0px 0px 0px 0px"
-        isMultiline={false}
-        maxLength={50}
-        defaultValue={team1}
-        onChange={(e) => newTeam1 = e.currentTarget.value}
-        outerEndComponent={<Button3 
-          onClick={() => saveTeam1(newTeam1)}
-          children="save"/>}
-        ></TextField>
-        <SelectField
-        placeholder="Team Type"
-        size="small"
-        position= "relative"
-        left="275px"
-        bottom="50px"
-        width="120px"
-        fontFamily="HelveticaNeue-Light"
-        lineHeight="20px"
-        borderRadius="2px"
-        border="none"
-        padding="0px 0px 0px 0px"
-        onChange={event => saveTeamType1(event)}
-        defaultValue={teamType1}
-        >
-        <option value="LittleLeague">Little League</option>
-        <option value="JrHigh">Jr High</option>
-        <option value="HighSchool">High School</option>
-        <option value="Collegiate">Collegiate</option>
-        <option value="Independent">Independent</option>
-        <option value="Professional">Professional</option>
-        <option value="Recreational">Recreational</option>
-        <option value="Club">Club Ball</option>
-        </SelectField>
+        fontSize="24px"
+        fontWeight="500"
+        padding="0px 10px"
+        lineHeight="32.47px"
+        textAlign="center"
+        children={team1}
+        ></Text>
       </View>
       <View
-        width="251.65px"
+        width="150px"
+        height="32.47px"
+        position="absolute"
+        top="439.23px"
+        left="775px"
+        padding="0px 0px 0px 0px"
+        backgroundColor="#C4C4C4"
+        borderRadius="2px"
+        {...getOverrideProps(overrides, "Rectangle 38")}
+      ><Text
+        fontFamily="HelveticaNeue"
+        color="black"
+        fontSize="24px"
+        fontWeight="500"
+        lineHeight="32.47px"
+        textAlign="center"
+        children={teamType1}
+        ></Text>
+      </View>
+        <Image
+            top="439.23px"
+            left="950px"
+            width="32px"
+            height="32px"
+            position="absolute"
+            src={require('./baseballIcon.png')}
+            {...getOverrideProps(overrides, "Flex.Flex[0].Icon[0]")}
+          ></Image>
+      <View
+        width="320px"
+        height="32.47px"
+        position="absolute"
+        padding="0px 0px 0px 0px"
+        backgroundColor="#C4C4C4"
+        borderRadius="2px"
+        top="545.5px"
+        left="430px"
+        {...getOverrideProps(overrides, "Rectangle 39")}
+      >
+        <Text
+        fontFamily="HelveticaNeue"
+        color="black"
+        fontSize="24px"
+        fontWeight="500"
+        padding="0px 10px"
+        lineHeight="32.47px"
+        textAlign="center"
+        children={team2}
+        ></Text>
+      </View>
+      <View
+        width="150px"
         height="32.47px"
         position="absolute"
         top="545.5px"
-        left="422.47px"
+        left="775px"
         padding="0px 0px 0px 0px"
-        backgroundColor="rgba(196,196,196,0.8)"
-        {...getOverrideProps(overrides, "Rectangle 39")}
-      >
-        <TextField
-        border="none"
+        backgroundColor="#C4C4C4"
         borderRadius="2px"
-        placeholder="Enter your Team 2"
-        fontFamily="HelveticaNeue-Light"
-        lineHeight="20px"
+        {...getOverrideProps(overrides, "Rectangle 38")}
+      ><Text
+        fontFamily="HelveticaNeue"
         color="black"
-        position="relative"
-        textAlign="left"
-        top="-8px"
-        width="250px"
-        height="32.47px"
-        padding="0px 0px 0px 0px"
-        isMultiline={false}
-        maxLength={50}
-        defaultValue={team2}
-        onChange={(e) => newTeam2 = e.currentTarget.value}
-        outerEndComponent={<Button3 
-          onClick={() => saveTeam2(newTeam2)}
-          children="save"/>}
-        ></TextField>
-        <SelectField
-        placeholder="Team Type"
-        size="small"
-        position= "relative"
-        left="275px"
-        bottom="50px"
-        width="120px"
-        fontFamily="HelveticaNeue-Light"
-        lineHeight="20px"
-        borderRadius="2px"
-        border="none"
-        padding="0px 0px 0px 0px"
-        onChange={event => saveTeamType2(event)}
-        defaultValue={teamType2}
-        >
-        <option value="LittleLeague">Little League</option>
-        <option value="JrHigh">Jr High</option>
-        <option value="HighSchool">High School</option>
-        <option value="Collegiate">Collegiate</option>
-        <option value="Independent">Independent</option>
-        <option value="Professional">Professional</option>
-        <option value="Recreational">Recreational</option>
-        <option value="Club">Club Ball</option>
-        </SelectField>
+        fontSize="24px"
+        fontWeight="500"
+        lineHeight="32.47px"
+        textAlign="center"
+        children={teamType2}
+        ></Text>
       </View>
+      <Image
+            top="545.5px"
+            left="950px"
+            width="32px"
+            height="32px"
+            position="absolute"
+            src={require('./baseballIcon.png')}
+            {...getOverrideProps(overrides, "Flex.Flex[0].Icon[0]")}
+          ></Image>
       <View
         width="660.49px"
         height="623.6px"

@@ -100,4 +100,5 @@ export { default as AnswerQuestion3 } from "./AnswerQuestion3";
 export { default as AnswerQuestion4 } from "./AnswerQuestion4";
 export { default as AnswerQuestion5 } from "./AnswerQuestion5";
 export { default as AnswerQuestionComplete } from "./AnswerQuestionComplete";
+export { default as WireframePublished } from "./WireframePublished";
 
