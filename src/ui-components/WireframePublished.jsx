@@ -102,6 +102,7 @@ var gender;
 var height;
 var weight;
 var age;
+var journalCount;
 
 
   Auth.currentAuthenticatedUser().then((user) => {
@@ -535,7 +536,7 @@ export default function WireframePublished(props) {
         width="602.93px"
         height="82.65px"
         position="absolute"
-        top="414.14px"
+        top="475px"
         left="406.97px"
         borderRadius="7.379823684692383px"
         padding="0px 0px 0px 0px"
@@ -546,7 +547,7 @@ export default function WireframePublished(props) {
         width="602.93px"
         height="82.65px"
         position="absolute"
-        top="520.41px"
+        top="581px"
         left="406.97px"
         borderRadius="7.379823684692383px"
         padding="0px 0px 0px 0px"
@@ -635,10 +636,31 @@ export default function WireframePublished(props) {
         ></Text>
       </View>
       <View
+        width="195px"
+        height="32.47px"
+        position="absolute"
+        top="423px"
+        left="422.47px"
+        padding="0px 0px 0px 0px"
+        backgroundColor="rgba(196,196,196,0.39)"
+        {...getOverrideProps(overrides, "Rectangle 37")}
+      >
+        <Text
+        padding="0px 12px"
+        lineHeight="32.47px"
+        textAlign="left"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="24px"
+        fontWeight="300"
+        color="white"
+        children="Team Affiliation"
+        ></Text>
+      </View>
+      <View
         width="320px"
         height="32.47px"
         position="absolute"
-        top="439.23px"
+        top="500px"
         left="430px"
         padding="0px 0px 0px 0px"
         backgroundColor="#C4C4C4"
@@ -659,7 +681,7 @@ export default function WireframePublished(props) {
         width="150px"
         height="32.47px"
         position="absolute"
-        top="439.23px"
+        top="500px"
         left="775px"
         padding="0px 0px 0px 0px"
         backgroundColor="#C4C4C4"
@@ -676,7 +698,7 @@ export default function WireframePublished(props) {
         ></Text>
       </View>
         <Image
-            top="439.23px"
+            top="500px"
             left="950px"
             width="32px"
             height="32px"
@@ -691,7 +713,7 @@ export default function WireframePublished(props) {
         padding="0px 0px 0px 0px"
         backgroundColor="#C4C4C4"
         borderRadius="2px"
-        top="545.5px"
+        top="606px"
         left="430px"
         {...getOverrideProps(overrides, "Rectangle 39")}
       >
@@ -710,7 +732,7 @@ export default function WireframePublished(props) {
         width="150px"
         height="32.47px"
         position="absolute"
-        top="545.5px"
+        top="606px"
         left="775px"
         padding="0px 0px 0px 0px"
         backgroundColor="#C4C4C4"
@@ -727,7 +749,7 @@ export default function WireframePublished(props) {
         ></Text>
       </View>
       <Image
-            top="545.5px"
+            top="606px"
             left="950px"
             width="32px"
             height="32px"
