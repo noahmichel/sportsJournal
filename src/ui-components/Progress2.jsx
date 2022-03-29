@@ -5,11 +5,86 @@
  **************************************************************************/
 
 /* eslint-disable */
-import React from "react";
+import React, {useEffect, useState} from 'react'
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Icon, IconYoutubeSearchedFor, Image, Text, View, Button } from "@aws-amplify/ui-react";
+import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
+import styled from 'styled-components';
+import {Link} from 'react-router-dom';
+
+var username;
+var email;
+var journalCount = 0;
+var timeSpent;
+var count = 0;
+
+Auth.currentAuthenticatedUser().then((user) => {
+  username = user.username;
+  email = user.attributes.email;
+});
+
+Storage.list('2022') // for listing ALL files without prefix, pass '' instead
+  .then(result => (journalCount=(result.length)))
+  .catch(err => console.log(err));
+
 export default function Progress2(props) {
   const { overrides, ...rest } = props;
+
+  Storage.configure({ track: true, level: "private" });
+  const avatar = Storage.get("default-user.jpg");
+  const [image, setImage] = useState(avatar);
+
+  useEffect(() => {
+    onPageRendered();
+  }, []);
+
+  const onPageRendered = async () => {
+    getProfilePicture();
+  };
+
+  const getProfilePicture = () => {
+    Storage.get("profilePicture.png")
+      .then(url => {
+        var myRequest = new Request(url);
+        fetch(myRequest).then(function(response) {
+          if (response.status === 200) {
+            setImage(url);
+          } else {
+            getDefaultProfilePicture();
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  const getDefaultProfilePicture = () => {
+    Storage.get("default-user.jpg", {
+      level: "public"
+    })
+      .then(url => {
+        var myRequest = new Request(url);
+        fetch(myRequest).then(function(response) {
+          if (response.status === 200) {
+            setImage(url);
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  if (journalCount > 0) {
+    count = journalCount*5;
+
+    if (count >= 60) {
+      count = count / 60;
+      timeSpent = count + " hrs";
+    } else {
+      timeSpent = count + " mins";
+    }
+  } else {
+    timeSpent = "0 mins"
+  }
+
   return (
     <View
       width="100vw"
@@ -35,7 +110,7 @@ export default function Progress2(props) {
         width="1080px"
         height="861px"
         position="absolute"
-        top="110px"
+        top="80px"
         left="76px"
         borderRadius="30px"
         padding="0px 0px 0px 0px"
@@ -43,9 +118,9 @@ export default function Progress2(props) {
         {...getOverrideProps(overrides, "Rectangle 31")}
       ></View>
       <Text
-        fontFamily="helvetica"
-        fontSize="40px"
-        fontWeight="800"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="32px"
+        fontWeight="500"
         color="rgba(255,255,255,1)"
         lineHeight="35.15625px"
         textAlign="left"
@@ -53,17 +128,17 @@ export default function Progress2(props) {
         direction="column"
         justifyContent="center"
         position="absolute"
-        top="43px"
-        left="61px"
+        top="24px"
+        left="76px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Progress"
+        children="Progress Overview"
         {...getOverrideProps(overrides, "Progress")}
       ></Text>
       <Text
-        fontFamily="Poppins"
-        fontSize="25px"
-        fontWeight="700"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="28px"
+        fontWeight="500"
         color="rgba(255,255,255,1)"
         lineHeight="29.296875px"
         textAlign="left"
@@ -79,9 +154,9 @@ export default function Progress2(props) {
         {...getOverrideProps(overrides, "Achievements")}
       ></Text>
       <Text
-        fontFamily="Poppins"
+        fontFamily="HelveticaNeue"
         fontSize="33px"
-        fontWeight="700"
+        fontWeight="500"
         color="rgba(255,255,255,1)"
         lineHeight="38.671875px"
         textAlign="left"
@@ -91,17 +166,17 @@ export default function Progress2(props) {
         width="290px"
         height="43px"
         position="absolute"
-        top="145px"
-        left="498px"
+        top="140px"
+        left="460px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Jimmy Mac"
+        children={username}
         {...getOverrideProps(overrides, "Jimmy Mac")}
       ></Text>
       <Text
-        fontFamily="Poppins"
-        fontSize="29px"
-        fontWeight="700"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="30px"
+        fontWeight="300"
         color="rgba(255,255,255,1)"
         lineHeight="33.984375px"
         textAlign="left"
@@ -110,17 +185,17 @@ export default function Progress2(props) {
         justifyContent="center"
         position="absolute"
         top="246px"
-        left="572px"
+        left="545px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="5"
+        children={journalCount}
         {...getOverrideProps(overrides, "5")}
       ></Text>
       <Text
-        fontFamily="Poppins"
-        fontSize="19px"
-        fontWeight="400"
-        color="rgba(255,255,255,1)"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="20px"
+        fontWeight="300"
+        color="#cccccc"
         lineHeight="22.265625px"
         textAlign="left"
         display="flex"
@@ -128,16 +203,16 @@ export default function Progress2(props) {
         justifyContent="center"
         position="absolute"
         top="188px"
-        left="501px"
+        left="461px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Progress this week"
+        children="Your Overall Progress"
         {...getOverrideProps(overrides, "Progress this week")}
       ></Text>
       <Text
-        fontFamily="Poppins"
-        fontSize="25px"
-        fontWeight="700"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="28px"
+        fontWeight="500"
         color="rgba(255,255,255,1)"
         lineHeight="29.296875px"
         textAlign="left"
@@ -175,36 +250,30 @@ export default function Progress2(props) {
         src={require('./youth.jpg')}
         {...getOverrideProps(overrides, "Rectangle 274")}
       ></Image>
- 
       <Image
         width="70px"
         height="65px"
         position="absolute"
         top="238px"
-        left="864px"
-        borderRadius="100px"
+        left="860px"
+        borderRadius="50%"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
-        src={require('./improvement.jpg')}
+        src={require('./timeSpent.jpg')}
         {...getOverrideProps(overrides, "Rectangle 281")}
       ></Image>
-
         <Image
         width="70px"
         height="65px"
         position="absolute"
         top="238px"
         left="660px"
-        borderRadius="100px"
+        borderRadius="50%"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
-        src={require('./timeSpent.jpg')}
+        src={require('./improvement.jpg')}
         {...getOverrideProps(overrides, "Rectangle 281")}
       ></Image>
-
-
-
-
       <Image
         width="235px"
         height="172px"
@@ -242,15 +311,16 @@ export default function Progress2(props) {
         {...getOverrideProps(overrides, "Rectangle 277")}
       ></Image>
       <Image
-        width="298px"
-        height="258px"
+        width="300px"
+        height="300px"
         position="absolute"
-        top="145px"
-        left="167px"
-        borderRadius="30px"
+        top="115px"
+        left="115px"
+        borderRadius="50%"
+        border="1px SOLID white"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
-        src={require('./aaronJudge.jpg')}
+        src={image}
         {...getOverrideProps(overrides, "Rectangle 278")}
       ></Image>
       <Image
@@ -258,20 +328,53 @@ export default function Progress2(props) {
         height="61px"
         position="absolute"
         top="242px"
-        left="485px"
-        borderRadius="100px"
+        left="460px"
+        borderRadius="50%"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
         src={require('./journal.jpg')}
         {...getOverrideProps(overrides, "Rectangle 279")}
       ></Image>
-     
-     
-   
+      <Image
+        width="70px"
+        height="61px"
+        position="absolute"
+        top="345px"
+        left="460px"
+        borderRadius="50%"
+        padding="0px 0px 0px 0px"
+        backgroundColor="rgba(255,255,255,1)"
+        src={require('./sleep.png')}
+        {...getOverrideProps(overrides, "Rectangle 279")}
+      ></Image>
+      <Image
+        width="70px"
+        height="65px"
+        position="absolute"
+        top="345px"
+        left="660px"
+        borderRadius="50%"
+        padding="0px 0px 0px 0px"
+        backgroundColor="rgba(255,255,255,1)"
+        src={require('./baseballBat.png')}
+        {...getOverrideProps(overrides, "Rectangle 281")}
+      ></Image>
+      <Image
+        width="70px"
+        height="65px"
+        position="absolute"
+        top="345px"
+        left="864px"
+        borderRadius="50%"
+        padding="0px 0px 0px 0px"
+        backgroundColor="rgba(255,255,255,1)"
+        src={require('./baseballGlove.png')}
+        {...getOverrideProps(overrides, "Rectangle 281")}
+      ></Image>
       <Text
-        fontFamily="Poppins"
+        fontFamily="HelveticaNeue-Light"
         fontSize="16px"
-        fontWeight="400"
+        fontWeight="300"
         color="rgba(255,255,255,1)"
         lineHeight="18.75px"
         textAlign="left"
@@ -280,19 +383,16 @@ export default function Progress2(props) {
         justifyContent="center"
         position="absolute"
         top="285px"
-        left="565px"
+        left="540px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
         children="Journals"
         {...getOverrideProps(overrides, "Journals")}
       ></Text>
-
-
-
-      <Button
-        fontfamily="Poppins"
-        fontSize="20px"
-        fontWeight="400"
+      <Text
+        fontFamily="HelveticaNeue-Light"
+        fontSize="16px"
+        fontWeight="300"
         color="rgba(255,255,255,1)"
         lineHeight="18.75px"
         textAlign="left"
@@ -300,23 +400,35 @@ export default function Progress2(props) {
         direction="column"
         justifyContent="center"
         position="absolute"
-        top="330px"
-        left="490px"
+        top="388px"
+        left="540px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children="Rested"
+        {...getOverrideProps(overrides, "Journals")}
+      ></Text>
+      <Text
+        fontfamily="HelveticaNeue-Light"
+        fontSize="20px"
+        fontWeight="300"
+        color="rgba(255,255,255,1)"
+        lineHeight="38.671875px"
+        textAlign="left"
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        position="absolute"
+        top="140px"
+        left="920px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
         children="Journal History"
         {...getOverrideProps(overrides, "Journals")}
-      ></Button>
-
-
-
-    
-    
-    
+      ></Text>
       <Text
-        fontFamily="Poppins"
-        fontSize="29px"
-        fontWeight="700"
+        fontFamily="HelveticaNeue-Light"
+        fontSize="30px"
+        fontWeight="300"
         color="rgba(255,255,255,1)"
         lineHeight="33.984375px"
         textAlign="left"
@@ -326,51 +438,15 @@ export default function Progress2(props) {
         position="absolute"
         top="246px"
         left="744px"
-        padding="0px 0px 0px 0px"
-        whiteSpace="pre-wrap"
-        children="27 min"
-        {...getOverrideProps(overrides, "27min")}
-      ></Text>
-      <Text
-        fontFamily="Poppins"
-        fontSize="16px"
-        fontWeight="400"
-        color="rgba(255,255,255,1)"
-        lineHeight="18.75px"
-        textAlign="left"
-        display="flex"
-        direction="column"
-        justifyContent="center"
-        position="absolute"
-        top="285px"
-        left="744px"
-        padding="0px 0px 0px 0px"
-        whiteSpace="pre-wrap"
-        children="Time spent"
-        {...getOverrideProps(overrides, "Time spent")}
-      ></Text>
-      <Text
-        fontFamily="Poppins"
-        fontSize="29px"
-        fontWeight="700"
-        color="rgba(255,255,255,1)"
-        lineHeight="33.984375px"
-        textAlign="left"
-        display="flex"
-        direction="column"
-        justifyContent="center"
-        position="absolute"
-        top="246px"
-        left="965px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
         children="4"
-        {...getOverrideProps(overrides, "200")}
+        {...getOverrideProps(overrides, "27min")}
       ></Text>
       <Text
-        fontFamily="Poppins"
+        fontFamily="HelveticaNeue-Light"
         fontSize="16px"
-        fontWeight="400"
+        fontWeight="300"
         color="rgba(255,255,255,1)"
         lineHeight="18.75px"
         textAlign="left"
@@ -379,16 +455,88 @@ export default function Progress2(props) {
         justifyContent="center"
         position="absolute"
         top="285px"
-        left="951px"
+        left="744px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Improvements made"
+        children="Improvements"
+        {...getOverrideProps(overrides, "Time spent")}
+      ></Text>
+      <Text
+        fontFamily="HelveticaNeue-Light"
+        fontSize="16px"
+        fontWeight="300"
+        color="rgba(255,255,255,1)"
+        lineHeight="18.75px"
+        textAlign="left"
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        position="absolute"
+        top="388px"
+        left="744px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children="Hits"
+        {...getOverrideProps(overrides, "Time spent")}
+      ></Text>
+      <Text
+        fontFamily="HelveticaNeue-Light"
+        fontSize="30px"
+        fontWeight="300"
+        color="rgba(255,255,255,1)"
+        lineHeight="33.984375px"
+        textAlign="left"
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        position="absolute"
+        top="246px"
+        left="945px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children={timeSpent}
+        {...getOverrideProps(overrides, "200")}
+      ></Text>
+      <Text
+        fontFamily="HelveticaNeue-Light"
+        fontSize="16px"
+        fontWeight="300"
+        color="rgba(255,255,255,1)"
+        lineHeight="18.75px"
+        textAlign="left"
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        position="absolute"
+        top="285px"
+        left="945px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children="Time Spent"
         {...getOverrideProps(overrides, "Improvement made")}
       ></Text>
-      <Button
-        fontFamily="Poppins"
+      <Text
+        fontFamily="HelveticaNeue-Light"
         fontSize="16px"
-        fontWeight="400"
+        fontWeight="300"
+        color="rgba(255,255,255,1)"
+        lineHeight="18.75px"
+        textAlign="left"
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        position="absolute"
+        top="388px"
+        left="945px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children="IP"
+        {...getOverrideProps(overrides, "Improvement made")}
+      ></Text>
+      <Text
+        fontFamily="HelveticaNeue-Light"
+        fontSize="16px"
+        fontWeight="300"
         color="rgba(255,255,255,1)"
         lineHeight="18.75px"
         textAlign="left"
@@ -402,12 +550,11 @@ export default function Progress2(props) {
         whiteSpace="pre-wrap"
         children="View All"
         {...getOverrideProps(overrides, "View Allcgi")}
-      ></Button>
-       
-      <Button
-        fontFamily="Poppins"
+      ></Text>
+      <Text
+        fontFamily="HelveticaNeue-Light"
         fontSize="16px"
-        fontWeight="400"
+        fontWeight="300"
         color="rgba(105,111,121,1)"
         lineHeight="18.75px"
         textAlign="left"
@@ -421,25 +568,6 @@ export default function Progress2(props) {
         whiteSpace="pre-wrap"
         children="View All"
         {...getOverrideProps(overrides, "View Allkkr")}
-      ></Button>
-
-      <Text
-        fontFamily="Poppins"
-        fontSize="20px"
-        fontWeight="600"
-        color="rgba(255,255,255,1)"
-        lineHeight="23.4375px"
-        textAlign="left"
-        display="flex"
-        direction="column"
-        justifyContent="center"
-        position="absolute"
-        top="929px"
-        left="156px"
-        padding="0px 0px 0px 0px"
-        whiteSpace="pre-wrap"
-        children="Exit"
-        {...getOverrideProps(overrides, "Exit")}
       ></Text>
       <View
         width="25px"
@@ -450,31 +578,7 @@ export default function Progress2(props) {
         overflow="hidden"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "ri:logout-box-fill")}
-      >
-        <Icon
-          width="16.66650390625px"
-          height="20.83331298828125px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 16.66650390625,
-            height: 20.83331298828125,
-          }}
-          paths={[
-            {
-              d: "M1.04167 0L15.625 0C15.9013 4.62593e-16 16.1662 0.109747 16.3616 0.305097C16.5569 0.500447 16.6667 0.765399 16.6667 1.04167L16.6667 19.7917C16.6667 20.0679 16.5569 20.3329 16.3616 20.5282C16.1662 20.7236 15.9013 20.8333 15.625 20.8333L1.04167 20.8333C0.765399 20.8333 0.500448 20.7236 0.305097 20.5282C0.109747 20.3329 0 20.0679 0 19.7917L0 1.04167C0 0.765399 0.109747 0.500447 0.305097 0.305097C0.500448 0.109747 0.765399 4.62593e-16 1.04167 0ZM5.20833 9.375L5.20833 6.25L0 10.4167L5.20833 14.5833L5.20833 11.4583L11.4583 11.4583L11.4583 9.375L5.20833 9.375Z",
-              fill: "rgba(255,255,255,1)",
-              fillRule: "nonzero",
-            },
-          ]}
-          position="absolute"
-          top="8.33%"
-          bottom="8.33%"
-          left="16.67%"
-          right="16.67%"
-          {...getOverrideProps(overrides, "Vectorgvs")}
-        ></Icon>
-      </View>
+      ></View>
       <Image
         width="120px"
         height="120px"

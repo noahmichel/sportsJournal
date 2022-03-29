@@ -101,8 +101,14 @@ var newTeam2;
 var gender;
 var height;
 var weight;
-var age;
-var journalCount;
+var age = "";
+var journalCount = 0;
+var begJournalCount = 0;
+var intJournalCount = 0;
+var advJournalCount = 0;
+var totalString ="";
+var i = 0;
+
 
 
   Auth.currentAuthenticatedUser().then((user) => {
@@ -115,6 +121,34 @@ var journalCount;
       contentType: "plain/text"
     })
   }
+
+  Storage.list('2022') // for listing ALL files without prefix, pass '' instead
+    .then(result => (journalCount=(result.length)))
+    .catch(err => console.log(err));
+
+  Storage.list('2022') // for listing ALL files without prefix, pass '' instead
+    .then(result => {
+      console.log(result[0].key.toString())
+      for ( ; i < result.length; i = i+1) {
+        Storage.get(result[i].key.toString(), { download: true }).then(res => {
+          res.Body.text().then(string => {totalString=totalString+string+"\n"})
+        })
+      }
+    })
+    .catch(err => console.log(err));
+
+
+    // Storage.list('beg') // for listing ALL files without prefix, pass '' instead
+    // .then(result => (begJournalCount=(result.length)))
+    // .catch(err => console.log(err));
+
+    // Storage.list('int') // for listing ALL files without prefix, pass '' instead
+    // .then(result => (intJournalCount=(result.length)))
+    // .catch(err => console.log(err));
+
+    // Storage.list('adv') // for listing ALL files without prefix, pass '' instead
+    // .then(result => (advJournalCount=(result.length)))
+    // .catch(err => console.log(err));
 
     Storage.get('bio.txt', { download: true }).then(result => {
       result.Body.text().then(string => { bioText=string })
@@ -204,6 +238,8 @@ var journalCount;
 
 export default function WireframePublished(props) {
   const { overrides, ...rest } = props;
+
+  console.log(totalString);
 
   return (
     <View
@@ -788,7 +824,18 @@ export default function WireframePublished(props) {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(244,244,244,1)"
         {...getOverrideProps(overrides, "Rectangle 47")}
-      ></View>
+      >
+        <Text
+          padding="0px 12px"
+          lineHeight="35.42px"
+          textAlign="left"
+          fontFamily="HelveticaNeue-Light"
+          fontSize="24px"
+          fontWeight="300"
+          color="black"
+          children={"Number of journals completed:\t" + journalCount}
+        ></Text>
+      </View>
       <View
         width="591.12px"
         height="35.42px"
@@ -798,7 +845,18 @@ export default function WireframePublished(props) {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(244,244,244,1)"
         {...getOverrideProps(overrides, "Rectangle 48")}
-      ></View>
+      >
+        <Text
+          padding="0px 12px"
+          lineHeight="35.42px"
+          textAlign="left"
+          fontFamily="HelveticaNeue-Light"
+          fontSize="24px"
+          fontWeight="300"
+          color="black"
+          children={"Number of occurances:\t"}
+        ></Text>
+      </View>
       <View
         width="591.12px"
         height="35.42px"
@@ -808,7 +866,18 @@ export default function WireframePublished(props) {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(244,244,244,1)"
         {...getOverrideProps(overrides, "Rectangle 49")}
-      ></View>
+      >
+        {/* <Text
+          padding="0px 12px"
+          lineHeight="35.42px"
+          textAlign="left"
+          fontFamily="HelveticaNeue-Light"
+          fontSize="24px"
+          fontWeight="300"
+          color="black"
+          children={"Number of intermediate journals completed:\t" + intJournalCount}
+        ></Text> */}
+      </View>
       <View
         width="591.12px"
         height="35.42px"
@@ -818,7 +887,18 @@ export default function WireframePublished(props) {
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(244,244,244,1)"
         {...getOverrideProps(overrides, "Rectangle 50")}
-      ></View>
+      >
+        {/* <Text
+          padding="0px 12px"
+          lineHeight="35.42px"
+          textAlign="left"
+          fontFamily="HelveticaNeue-Light"
+          fontSize="24px"
+          fontWeight="300"
+          color="black"
+          children={"Number of advanced journals completed:\t" + advJournalCount}
+        ></Text> */}
+      </View>
       <View
         width="591.12px"
         height="35.42px"
