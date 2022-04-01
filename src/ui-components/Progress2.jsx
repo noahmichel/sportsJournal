@@ -7,7 +7,7 @@
 /* eslint-disable */
 import React, {useEffect, useState} from 'react'
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Icon, IconYoutubeSearchedFor, Image, Text, View, Button } from "@aws-amplify/ui-react";
+import { Icon, IconYoutubeSearchedFor, Image, Text, View, Button, Flex } from "@aws-amplify/ui-react";
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
@@ -17,6 +17,11 @@ var email;
 var journalCount = 0;
 var timeSpent;
 var count = 0;
+var totalString = "";
+var hits = 0;
+var ip = 0;
+var i = 0;
+
 
 Auth.currentAuthenticatedUser().then((user) => {
   username = user.username;
@@ -27,8 +32,54 @@ Storage.list('2022') // for listing ALL files without prefix, pass '' instead
   .then(result => (journalCount=(result.length)))
   .catch(err => console.log(err));
 
+Storage.list('2022') // for listing ALL files without prefix, pass '' instead
+  .then(result => {
+    for ( ; i < result.length; i = i+1) {
+      Storage.get(result[i].key.toString(), { download: true }).then(res => {
+        res.Body.text().then(string => {totalString=totalString+string+"\n"})
+      })
+    }
+  })
+  .catch(err => console.log(err));
+
 export default function Progress2(props) {
   const { overrides, ...rest } = props;
+
+
+var hits = 0;
+var ip = 0;
+var rested = 0;
+var improvements = 0;
+
+var count2 = (totalString.match(/hits: 1/g) || []).length;
+hits=hits+(count2);
+
+var count2 = (totalString.match(/hits: 3/g) || []).length;
+hits=hits+(count2*3);
+
+var count2 = (totalString.match(/ip: 1/g) || []).length;
+ip=ip+(count2);
+
+var count2 = (totalString.match(/ip: 2/g) || []).length;
+ip=ip+(count2*3);
+
+var count2 = (totalString.match(/ip: 5/g) || []).length;
+ip=ip+(count2*5);
+
+var count2 = (totalString.match(/sleep: well rested/g) || []).length;
+rested=rested+(count2);
+
+var count2 = (totalString.match(/performance: best game/g) || []).length;
+improvements=improvements+(count2);
+
+var count2 = (totalString.match(/performance: good game/g) || []).length;
+improvements=improvements+(count2);
+
+var count2 = (totalString.match(/performance: poor game/g) || []).length;
+improvements=improvements-(count2);
+
+var count2 = (totalString.match(/performance: worst game/g) || []).length;
+improvements=improvements-(count2);
 
   Storage.configure({ track: true, level: "private" });
   const avatar = Storage.get("default-user.jpg");
@@ -92,7 +143,7 @@ export default function Progress2(props) {
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      backgroundColor="rgba(255,255,255,1)"
+      backgroundColor="black"
       {...rest}
       {...getOverrideProps(overrides, "Progress2")}
     >
@@ -193,6 +244,24 @@ export default function Progress2(props) {
       ></Text>
       <Text
         fontFamily="HelveticaNeue-Light"
+        fontSize="30px"
+        fontWeight="300"
+        color="rgba(255,255,255,1)"
+        lineHeight="33.984375px"
+        textAlign="left"
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        position="absolute"
+        top="346px"
+        left="545px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children={rested}
+        {...getOverrideProps(overrides, "5")}
+      ></Text>
+      <Text
+        fontFamily="HelveticaNeue-Light"
         fontSize="20px"
         fontWeight="300"
         color="#cccccc"
@@ -234,6 +303,7 @@ export default function Progress2(props) {
         top="535px"
         left="109px"
         borderRadius="30px"
+        border="2px SOLID black"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
         {...getOverrideProps(overrides, "Rectangle 273")}
@@ -246,6 +316,7 @@ export default function Progress2(props) {
         left="616px"
         borderRadius="30px"
         padding="0px 0px 0px 0px"
+        border="2px SOLID white"
         backgroundColor="rgba(255,255,255,1)"
         src={require('./youth.jpg')}
         {...getOverrideProps(overrides, "Rectangle 274")}
@@ -259,6 +330,7 @@ export default function Progress2(props) {
         borderRadius="50%"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
+        border="2px SOLID black"
         src={require('./timeSpent.jpg')}
         {...getOverrideProps(overrides, "Rectangle 281")}
       ></Image>
@@ -271,6 +343,7 @@ export default function Progress2(props) {
         borderRadius="50%"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
+        border="2px SOLID black"
         src={require('./improvement.jpg')}
         {...getOverrideProps(overrides, "Rectangle 281")}
       ></Image>
@@ -282,6 +355,7 @@ export default function Progress2(props) {
         left="877px"
         borderRadius="30px"
         padding="0px 0px 0px 0px"
+        border="2px SOLID white"
         backgroundColor="rgba(255,255,255,1)"
         src={require('./mediate.jpg')}
         {...getOverrideProps(overrides, "Rectangle 275")}
@@ -295,7 +369,8 @@ export default function Progress2(props) {
         borderRadius="30px"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
-        src={require('./mediate.jpg')}
+        border="2px SOLID white"
+        src={require('./practice.jpg')}
         {...getOverrideProps(overrides, "Rectangle 276")}
       ></Image>
       <Image
@@ -306,6 +381,7 @@ export default function Progress2(props) {
         left="877px"
         borderRadius="30px"
         padding="0px 0px 0px 0px"
+        border="2px SOLID white"
         backgroundColor="rgba(255,255,255,1)"
         src={require('./advanced.jpg')}
         {...getOverrideProps(overrides, "Rectangle 277")}
@@ -317,7 +393,7 @@ export default function Progress2(props) {
         top="115px"
         left="115px"
         borderRadius="50%"
-        border="1px SOLID white"
+        border="2px SOLID white"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
         src={image}
@@ -332,6 +408,7 @@ export default function Progress2(props) {
         borderRadius="50%"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,1)"
+        border="2px SOLID black"
         src={require('./journal.jpg')}
         {...getOverrideProps(overrides, "Rectangle 279")}
       ></Image>
@@ -343,6 +420,7 @@ export default function Progress2(props) {
         left="460px"
         borderRadius="50%"
         padding="0px 0px 0px 0px"
+        border="2px SOLID black"
         backgroundColor="rgba(255,255,255,1)"
         src={require('./sleep.png')}
         {...getOverrideProps(overrides, "Rectangle 279")}
@@ -355,6 +433,7 @@ export default function Progress2(props) {
         left="660px"
         borderRadius="50%"
         padding="0px 0px 0px 0px"
+        border="2px SOLID black"
         backgroundColor="rgba(255,255,255,1)"
         src={require('./baseballBat.png')}
         {...getOverrideProps(overrides, "Rectangle 281")}
@@ -367,6 +446,7 @@ export default function Progress2(props) {
         left="864px"
         borderRadius="50%"
         padding="0px 0px 0px 0px"
+        border="2px SOLID black"
         backgroundColor="rgba(255,255,255,1)"
         src={require('./baseballGlove.png')}
         {...getOverrideProps(overrides, "Rectangle 281")}
@@ -404,7 +484,7 @@ export default function Progress2(props) {
         left="540px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Rested"
+        children="Well rested"
         {...getOverrideProps(overrides, "Journals")}
       ></Text>
       <Text
@@ -440,7 +520,7 @@ export default function Progress2(props) {
         left="744px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="4"
+        children={improvements}
         {...getOverrideProps(overrides, "27min")}
       ></Text>
       <Text
@@ -476,8 +556,26 @@ export default function Progress2(props) {
         left="744px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Hits"
+        children="Lifetime hits"
         {...getOverrideProps(overrides, "Time spent")}
+      ></Text>
+      <Text
+        fontFamily="HelveticaNeue-Light"
+        fontSize="30px"
+        fontWeight="300"
+        color="rgba(255,255,255,1)"
+        lineHeight="33.984375px"
+        textAlign="left"
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        position="absolute"
+        top="350px"
+        left="744px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children={hits}
+        {...getOverrideProps(overrides, "27min")}
       ></Text>
       <Text
         fontFamily="HelveticaNeue-Light"
@@ -495,6 +593,24 @@ export default function Progress2(props) {
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
         children={timeSpent}
+        {...getOverrideProps(overrides, "200")}
+      ></Text>
+      <Text
+        fontFamily="HelveticaNeue-Light"
+        fontSize="30px"
+        fontWeight="300"
+        color="rgba(255,255,255,1)"
+        lineHeight="33.984375px"
+        textAlign="left"
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        position="absolute"
+        top="346px"
+        left="945px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children={ip}
         {...getOverrideProps(overrides, "200")}
       ></Text>
       <Text
@@ -530,7 +646,7 @@ export default function Progress2(props) {
         left="945px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="IP"
+        children="Lifetime IP"
         {...getOverrideProps(overrides, "Improvement made")}
       ></Text>
       <Text
@@ -569,16 +685,6 @@ export default function Progress2(props) {
         children="View All"
         {...getOverrideProps(overrides, "View Allkkr")}
       ></Text>
-      <View
-        width="25px"
-        height="25px"
-        position="absolute"
-        top="929px"
-        left="116px"
-        overflow="hidden"
-        padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "ri:logout-box-fill")}
-      ></View>
       <Image
         width="120px"
         height="120px"

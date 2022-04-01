@@ -128,7 +128,6 @@ var i = 0;
 
   Storage.list('2022') // for listing ALL files without prefix, pass '' instead
     .then(result => {
-      console.log(result[0].key.toString())
       for ( ; i < result.length; i = i+1) {
         Storage.get(result[i].key.toString(), { download: true }).then(res => {
           res.Body.text().then(string => {totalString=totalString+string+"\n"})
@@ -136,19 +135,6 @@ var i = 0;
       }
     })
     .catch(err => console.log(err));
-
-
-    // Storage.list('beg') // for listing ALL files without prefix, pass '' instead
-    // .then(result => (begJournalCount=(result.length)))
-    // .catch(err => console.log(err));
-
-    // Storage.list('int') // for listing ALL files without prefix, pass '' instead
-    // .then(result => (intJournalCount=(result.length)))
-    // .catch(err => console.log(err));
-
-    // Storage.list('adv') // for listing ALL files without prefix, pass '' instead
-    // .then(result => (advJournalCount=(result.length)))
-    // .catch(err => console.log(err));
 
     Storage.get('bio.txt', { download: true }).then(result => {
       result.Body.text().then(string => { bioText=string })
@@ -239,7 +225,24 @@ var i = 0;
 export default function WireframePublished(props) {
   const { overrides, ...rest } = props;
 
-  console.log(totalString);
+var hits = 0;
+var ip = 0;
+var rested = 0;
+
+  var count2 = (totalString.match(/hits: 1/g) || []).length;
+  hits=hits+(count2);
+
+  var count2 = (totalString.match(/hits: 3/g) || []).length;
+  hits=hits+(count2*3);
+
+  var count2 = (totalString.match(/ip: 1/g) || []).length;
+  ip=ip+(count2);
+
+  var count2 = (totalString.match(/ip: 2/g) || []).length;
+  ip=ip+(count2*3);
+
+  var count2 = (totalString.match(/ip: 5/g) || []).length;
+  ip=ip+(count2*5);
 
   return (
     <View
@@ -833,7 +836,7 @@ export default function WireframePublished(props) {
           fontSize="24px"
           fontWeight="300"
           color="black"
-          children={"Number of journals completed:\t" + journalCount}
+          children={"Lifetime journals completed:\t" + journalCount}
         ></Text>
       </View>
       <View
@@ -854,7 +857,7 @@ export default function WireframePublished(props) {
           fontSize="24px"
           fontWeight="300"
           color="black"
-          children={"Number of occurances:\t"}
+          children={"Lifetime hits:\t" + hits}
         ></Text>
       </View>
       <View
@@ -867,7 +870,7 @@ export default function WireframePublished(props) {
         backgroundColor="rgba(244,244,244,1)"
         {...getOverrideProps(overrides, "Rectangle 49")}
       >
-        {/* <Text
+        <Text
           padding="0px 12px"
           lineHeight="35.42px"
           textAlign="left"
@@ -875,8 +878,8 @@ export default function WireframePublished(props) {
           fontSize="24px"
           fontWeight="300"
           color="black"
-          children={"Number of intermediate journals completed:\t" + intJournalCount}
-        ></Text> */}
+          children={"Lifetime innings pitched:\t" + ip}
+        ></Text>
       </View>
       <View
         width="591.12px"
