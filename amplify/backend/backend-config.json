@@ -19,6 +19,20 @@
           ]
         }
       }
+    },
+    "reactSportsJournalAPI": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "sportsjournal8ee27c12",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   },
   "auth": {
@@ -68,6 +82,13 @@
     "sportsjournal": {
       "service": "Pinpoint",
       "providerPlugin": "awscloudformation"
+    }
+  },
+  "function": {
+    "sportsjournal8ee27c12": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   }
 }

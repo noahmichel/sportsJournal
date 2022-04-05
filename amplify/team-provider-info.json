@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-sportsjournal-staging-222825-unauthRole",
       "StackName": "amplify-sportsjournal-staging-222825",
       "StackId": "arn:aws:cloudformation:us-east-2:566270924348:stack/amplify-sportsjournal-staging-222825/4abfdce0-7589-11ec-8703-0a62f9577994",
-      "AmplifyAppId": "d1w0q268rnrb6n"
+      "AmplifyAppId": "d1w0q268rnrb6n",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-sportsjournal-staging-222825-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -20,6 +21,12 @@
         "amplifyhosting": {
           "appId": "d1w0q268rnrb6n",
           "type": "cicd"
+        }
+      },
+      "function": {
+        "sportsjournal8ee27c12": {
+          "deploymentBucketName": "amplify-sportsjournal-staging-222825-deployment",
+          "s3Key": "amplify-builds/sportsjournal8ee27c12-7a3459554a6e44526c39-build.zip"
         }
       }
     }

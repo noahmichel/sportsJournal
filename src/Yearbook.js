@@ -1,9 +1,29 @@
 import React from 'react'
 import { NavBarLogout, MarketingFooter2, TempCover } from './ui-components'
 import './NavBar2.css'
-import { withAuthenticator } from '@aws-amplify/ui-react'
+import { Button, Text, withAuthenticator } from '@aws-amplify/ui-react'
+import { API, Auth } from 'aws-amplify'
+
 
 function Yearbook() {
+
+    async function callApi() {
+        const user = await Auth.currentAuthenticatedUser()
+        const token = user.signInUserSession.idToken.jwtToken
+        console.log({ token })
+
+        //whatever info you want to get
+        const requestInfo = {
+            headers: {
+                Authorization: token
+            }
+        }
+
+        const data = await API.get('reactSportsJournalAPI', '/items', requestInfo)
+        console.log( {data} )
+        console.log( JSON.stringify(data) )
+    }
+
     return (
 
         <div style={{backgroundColor: 'black'}}>
@@ -14,6 +34,7 @@ function Yearbook() {
                 <h2 style={{backgroundColor: 'black', color: 'white', fontFamily: 'HelveticaNeue-Light', fontWeight: '300'}}>
                 Yearbook, Coming Soon!
                 </h2>
+                <Button onClick={callApi} variation="primary" size="large">Call API</Button>
                 {/* <TempCover/> */}
             </div>
             <MarketingFooter2 /> 
