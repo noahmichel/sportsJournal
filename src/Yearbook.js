@@ -7,22 +7,22 @@ import { API, Auth } from 'aws-amplify'
 
 function Yearbook() {
 
-    async function callApi() {
-        const user = await Auth.currentAuthenticatedUser()
-        const token = user.signInUserSession.idToken.jwtToken
-        console.log({ token })
+    // async function callApi() {
+    //     const user = await Auth.currentAuthenticatedUser()
+    //     const token = user.signInUserSession.idToken.jwtToken
+    //     console.log({ token })
 
-        //whatever info you want to get
-        const requestInfo = {
-            headers: {
-                Authorization: token
-            }
-        }
+    //     //whatever info you want to get
+    //     const requestInfo = {
+    //         headers: {
+    //             Authorization: token
+    //         }
+    //     }
 
-        const data = await API.get('reactSportsJournalAPI', '/items', requestInfo)
-        console.log( {data} )
-        console.log( JSON.stringify(data) )
-    }
+    //     const data = await API.get('reactSportsJournalAPI', '/items', requestInfo)
+    //     console.log( {data} )
+    //     console.log( JSON.stringify(data) )
+    // }
 
     return (
 
@@ -34,7 +34,7 @@ function Yearbook() {
                 <h2 style={{backgroundColor: 'black', color: 'white', fontFamily: 'HelveticaNeue-Light', fontWeight: '300'}}>
                 Yearbook, Coming Soon!
                 </h2>
-                <Button onClick={callApi} variation="primary" size="large">Call API</Button>
+                {/* <Button onClick={callApi} variation="primary" size="large">Call API</Button> */}
                 {/* <TempCover/> */}
             </div>
             <MarketingFooter2 /> 
