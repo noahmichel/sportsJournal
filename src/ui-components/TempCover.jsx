@@ -16,6 +16,8 @@ export default function TempCover(props) {
       height="792px"
       overflow="hidden"
       position="relative"
+      top="50px"
+      left="25%"
       padding="0px 0px 0px 0px"
       backgroundColor="rgba(255,255,255,1)"
       {...rest}
