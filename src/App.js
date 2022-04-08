@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Journal from './Journal';
 import Home from './Home';
 import React from "react";
-import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Link, useParams} from 'react-router-dom';
 import Progress from './Progress';
 import Scouting from './Scouting';
 import Yearbook from './Yearbook';
@@ -22,6 +22,7 @@ import Beginner4 from './Beginner4'
 import Beginner5 from './Beginner5'
 import BeginnerComplete from './BeginnerComplete';
 import ProfilePublished from './ProfilePublished';
+import YearbookHome from './YearbookHome';
 
 function App() {
   return (
@@ -32,7 +33,8 @@ function App() {
         <Route exact path="/journal" component={Journal}/>
         <Route exact path="/progress" component={Progress}/>
         <Route exact path="/scouting" component={Scouting}/>
-        <Route exact path="/yearbook" component={Yearbook}/>
+        <Route exact path="/yearbook/:id" component={Yearbook}/>
+        <Route exact path="/yearbook" component={YearbookHome}/>
         <Route exact path="/login" component={Login}/>
         <Route exact path="/myProfile" component={ProfilePublished}/>
         <Route exact path="/journal/advanced" component={Advanced}/>

@@ -5,9 +5,9 @@
  **************************************************************************/
 
 /* eslint-disable */
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useLayoutEffect} from 'react'
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 
 
@@ -64,6 +64,12 @@ import {
   Text
 } from "@aws-amplify/ui-react";
 
+var id = "";
+
+Auth.currentAuthenticatedUser().then((user) => {
+  id = user.signInUserSession.idToken.jwtToken.substring(0,8);
+});
+
 export default function NavBarLogout(props) {
 
   const { navLogo, overrides: overridesProp, ...rest } = props;
@@ -79,6 +85,7 @@ export default function NavBarLogout(props) {
   const onPageRendered = async () => {
     getProfilePicture();
   };
+
 
   const getProfilePicture = () => {
     Storage.get("profilePicture.png")
@@ -192,7 +199,7 @@ export default function NavBarLogout(props) {
             {...getOverrideProps(overrides, "Flex.Flex[1].Text[2]")}
           ></Button>
         </Link>
-        <Link to="/yearbook">
+        <Link to={'/yearbook/' + id}>
           <Button
             type="button"
             className="button"

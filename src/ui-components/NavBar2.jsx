@@ -146,7 +146,7 @@ export default function NavBar2(props) {
             {...getOverrideProps(overrides, "Flex.Flex[1].Text[2]")}
           ></Button>
         </Link>
-        <Link to="/yearbook">
+        <Link to={'/yearbook'}>
           <Button
             type="button"
             className="button"

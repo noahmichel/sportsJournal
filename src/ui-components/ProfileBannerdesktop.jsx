@@ -5,7 +5,7 @@
  **************************************************************************/
 
 /* eslint-disable */
-import React, {useEffect, useState} from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import Canvaseditme from "./Canvaseditme";
 import { Text, View, Image } from "@aws-amplify/ui-react";
@@ -46,7 +46,7 @@ export default function ProfileBannerdesktop(props) {
     const avatar = Storage.get("default-user.jpg")
     const [image, setImage] = useState(avatar);
     
-      useEffect(() => {
+      useLayoutEffect(() => {
         onPageRendered();
       }, []);
     

@@ -28,10 +28,8 @@ function previewPDF() {
     html2canvas(input)
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
-            orientation: "portait"
-        });
-        pdf.addImage(imgData, 'JPEG', 5, 5, 200, 285);
+        const pdf = new jsPDF('p', 'pt', [ 595.28,  841.89]);
+        pdf.addImage(imgData, 'JPEG', 1, 0, 595.28,  841.89);
         pdf.output('dataurlnewwindow');
         // pdf.save("download.pdf");
       });
@@ -80,7 +78,7 @@ function Yearbook() {
                         <button>Share to Facebook</button>
                     </a>
                 </h3>
-                <TempCover id="capture"/>
+                <TempCover id="capture" border="3px SOLID gray"/>
             </div>
             <MarketingFooter2 /> 
         </div>
