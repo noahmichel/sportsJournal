@@ -1,23 +1,20 @@
-import React from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import { NavBarLogout, MarketingFooter2, TempCover } from './ui-components'
 import './NavBar2.css'
-import { Button, Text, withAuthenticator } from '@aws-amplify/ui-react'
-import { API, Auth } from 'aws-amplify'
+import { Text, withAuthenticator } from '@aws-amplify/ui-react'
+import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import styled from 'styled-components';
 
 function downloadPDF() {
 
     const input = document.getElementById('capture');
-    html2canvas(input)
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
-            orientation: "portait"
-        });
-        pdf.addImage(imgData, 'JPEG', 5, 5, 200, 285);
-        // pdf.output('dataurlnewwindow');
+    html2canvas(input,{ logging: true, letterRendering: 1, allowTaint: true, useCORS: true }).then(canvas => {
+        var imgData = canvas.toDataURL('image/jpeg');
+        const pdf = new jsPDF('p', 'pt', [ 595.28,  841.89]);
+        pdf.addImage(imgData, 'JPEG', 1, 0, 595.28,  841.89);
         pdf.save("download.pdf");
       });
 }
@@ -25,15 +22,61 @@ function downloadPDF() {
 function previewPDF() {
 
     const input = document.getElementById('capture');
-    html2canvas(input)
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
+    html2canvas(input,{ logging: true, letterRendering: 1, allowTaint: true, useCORS: true }).then(canvas => {
+        var imgData = canvas.toDataURL('image/jpeg');
         const pdf = new jsPDF('p', 'pt', [ 595.28,  841.89]);
         pdf.addImage(imgData, 'JPEG', 1, 0, 595.28,  841.89);
         pdf.output('dataurlnewwindow');
-        // pdf.save("download.pdf");
-      });
-}
+        });
+
+    // const input = document.getElementById('capture');
+    // html2canvas(input)
+    //   .then((canvas) => {
+    //     const imgData = canvas.toDataURL('image/png');
+        // const pdf = new jsPDF('p', 'pt', [ 595.28,  841.89]);
+        // pdf.addImage(imgData, 'JPEG', 1, 0, 595.28,  841.89);
+        // pdf.output('dataurlnewwindow');
+    //     // pdf.save("download.pdf");
+    //   });
+    
+    }
+
+const Button = styled.button`
+  font-family: "HelveticaNeue-Light";
+  cursor: pointer;
+  color: #cccccc;
+  border: none;
+  background: none;
+  padding: 4px 15px;
+  font-size: 20px;
+  line-height: 20px;
+  border: 1px SOLID #cccccc;
+  border-radius: 2px;
+
+  transition: all 0.2s ease-in;
+
+   &:hover {
+    border: 1px SOLID white;
+    color: white;
+   }
+`;
+
+const Button1 = styled.button`
+  font-family: "HelveticaNeue-Light";
+  cursor: pointer;
+  color: #4267B2;
+  border: none;
+  background: none;
+  padding: 4px 15px;
+  font-size: 20px;
+  line-height: 20px;
+
+  transition: all 0.2s ease-in;
+
+   &:hover {
+     color: #3d74f5;
+   }
+`;
 
 function Yearbook() {
 
@@ -54,35 +97,32 @@ function Yearbook() {
     //     console.log( JSON.stringify(data) )
     // }
 
-    const url = window.location.href;
+    const url1 = window.location.href;
 
     return (
         
-
         <div style={{backgroundColor: 'black'}}>
             
             <NavBarLogout class="Header"/>
             
-            <div style={{padding: '54px 0px 150px 0px', backgroundColor: 'black'}}>
-                {/* <h2 style={{backgroundColor: 'black', color: 'white', fontFamily: 'HelveticaNeue-Light', fontWeight: '300'}}>
-                Yearbook, Coming Soon!
-                </h2> */}
-                {/* <Button onClick={callApi} variation="primary" size="large">Call API</Button> */}
+            <div style={{padding: '54px 0px 75px 0px', backgroundColor: 'black'}}>
                 <h3>
-                    <button onClick={ downloadPDF }>Download page</button>
-                    <button onClick={ previewPDF }>Preview page</button>
-                    <CopyToClipboard text={url}>
-                        <button>Copy URL to the clipboard</button>
+                    <Button onClick={ downloadPDF }>Download page</Button>
+                    <Button onClick={ previewPDF }>Preview page</Button>
+                    <CopyToClipboard text={url1}>
+                        <Button>Copy URL to the clipboard</Button>
                     </CopyToClipboard>
-                    <a href={'http://www.facebook.com/share.php?u=' + url}>
-                        <button>Share to Facebook</button>
+                    <a href={'http://www.facebook.com/share.php?u=' + url1}>
+                        <Button1>Share to Facebook</Button1>
                     </a>
                 </h3>
-                <TempCover id="capture" border="3px SOLID gray"/>
+                <TempCover id="capture" border="3px SOLID gray" borderRadius="1px"/>
             </div>
             <MarketingFooter2 /> 
         </div>
+    
     )
+
 }
 
 export default withAuthenticator(Yearbook);

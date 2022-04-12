@@ -5,40 +5,130 @@
  **************************************************************************/
 
 /* eslint-disable */
-import React from "react";
+import React, {useLayoutEffect, useState} from 'react'
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Icon, Text, View } from "@aws-amplify/ui-react";
+import { Icon, Image, Text, View } from "@aws-amplify/ui-react";
+import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
+
+var username = "";
+
+Auth.currentAuthenticatedUser().then((user) => {
+  username = user.username;
+});
+
+var d = new Date();
+
+var seasonArray = [
+    {name: 'Spring', date: new Date(d.getFullYear(),2,(d.getFullYear() % 4 === 0) ? 19 : 20).getTime()},
+    {name: 'Summer', date: new Date(d.getFullYear(),5,(d.getFullYear() % 4 === 0) ? 20 : 21).getTime()},
+    {name: 'Autumn', date: new Date(d.getFullYear(),8,(d.getFullYear() % 4 === 0) ? 22 : 23).getTime()},
+    {name: 'Winter', date: new Date(d.getFullYear(),11,(d.getFullYear() % 4 === 0) ? 20 : 21).getTime()}
+];
+
+const season = seasonArray.filter(({ date }) => date <= d).slice(-1)[0] || {name: "Winter"} 
+
 export default function TempCover(props) {
   const { overrides, ...rest } = props;
+
+  Storage.configure({ track: true, level: "private" });
+
+  let fileInput = React.createRef();
+  
+    const onOpenFileDialog = () => {
+      fileInput.current.click();
+    };
+  
+    const onProcessFile = e => {
+      e.preventDefault();
+      let reader = new FileReader();
+      let file = e.target.files[0];
+      try {
+        reader.readAsDataURL(file);
+      } catch (err) {
+        console.log(err);
+      }
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      Storage.put("yearbookFront.png", file, {
+        contentType: "image/png"
+      })
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
+    };
+  
+
+  //This is for default !!!!
+  const avatar = Storage.get("default-user.jpg")
+  const [image, setImage] = useState(avatar);
+  
+    useLayoutEffect(() => {
+      onPageRendered();
+    }, []);
+  
+    const onPageRendered = async () => {
+      getProfilePicture();
+    };
+  
+    async function getProfilePicture () {
+      await Storage.get("yearbookFront.png")
+        .then(url => {
+          var myRequest = new Request(url);
+          fetch(myRequest).then(function(response) {
+            if (response.status === 200) {
+              setImage(url);
+            } else {
+              getDefaultProfilePicture();
+            }
+          });
+        })
+        .catch(console.log("No yearbookFront.png available"));
+    };
+
+    async function getDefaultProfilePicture () {
+      await Storage.get("profilePicture.png")
+        .then(url => {
+          var myRequest = new Request(url);
+          fetch(myRequest).then(function(response) {
+            if (response.status === 200) {
+              setImage(url);
+            } else {
+              getDefaultProfilePicture2();
+            }
+          });
+        })
+        .catch(console.log("No profilePicture.png available"));
+    };
+
+    async function getDefaultProfilePicture2 () {
+      await Storage.get("default-user.jpg", {
+        level: "public"
+      })
+        .then(url => {
+          var myRequest = new Request(url);
+          fetch(myRequest).then(function(response) {
+            if (response.status === 200) {
+              setImage(url);
+            } 
+          });
+        })
+        .catch(console.log("No photos available"));
+    };
+
   return (
     <View
+      id="capture"
       width="612px"
       height="792px"
       overflow="hidden"
       position="relative"
-      top="50px"
+      top="0px"
       left="25%"
       padding="0px 0px 0px 0px"
-      backgroundColor="rgba(255,255,255,1)"
+      backgroundColor="rgba(210,210,210,1)"
       {...rest}
       {...getOverrideProps(overrides, "TempCover")}
     >
-      <Icon
-        width="267px"
-        height="260px"
-        viewBox={{ minX: 0, minY: 0, width: 267, height: 260 }}
-        paths={[
-          {
-            d: "M267 130C267 201.797 207.23 260 133.5 260C59.77 260 0 201.797 0 130C0 58.203 59.77 0 133.5 0C207.23 0 267 58.203 267 130Z",
-            fill: "rgba(255,199,0,1)",
-            fillRule: "nonzero",
-          },
-        ]}
-        position="absolute"
-        top="11px"
-        left="197px"
-        {...getOverrideProps(overrides, "Ellipse 198")}
-      ></Icon>
       <View
         padding="0px 0px 0px 0px"
         width="759.64px"
@@ -48,101 +138,15 @@ export default function TempCover(props) {
         left="-69px"
         {...getOverrideProps(overrides, "Group 56")}
       >
-        <Icon
-          width="167px"
-          height="146px"
-          viewBox={{ minX: 0, minY: 0, width: 167, height: 146 }}
-          paths={[
-            {
-              d: "M142.056 9.35959e-06L142.056 -2.99999L142.056 9.35959e-06ZM142.093 49.8871L142.089 46.8871L142.089 52.8871L142.093 49.8871ZM151.454 97.9435L150.323 95.1648L143.495 97.9435L150.323 100.722L151.454 97.9435ZM8.84886e-06 121.056L-2.99999 121.056L8.84886e-06 121.056ZM15.5464 97.9435L16.6773 100.722L23.5047 97.9435L16.6773 95.1648L15.5464 97.9435ZM8.84886e-06 74.8307L-2.99999 74.8307L8.84886e-06 74.8307ZM24.9071 49.8871L24.9114 52.8871L24.9114 46.8871L24.9071 49.8871ZM7.28474e-15 24.9436L-3 24.9436L7.28474e-15 24.9436ZM24.9436 8.14047e-14L24.9436 -3L24.9436 8.14047e-14ZM83.5 4.67979e-06L83.5 3L83.5 4.67979e-06ZM125.25 8.01643e-06L125.25 -2.99999L125.25 8.01643e-06ZM170 24.9436C170 9.51077 157.489 -2.99999 142.056 -2.99999L142.056 3.00001C154.175 3.00001 164 12.8245 164 24.9436L170 24.9436ZM142.097 52.8871C157.511 52.8651 170 40.3628 170 24.9436L164 24.9436C164 37.052 154.193 46.8698 142.089 46.8871L142.097 52.8871ZM170 74.8307C170 59.4115 157.511 46.9091 142.097 46.8871L142.089 52.8871C154.193 52.9044 164 62.7223 164 74.8307L170 74.8307ZM152.584 100.722C162.794 96.5671 170 86.544 170 74.8307L164 74.8307C164 84.0205 158.35 91.8979 150.323 95.1648L152.584 100.722ZM150.323 100.722C158.35 103.989 164 111.867 164 121.056L170 121.056C170 109.343 162.794 99.32 152.584 95.1648L150.323 100.722ZM164 121.056C164 133.175 154.175 143 142.056 143L142.056 149C157.489 149 170 136.489 170 121.056L164 121.056ZM142.056 143L24.9436 143L24.9436 149L142.056 149L142.056 143ZM24.9436 143C12.8245 143 3.00001 133.175 3.00001 121.056L-2.99999 121.056C-2.99999 136.489 9.51077 149 24.9436 149L24.9436 143ZM3.00001 121.056C3.00001 111.867 8.65006 103.989 16.6773 100.722L14.4155 95.1648C4.20609 99.32 -2.99999 109.343 -2.99999 121.056L3.00001 121.056ZM-2.99999 74.8307C-2.99999 86.544 4.20609 96.5671 14.4155 100.722L16.6773 95.1648C8.65006 91.8978 3.00001 84.0205 3.00001 74.8307L-2.99999 74.8307ZM24.9028 46.8871C9.4887 46.9092 -2.99999 59.4115 -2.99999 74.8307L3.00001 74.8307C3.00001 62.7223 12.8072 52.9044 24.9114 52.8871L24.9028 46.8871ZM-3 24.9436C-3 40.3628 9.4887 52.8651 24.9028 52.8871L24.9114 46.8871C12.8072 46.8698 3 37.052 3 24.9436L-3 24.9436ZM24.9436 -3C9.51077 -3 -3 9.51076 -3 24.9436L3 24.9436C3 12.8245 12.8245 3 24.9436 3L24.9436 -3ZM83.5 -3L24.9436 -3L24.9436 3L83.5 3L83.5 -3ZM125.25 -2.99999L83.5 -3L83.5 3L125.25 3.00001L125.25 -2.99999ZM142.056 -2.99999L125.25 -2.99999L125.25 3.00001L142.056 3.00001L142.056 -2.99999Z",
-              stroke: "rgba(0,0,0,1)",
-              fillRule: "nonzero",
-              strokeWidth: 3,
-            },
-            {
-              d: "M142.056 9.35959e-06C155.832 1.13531e-05 167 11.1676 167 24.9436C167 38.7074 155.852 49.8675 142.093 49.8871C155.852 49.9068 167 61.0669 167 74.8307C167 85.2823 160.572 94.2325 151.454 97.9435C160.572 101.655 167 110.605 167 121.056C167 134.832 155.832 146 142.056 146L24.9436 146C11.1676 146 8.34491e-06 134.832 8.84886e-06 121.056C9.23119e-06 110.605 6.42807 101.655 15.5464 97.9435C6.42807 94.2325 8.46652e-06 85.2822 8.84886e-06 74.8307C9.35236e-06 61.0669 11.1479 49.9068 24.9071 49.8871C11.1479 49.8674 -3.29059e-07 38.7074 7.28474e-15 24.9436C3.29352e-07 11.1676 11.1676 -1.10097e-06 24.9436 8.14047e-14L83.5 4.67979e-06L125.25 8.01643e-06L142.056 9.35959e-06Z",
-              fill: "rgba(85,81,255,1)",
-              fillRule: "evenodd",
-            },
-          ]}
+        <Image
           position="absolute"
-          top="506px"
-          left="503px"
-          {...getOverrideProps(overrides, "Union")}
-        >
-          <Icon
-            width="49.89px"
-            height="167px"
-            viewBox={{
-              minX: 0,
-              minY: 0,
-              width: 167,
-              height: 49.887176513671875,
-            }}
-            paths={[
-              {
-                d: "M0 24.9436C0 11.1676 11.1676 0 24.9436 0C38.7195 0 49.8872 11.1676 49.8872 24.9436L49.8872 142.056C49.8872 155.832 38.7195 167 24.9436 167C11.1676 167 0 155.832 0 142.056L0 83.5L0 41.75L0 24.9436Z",
-                fill: "rgba(196,196,196,1)",
-                fillRule: "nonzero",
-              },
-            ]}
-            position="absolute"
-            top="0px"
-            left="167px"
-            transformOrigin="top left"
-            transform="rotate(90deg)"
-            {...getOverrideProps(overrides, "Rectangle 7")}
-          ></Icon>
-          <View
-            width="49.89px"
-            height="167px"
-            position="absolute"
-            top="49.89px"
-            left="167px"
-            transformOrigin="top left"
-            transform="rotate(90deg)"
-            borderRadius="88.71133422851562px"
-            padding="0px 0px 0px 0px"
-            backgroundColor="rgba(196,196,196,1)"
-            {...getOverrideProps(overrides, "Rectangle 8")}
-          ></View>
-          <View
-            width="49.89px"
-            height="167px"
-            position="absolute"
-            top="96.11px"
-            left="167px"
-            transformOrigin="top left"
-            transform="rotate(90deg)"
-            borderRadius="88.71133422851562px"
-            padding="0px 0px 0px 0px"
-            backgroundColor="rgba(196,196,196,1)"
-            {...getOverrideProps(overrides, "Rectangle 9")}
-          ></View>
-        </Icon>
-        <Icon
-          width="153.68px"
-          height="146.77px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 203.775146484375,
-            height: 190.60398864746094,
-          }}
-          paths={[
-            {
-              d: "M153.683 73.3828C153.683 113.911 119.28 146.766 76.8415 146.766C34.4031 146.766 0 113.911 0 73.3828C0 32.8546 34.4031 0 76.8415 0C119.28 0 153.683 32.8546 153.683 73.3828Z",
-              fill: "rgba(199,185,255,1)",
-              fillRule: "nonzero",
-            },
-          ]}
-          position="absolute"
-          top="0px"
-          left="142.65px"
-          transformOrigin="top left"
-          transform="rotate(158.16deg)"
-          {...getOverrideProps(overrides, "Ellipse 174")}
-        ></Icon>
+          right="28%"
+          top="25px"
+          position="relative"
+          width="120px"
+          height="70px"
+          src={require('./mlbLogo.png')}
+        ></Image>
         <View
           padding="0px 0px 0px 0px"
           width="225.89px"
@@ -163,6 +167,7 @@ export default function TempCover(props) {
             transformOrigin="top left"
             transform="rotate(0deg)"
             border="3px SOLID rgba(0,0,0,1)"
+            backgroundColor="darkGray"
             padding="0px 0px 0px 0px"
             {...getOverrideProps(overrides, "Rectangle 98")}
           ></View>
@@ -219,129 +224,23 @@ export default function TempCover(props) {
         </View>
       </View>
       <Text
-        fontFamily="Abel"
-        fontSize="64px"
-        fontWeight="400"
+        fontFamily="HelveticaNeue"
+        fontSize="58px"
+        fontWeight="500"
         color="rgba(0,0,0,1)"
-        lineHeight="75px"
+        lineHeight="64px"
         textAlign="center"
         display="flex"
         direction="column"
         justifyContent="center"
-        position="absolute"
+        position="relative"
         top="354px"
-        left="163px"
+        width="612px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="My Yearbook"
+        children={username + "'s Yearbook"}
         {...getOverrideProps(overrides, "My Yearbook")}
       ></Text>
-      <View
-        padding="0px 0px 0px 0px"
-        width="83.4px"
-        height="83.21px"
-        position="absolute"
-        top="95.21px"
-        left="250.4px"
-        transformOrigin="top left"
-        transform="rotate(180deg)"
-        {...getOverrideProps(overrides, "Group 1456")}
-      >
-        <Icon
-          width="83.4px"
-          height="83.21px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 83.396240234375,
-            height: 83.20901489257812,
-          }}
-          paths={[
-            {
-              d: "M13.7815 48.0741C16.5012 61.2716 28.1865 71.1945 42.1894 71.1945C45.3655 71.1945 48.4225 70.6841 51.2826 69.7406L64.7512 83.209L83.3962 64.5634L69.8323 50.9996C70.7173 48.2212 71.1945 45.261 71.1945 42.1894C71.1945 28.6922 61.9756 17.3484 49.4909 14.1111L0 0L13.7815 48.0741Z",
-              fill: "rgba(255,255,255,1)",
-              fillRule: "nonzero",
-            },
-          ]}
-          position="absolute"
-          top="0px"
-          left="0px"
-          {...getOverrideProps(overrides, "base")}
-        ></Icon>
-        <View
-          padding="0px 0px 0px 0px"
-          width="83.4px"
-          height="83.21px"
-          position="absolute"
-          top="0px"
-          left="0px"
-          {...getOverrideProps(overrides, "outline")}
-        >
-          <Icon
-            width="83.4px"
-            height="83.21px"
-            viewBox={{
-              minX: 0,
-              minY: 0,
-              width: 83.396240234375,
-              height: 83.20901489257812,
-            }}
-            paths={[
-              {
-                d: "M64.7512 75.751L55.0118 66.0116L52.7151 63.7149L49.6306 64.7322C47.1584 65.5638 44.9297 65.9388 42.1894 65.9209C30.7386 65.9209 21.1714 57.8057 18.9467 47.0097L18.9062 46.8134L18.851 46.6208L7.68643 7.6754L48.0449 19.1826L48.1059 19.2L48.1672 19.2159C58.3832 21.865 65.9209 31.1536 65.9209 42.1894C65.9377 44.8398 65.587 46.9978 64.8071 49.3994L63.833 52.4585L66.1033 54.7286L75.9382 64.5634L64.7512 75.751ZM13.7815 48.0741C16.5012 61.2716 28.1865 71.1945 42.1894 71.1945C45.3655 71.1945 48.4225 70.6841 51.2826 69.7406L61.0222 79.48L64.7512 83.209L68.4802 79.48L79.6672 68.2924L83.3962 64.5634L79.6672 60.8344L69.8323 50.9996C70.7173 48.2212 71.1945 45.261 71.1945 42.1894C71.1945 28.6922 61.9756 17.3484 49.4909 14.1111L5.97443 1.70345L0 0L1.712 5.97196L13.7815 48.0741Z",
-                fill: "rgba(0,0,0,1)",
-                fillRule: "nonzero",
-              },
-            ]}
-            position="absolute"
-            top="0px"
-            left="0px"
-            {...getOverrideProps(overrides, "Vectorrrf")}
-          ></Icon>
-          <Icon
-            width="44.37px"
-            height="44.37px"
-            viewBox={{
-              minX: 0,
-              minY: 0,
-              width: 44.373779296875,
-              height: 44.373779296875,
-            }}
-            paths={[
-              {
-                d: "M5.59357 1.86452L3.72905 0L0 3.72905L1.86452 5.59357L38.7802 42.5093L40.6448 44.3738L44.3738 40.6448L42.5093 38.7802L5.59357 1.86452Z",
-                fill: "rgba(0,0,0,1)",
-                fillRule: "nonzero",
-              },
-            ]}
-            position="absolute"
-            top="1.54px"
-            left="1.54px"
-            {...getOverrideProps(overrides, "Vectorbrv")}
-          ></Icon>
-          <Icon
-            width="15.82px"
-            height="15.82px"
-            viewBox={{
-              minX: 0,
-              minY: 0,
-              width: 15.821044921875,
-              height: 15.821014404296875,
-            }}
-            paths={[
-              {
-                d: "M15.821 7.9105C15.821 12.2794 12.2794 15.821 7.9105 15.821C3.54165 15.821 0 12.2794 0 7.9105C0 3.54165 3.54165 0 7.9105 0C12.2794 0 15.821 3.54165 15.821 7.9105Z",
-                fill: "rgba(0,0,0,1)",
-                fillRule: "nonzero",
-              },
-            ]}
-            position="absolute"
-            top="34.28px"
-            left="34.28px"
-            {...getOverrideProps(overrides, "Vectorkyr")}
-          ></Icon>
-        </View>
-      </View>
       <View
         padding="0px 0px 0px 0px"
         width="92.78px"
@@ -366,401 +265,62 @@ export default function TempCover(props) {
           padding="0px 0px 0px 0px"
           backgroundColor="rgba(237,245,250,1)"
           {...getOverrideProps(overrides, "Rectangle 2.12")}
-        ></View>
-        <Icon
-          width="7.67px"
-          height="7.68px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 10.34619140625,
-            height: 10.33558464050293,
-          }}
-          paths={[
-            {
-              d: "M7.66997 3.84199C7.66997 5.96387 5.95299 7.68399 3.83498 7.68399C1.71698 7.68399 0 5.96387 0 3.84199C0 1.72012 1.71698 0 3.83498 0C5.95299 0 7.66997 1.72012 7.66997 3.84199Z",
-              fill: "rgba(0,0,0,1)",
-              fillRule: "nonzero",
-            },
-          ]}
-          position="absolute"
-          top="calc(50% - 3.84px - 15.05px)"
-          left="calc(50% - 3.83px - 7.63px)"
-          transformOrigin="top left"
-          transform="rotate(20.78deg)"
-          {...getOverrideProps(overrides, "Ellipselux")}
-        ></Icon>
-        <Icon
-          width="7.67px"
-          height="7.68px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 10.34619140625,
-            height: 10.335582733154297,
-          }}
-          paths={[
-            {
-              d: "M7.66997 3.84199C7.66997 5.96387 5.95299 7.68399 3.83498 7.68399C1.71698 7.68399 0 5.96387 0 3.84199C0 1.72012 1.71698 0 3.83498 0C5.95299 0 7.66997 1.72012 7.66997 3.84199Z",
-              fill: "rgba(0,0,0,1)",
-              fillRule: "nonzero",
-            },
-          ]}
-          position="absolute"
-          top="calc(50% - 3.84px - 5.42px)"
-          left="calc(50% - 3.83px - -17.74px)"
-          transformOrigin="top left"
-          transform="rotate(20.78deg)"
-          {...getOverrideProps(overrides, "Ellipsewjy")}
-        ></Icon>
-        <Icon
-          width="50.15px"
-          height="25.12px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 56.12255859375,
-            height: 45.25836181640625,
-          }}
-          paths={[
-            {
-              d: "M51.6498 0L51.6498 -1.5L48.6498 -1.5L48.6498 0L51.6498 0ZM1.5 0L1.5 -1.5L-1.5 -1.5L-1.5 0L1.5 0ZM48.6498 0C48.6498 13.048 38.0924 23.6207 25.0749 23.6207L25.0749 26.6207C39.7544 26.6207 51.6498 14.6996 51.6498 0L48.6498 0ZM25.0749 23.6207C12.0574 23.6207 1.5 13.048 1.5 0L-1.5 0C-1.5 14.6996 10.3954 26.6207 25.0749 26.6207L25.0749 23.6207Z",
-              stroke: "rgba(0,0,0,1)",
-              fillRule: "nonzero",
-              strokeWidth: 3,
-            },
-          ]}
-          position="absolute"
-          top="calc(50% - 12.56px - -3.66px)"
-          left="calc(50% - 25.07px - -1.63px)"
-          transformOrigin="top left"
-          transform="rotate(20.78deg)"
-          {...getOverrideProps(overrides, "Ellipseqcc")}
-        ></Icon>
-      </View>
-      <Icon
-        width="115.93px"
-        height="157.62px"
-        viewBox={{
-          minX: 0,
-          minY: 0,
-          width: 205.99853515625,
-          height: 175.3686981201172,
-        }}
-        paths={[
-          {
-            d: "M0 157.618L-2.81563 156.582L-4.29972 160.618L0 160.618L0 157.618ZM115.931 157.618L115.931 160.618L120.231 160.618L118.747 156.582L115.931 157.618ZM57.9655 0L60.7812 -1.03548L57.9655 -8.69165L55.1499 -1.03548L57.9655 0ZM115.931 154.618L0 154.618L0 160.618L115.931 160.618L115.931 154.618ZM55.1499 1.03548L113.115 158.653L118.747 156.582L60.7812 -1.03548L55.1499 1.03548ZM2.81563 158.653L60.7812 1.03548L55.1499 -1.03548L-2.81563 156.582L2.81563 158.653Z",
-            stroke: "rgba(0,0,0,1)",
-            fillRule: "nonzero",
-            strokeWidth: 3,
-          },
-        ]}
-        position="absolute"
-        top="273.24px"
-        left="-17px"
-        transformOrigin="top left"
-        transform="rotate(-30.47deg)"
-        {...getOverrideProps(overrides, "Polygonakb")}
-      ></Icon>
-      <Icon
-        width="115.93px"
-        height="157.62px"
-        viewBox={{
-          minX: 0,
-          minY: 0,
-          width: 205.99853515625,
-          height: 175.3686981201172,
-        }}
-        paths={[
-          {
-            d: "M57.9655 0L115.931 157.618L0 157.618L57.9655 0Z",
-            fill: "rgba(242,78,30,1)",
-            fillRule: "nonzero",
-          },
-        ]}
-        position="absolute"
-        top="254.79px"
-        left="-6px"
-        transformOrigin="top left"
-        transform="rotate(-30.47deg)"
-        {...getOverrideProps(overrides, "Polygoneha")}
-      ></Icon>
-      <View
-        padding="0px 0px 0px 0px"
-        width="169.27px"
-        height="201.13px"
-        position="absolute"
-        top="653.29px"
-        left="188px"
-        transformOrigin="top left"
-        transform="rotate(-12.03deg)"
-        {...getOverrideProps(overrides, "Group 1401")}
-      >
-        <View
-          width="140.85px"
-          height="178.49px"
-          position="absolute"
-          top="22.64px"
-          left="0px"
-          border="3px SOLID rgba(0,0,0,1)"
-          padding="0px 0px 0px 0px"
-          backgroundColor="rgba(255,255,255,1)"
-          {...getOverrideProps(overrides, "Rectangle 68")}
-        ></View>
-        <View
-          width="140.85px"
-          height="178.49px"
-          position="absolute"
-          top="11.5px"
-          left="13.87px"
-          border="3px SOLID rgba(0,0,0,1)"
-          padding="0px 0px 0px 0px"
-          backgroundColor="rgba(242,78,30,1)"
-          {...getOverrideProps(overrides, "Rectangle 67")}
-        ></View>
-        <View
-          width="140.85px"
-          height="179.04px"
-          position="absolute"
-          top="0px"
-          left="28.42px"
-          border="3px SOLID rgba(0,0,0,1)"
-          padding="0px 0px 0px 0px"
-          backgroundColor="rgba(199,185,255,1)"
-          {...getOverrideProps(overrides, "Rectangle 66")}
-        ></View>
-        <View
-          width="41.46px"
-          height="38.25px"
-          position="absolute"
-          top="70.31px"
-          left="77.83px"
-          border="3px SOLID rgba(0,0,0,1)"
-          padding="0px 0px 0px 0px"
-          backgroundColor="rgba(199,185,255,1)"
-          {...getOverrideProps(overrides, "Rectangle 69")}
-        ></View>
-        <View
-          padding="0px 0px 0px 0px"
-          width="21.32px"
-          height="19.38px"
-          position="absolute"
-          top="80.24px"
-          left="87.58px"
-          {...getOverrideProps(overrides, "Group 1363")}
         >
-          <Icon
-            width="21.32px"
-            height="0px"
-            viewBox={{
-              minX: 0,
-              minY: 0,
-              width: 20.8519287109375,
-              height: 4.445343017578125,
-            }}
-            paths={[
-              {
-                d: "M0 0L21.3205 0L21.3205 -3L0 -3L0 0Z",
-                stroke: "rgba(0,0,0,1)",
-                fillRule: "nonzero",
-                strokeWidth: 3,
-              },
-            ]}
-            position="absolute"
-            top="calc(50% - 0px - 0px)"
-            left="calc(50% - 10.66px - 0px)"
-            {...getOverrideProps(overrides, "Line 3")}
-          ></Icon>
-          <Icon
-            width="19.38px"
-            height="0px"
-            viewBox={{
-              minX: 0,
-              minY: 0,
-              width: 4.041259765625,
-              height: 18.95648193359375,
-            }}
-            paths={[
-              {
-                d: "M0 0L19.3825 0L19.3825 -3L0 -3L0 0Z",
-                stroke: "rgba(0,0,0,1)",
-                fillRule: "nonzero",
-                strokeWidth: 3,
-              },
-            ]}
-            position="absolute"
-            top="calc(50% - 0px - 9.69px)"
-            left="calc(50% - 9.69px - -8.57px)"
-            transformOrigin="top left"
-            transform="rotate(90deg)"
-            {...getOverrideProps(overrides, "Line 4")}
-          ></Icon>
-        </View>
+          <Image
+          bottom="1px"
+          right="0px"
+          alignSelf="center"
+          position="relative"
+          transform="rotate(-159.22deg)"
+          width="75px"
+          height="75px"
+          src={require('./baseballIcon.png')}
+        ></Image>
       </View>
+    </View>
       <View
         padding="0px 0px 0px 0px"
-        width="52.63px"
-        height="53.76px"
+        width="300px"
+        height="300px"
         position="absolute"
-        top="656.97px"
-        left="337px"
-        transformOrigin="top left"
-        transform="rotate(-12.03deg)"
-        {...getOverrideProps(overrides, "Group 1362")}
-      >
-        <Icon
-          width="44.32px"
-          height="43.74px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 52.4619140625,
-            height: 52.017303466796875,
-          }}
-          paths={[
-            {
-              d: "M41.3164 21.8693C41.3164 32.2535 32.7762 40.7386 22.1582 40.7386L22.1582 46.7386C36.0154 46.7386 47.3164 35.6412 47.3164 21.8693L41.3164 21.8693ZM22.1582 40.7386C11.5402 40.7386 3 32.2535 3 21.8693L-3 21.8693C-3 35.6412 8.30094 46.7386 22.1582 46.7386L22.1582 40.7386ZM3 21.8693C3 11.4851 11.5402 3 22.1582 3L22.1582 -3C8.30094 -3 -3 8.09737 -3 21.8693L3 21.8693ZM22.1582 3C32.7762 3 41.3164 11.4851 41.3164 21.8693L47.3164 21.8693C47.3164 8.09737 36.0154 -3 22.1582 -3L22.1582 3Z",
-              stroke: "rgba(0,0,0,1)",
-              fillRule: "nonzero",
-              strokeWidth: 3,
-            },
-          ]}
-          position="absolute"
-          top="0px"
-          left="0px"
-          transformOrigin="top left"
-          transform="rotate(0deg)"
-          {...getOverrideProps(overrides, "Ellipse 12")}
-        ></Icon>
-        <Icon
-          width="23.35px"
-          height="0px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 19.6732177734375,
-            height: 12.576507568359375,
-          }}
-          paths={[
-            {
-              d: "M0 0L23.3496 0L23.3496 -3L0 -3L0 0Z",
-              stroke: "rgba(0,0,0,1)",
-              fillRule: "nonzero",
-              strokeWidth: 3,
-            },
-          ]}
-          position="absolute"
-          top="37.36px"
-          left="36.01px"
-          transformOrigin="top left"
-          transform="rotate(44.62deg)"
-          {...getOverrideProps(overrides, "Line 1")}
-        ></Icon>
+        top="495px"
+        {...getOverrideProps(overrides, "Group 1401")}
+      ><a href="Select your profile picture">
+      <input
+      type="file"
+      onChange={onProcessFile}
+      ref={fileInput}
+      hidden={true}
+      />
+    </a>
+      <Image
+        borderRadius="50%"
+        left="50%"
+        position="relative"
+        alignSelf="center"
+        width="275px"
+        height="275px"
+        border="3px SOLID white"
+        onClick={onOpenFileDialog}
+        src={image}
+        crossOrigin="anonymous"
+      ></Image>
       </View>
-      <View
-        padding="0px 0px 0px 0px"
-        width="18.05px"
-        height="78.91px"
-        position="absolute"
-        top="485.77px"
-        left="203.56px"
-        transformOrigin="top left"
-        transform="rotate(-135deg)"
-        {...getOverrideProps(overrides, "Group 1457")}
-      >
-        <Icon
-          width="18.05px"
-          height="68.33px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 61.082275390625,
-            height: 61.082298278808594,
-          }}
-          paths={[
-            {
-              d: "M0 0L0 -4L-4 -4L-4 0L0 0ZM18.0528 0L22.0528 0L22.0528 -4L18.0528 -4L18.0528 0ZM18.0528 58.5691L20.9896 61.2848L22.0528 60.1351L22.0528 58.5691L18.0528 58.5691ZM0 58.5691L-4 58.5691L-4 60.1351L-2.93685 61.2848L0 58.5691ZM9.0264 68.3306L6.08955 71.0463L9.0264 74.2223L11.9632 71.0463L9.0264 68.3306ZM0 4L18.0528 4L18.0528 -4L0 -4L0 4ZM14.0528 0L14.0528 58.5691L22.0528 58.5691L22.0528 0L14.0528 0ZM4 58.5691L4 0L-4 0L-4 58.5691L4 58.5691ZM15.1159 55.8534L6.08955 65.615L11.9632 71.0463L20.9896 61.2848L15.1159 55.8534ZM11.9632 65.615L2.93685 55.8534L-2.93685 61.2848L6.08955 71.0463L11.9632 65.615Z",
-              stroke: "rgba(0,0,0,1)",
-              fillRule: "nonzero",
-              strokeWidth: 4,
-            },
-            {
-              d: "M0 0L18.0528 0L18.0528 58.5691L9.0264 68.3306L0 58.5691L0 0Z",
-              fill: "rgba(255,199,0,1)",
-              fillRule: "nonzero",
-            },
-          ]}
-          position="absolute"
-          top="10.57px"
-          left="0px"
-          {...getOverrideProps(overrides, "Rectangle 72")}
-        ></Icon>
-        <Icon
-          width="18.05px"
-          height="13.02px"
-          viewBox={{
-            minX: 0,
-            minY: 0,
-            width: 21.968505859375,
-            height: 21.96849822998047,
-          }}
-          paths={[
-            {
-              d: "M18.0528 13.0154L18.0528 17.0154L22.0528 17.0154L22.0528 13.0154L18.0528 13.0154ZM0 13.0154L-4 13.0154L-4 17.0154L0 17.0154L0 13.0154ZM6 4L12.0528 4L12.0528 -4L6 -4L6 4ZM14.0528 6L14.0528 13.0154L22.0528 13.0154L22.0528 6L14.0528 6ZM18.0528 9.01536L0 9.01536L0 17.0154L18.0528 17.0154L18.0528 9.01536ZM4 13.0154L4 6L-4 6L-4 13.0154L4 13.0154ZM12.0528 4C13.1574 4 14.0528 4.89543 14.0528 6L22.0528 6C22.0528 0.477155 17.5756 -4 12.0528 -4L12.0528 4ZM6 -4C0.477149 -4 -4 0.477159 -4 6L4 6C4 4.89543 4.89543 4 6 4L6 -4Z",
-              stroke: "rgba(0,0,0,1)",
-              fillRule: "nonzero",
-              strokeWidth: 4,
-            },
-            {
-              d: "M0 6C0 2.68629 2.68629 0 6 0L12.0528 0C15.3665 0 18.0528 2.68629 18.0528 6L18.0528 13.0154L0 13.0154L0 6Z",
-              fill: "rgba(255,133,119,1)",
-              fillRule: "nonzero",
-            },
-          ]}
-          position="absolute"
-          top="0px"
-          left="0px"
-          {...getOverrideProps(overrides, "Rectangle 73")}
-        ></Icon>
-      </View>
-      <Icon
-        width="128px"
-        height="121px"
-        viewBox={{ minX: 0, minY: 0, width: 128, height: 121 }}
-        paths={[
-          {
-            d: "M72.1395 87.325C72.3562 87.1538 72.393 86.8394 72.2218 86.6227C72.0506 86.4061 71.7361 86.3692 71.5195 86.5404L72.1395 87.325ZM62.3401 93.3869L62.5473 93.8419L62.3401 93.3869ZM48.741 98.0039L48.631 97.5161L48.741 98.0039ZM33.826 100.778L33.8159 100.279L33.826 100.778ZM12.3307 99.2913L12.4877 98.8165L12.3307 99.2913ZM0.0315005 83.4204L0.530767 83.4475L0.0315005 83.4204ZM3.23223 77.2274L3.5909 77.5758L3.23223 77.2274ZM10.1536 70.2132L10.4927 70.5806L10.1536 70.2132ZM17.9523 64.0868L18.2291 64.5032L17.9523 64.0868ZM30.1703 60.3577L30.076 59.8666L30.1703 60.3577ZM59.0256 64.6417L59.2664 64.2035L59.0256 64.6417ZM65.9307 70.3907L66.2778 70.0308L65.9307 70.3907ZM68.7415 73.2319L69.0339 72.8264L68.7415 73.2319ZM67.2143 72.1887L67.5203 71.7933L67.2143 72.1887ZM56.1336 59.7361L56.5291 59.4302L56.1336 59.7361ZM48.6273 45.9296L49.0803 45.718L48.6273 45.9296ZM42.892 30.5248L42.4073 30.6476L42.892 30.5248ZM50.9344 3.22246L50.6677 2.79952L50.9344 3.22246ZM75.2729 7.70627L75.6583 7.38765L75.2729 7.70627ZM81.4794 21.1133L81.0012 21.2594L81.4794 21.1133ZM83.7865 35.4748L83.2895 35.529L83.7865 35.4748ZM79.1073 62.4886L78.6432 62.3025L79.1073 62.4886ZM73.7782 73.7647L74.2349 73.9682L73.7782 73.7647ZM73.7457 72.3441L74.23 72.4682L73.7457 72.3441ZM78.8149 47.0394L78.3254 46.9374L78.8149 47.0394ZM95.9396 14.0102L95.5853 13.6574L95.9396 14.0102ZM109.327 4.68747L109.204 4.203L109.327 4.68747ZM121.529 8.74953L121.917 8.43456L121.529 8.74953ZM127.524 34.9642L128.019 35.0391L127.524 34.9642ZM118.653 57.805L118.259 57.4977L118.653 57.805ZM109.425 67.3275L109.146 66.9126L109.425 67.3275ZM98.1167 73.6093L97.8906 73.1634L98.1167 73.6093ZM78.8149 74.8301L78.8149 74.3301C78.5397 74.3301 78.3162 74.5525 78.3149 74.8277C78.3135 75.1029 78.5348 75.3274 78.81 75.3301L78.8149 74.8301ZM85.46 74.6304L85.5148 75.1274L85.46 74.6304ZM96.0046 76.4727L95.8506 76.9484L96.0046 76.4727ZM110.205 82.4215L109.946 82.8492L110.205 82.4215ZM114.965 86.8609L114.527 87.1016L114.965 86.8609ZM121.48 96.9384L121.025 97.1442L121.48 96.9384ZM124.962 120.975C124.948 121.251 125.16 121.485 125.436 121.499C125.712 121.513 125.946 121.301 125.96 121.025L124.962 120.975ZM71.5195 86.5404C68.86 88.6421 64.9765 91.6368 62.1328 92.9318L62.5473 93.8419C65.5237 92.4864 69.5076 89.4048 72.1395 87.325L71.5195 86.5404ZM62.1328 92.9318C57.6993 94.9509 53.2388 96.4765 48.631 97.5161L48.8511 98.4916C53.53 97.436 58.0554 95.8875 62.5473 93.8419L62.1328 92.9318ZM48.631 97.5161C43.507 98.6721 38.9252 100.175 33.8159 100.279L33.8361 101.278C39.0801 101.172 43.844 99.6212 48.8511 98.4916L48.631 97.5161ZM33.8159 100.279C26.6705 100.423 19.3236 101.076 12.4877 98.8165L12.1738 99.766C19.2177 102.094 26.7983 101.421 33.8361 101.278L33.8159 100.279ZM12.4877 98.8165C9.36642 97.7849 6.24871 96.3475 3.97764 93.9773C1.72497 91.6262 0.266742 88.3171 0.530767 83.4475L-0.467766 83.3933C-0.745619 88.518 0.79737 92.1036 3.25559 94.6691C5.6954 97.2154 8.99825 98.7164 12.1738 99.766L12.4877 98.8165ZM0.530767 83.4475C0.673984 80.806 2.05579 79.1563 3.5909 77.5758L2.87356 76.8791C1.30917 78.4898 -0.303682 80.367 -0.467766 83.3933L0.530767 83.4475ZM3.5909 77.5758C5.90249 75.1958 8.11925 72.7715 10.4927 70.5806L9.81445 69.8458C7.41428 72.0614 5.15679 74.5283 2.87356 76.8791L3.5909 77.5758ZM10.4927 70.5806C12.9178 68.342 15.5956 66.2535 18.2291 64.5032L17.6756 63.6704C14.9992 65.4492 12.2795 67.5703 9.81445 69.8458L10.4927 70.5806ZM18.2291 64.5032C21.8216 62.1155 26.1872 61.6316 30.2646 60.8487L30.076 59.8666C26.1207 60.6261 21.4817 61.1406 17.6756 63.6704L18.2291 64.5032ZM30.2646 60.8487C40.149 58.9508 49.4495 59.9506 58.7848 65.0799L59.2664 64.2035C49.7039 58.9494 40.1622 57.93 30.076 59.8666L30.2646 60.8487ZM58.7848 65.0799C61.4552 66.5471 63.212 68.4635 65.5836 70.7506L66.2778 70.0308C63.9595 67.7951 62.0844 65.7519 59.2664 64.2035L58.7848 65.0799ZM65.5836 70.7506C66.0551 71.2053 66.4644 71.6944 66.925 72.2065C67.3756 72.7073 67.8631 73.215 68.4491 73.6375L69.0339 72.8264C68.5381 72.4688 68.1086 72.0269 67.6685 71.5377C67.2384 71.0597 66.7833 70.5183 66.2778 70.0308L65.5836 70.7506ZM68.4491 73.6375C68.6891 73.8106 68.852 73.9294 68.953 74.0045C69.0042 74.0426 69.036 74.0668 69.053 74.0803C69.0632 74.0884 69.0608 74.0868 69.0532 74.0799C69.0506 74.0776 69.0456 74.073 69.0392 74.0667C69.0341 74.0617 69.0209 74.0485 69.0056 74.0297C68.9979 74.0202 68.9847 74.0034 68.9704 73.9808C68.9591 73.9628 68.9307 73.9159 68.9121 73.8491C68.8957 73.7903 68.8612 73.6213 68.9712 73.4476C69.0861 73.266 69.2638 73.2267 69.3366 73.2184C69.4122 73.2098 69.4714 73.2208 69.4933 73.2254C69.5213 73.2311 69.543 73.2381 69.5551 73.2423C69.5792 73.2506 69.597 73.2589 69.6036 73.262C69.6185 73.2691 69.6284 73.2748 69.6289 73.2751C69.6319 73.2768 69.6298 73.2757 69.6196 73.2692C69.6007 73.2573 69.5705 73.2376 69.5288 73.2098C69.4464 73.1549 69.33 73.0756 69.1927 72.9811C68.638 72.5994 67.7869 71.9997 67.5203 71.7933L66.9082 72.5841C67.2009 72.8106 68.0756 73.4263 68.6258 73.8049C68.7646 73.9005 68.8857 73.9828 68.974 74.0417C69.0176 74.0709 69.0561 74.0961 69.0857 74.1148C69.0997 74.1236 69.1168 74.1342 69.1335 74.1438C69.1408 74.148 69.1563 74.1566 69.1752 74.1656C69.1839 74.1697 69.2033 74.1787 69.2287 74.1875C69.2415 74.1919 69.2638 74.1991 69.2922 74.2049C69.3146 74.2095 69.3742 74.2206 69.4501 74.212C69.5232 74.2036 69.701 74.1642 69.8161 73.9825C69.9262 73.8087 69.8917 73.6394 69.8753 73.5803C69.8443 73.4695 69.7808 73.398 69.7801 73.3971C69.753 73.3639 69.7263 73.3404 69.7223 73.3368C69.7047 73.3209 69.686 73.3059 69.6731 73.2958C69.644 73.2727 69.6024 73.2413 69.5497 73.202C69.4426 73.1224 69.275 73.0002 69.0339 72.8264L68.4491 73.6375ZM67.5203 71.7933C63.3629 68.5748 60.0475 63.9787 56.5291 59.4302L55.7381 60.0421C59.2162 64.5383 62.624 69.2673 66.9082 72.5841L67.5203 71.7933ZM56.5291 59.4302C53.6364 55.6907 51.2538 50.3715 49.0803 45.718L48.1743 46.1412C50.3261 50.7484 52.7606 56.193 55.7381 60.0421L56.5291 59.4302ZM49.0803 45.718C46.8211 40.881 44.747 35.8104 43.3767 30.402L42.4073 30.6476C43.7995 36.1422 45.9023 41.2768 48.1743 46.1412L49.0803 45.718ZM43.3767 30.402C42.0834 25.2979 42.2117 19.7474 43.5873 14.8956C44.9643 10.0388 47.5755 5.93157 51.2011 3.6454L50.6677 2.79952C46.7718 5.25609 44.0466 9.60941 42.6252 14.6228C41.2024 19.6411 41.0702 25.3704 42.4073 30.6476L43.3767 30.402ZM51.2011 3.6454C55.3909 1.00355 59.5757 0.0212859 63.5577 0.716178C67.5418 1.41142 71.3924 3.79772 74.8876 8.02488L75.6583 7.38765C72.0516 3.02561 68.0039 0.476949 63.7296 -0.268935C59.4534 -1.01517 55.0199 0.0552673 50.6677 2.79952L51.2011 3.6454ZM74.8876 8.02488C77.5532 11.2487 79.6023 16.6796 81.0012 21.2594L81.9576 20.9672C80.559 16.3885 78.464 10.781 75.6583 7.38765L74.8876 8.02488ZM81.0012 21.2594C82.2715 25.4179 82.7921 30.9667 83.2895 35.529L84.2836 35.4206C83.7913 30.9049 83.2624 25.2388 81.9576 20.9672L81.0012 21.2594ZM83.2895 35.529C84.2436 44.2811 81.6903 54.7029 78.6432 62.3025L79.5714 62.6747C82.6484 55.0002 85.2628 44.4025 84.2836 35.4206L83.2895 35.529ZM78.6432 62.3025C77.8601 64.2557 76.9623 66.1016 76.0419 67.9469C75.1239 69.7876 74.1805 71.6331 73.3215 73.5612L74.2349 73.9682C75.0826 72.0655 76.0126 70.2463 76.9368 68.3933C77.8587 66.5449 78.7721 64.6682 79.5714 62.6747L78.6432 62.3025ZM73.3215 73.5612C73.1881 73.8604 73.0864 74.0736 73.0108 74.2178C72.973 74.29 72.9446 74.3394 72.9246 74.371C72.9 74.4099 72.9015 74.4005 72.9267 74.3762C72.9372 74.366 72.9849 74.3204 73.0669 74.2885C73.1654 74.2503 73.3352 74.2279 73.4991 74.333C73.6341 74.4196 73.6793 74.5407 73.6917 74.5778C73.7071 74.6242 73.7094 74.6585 73.7099 74.665C73.7107 74.6766 73.7101 74.6347 73.733 74.5034C73.8168 74.0218 74.0697 73.0941 74.23 72.4682L73.2613 72.22C73.1119 72.8032 72.8406 73.7989 72.7478 74.332C72.7265 74.4543 72.7035 74.6093 72.7124 74.7355C72.7149 74.7707 72.7212 74.8285 72.7426 74.8929C72.7609 74.9481 72.8141 75.0817 72.9593 75.1748C73.1335 75.2865 73.3156 75.2647 73.4288 75.2207C73.5256 75.1832 73.5902 75.1255 73.6203 75.0966C73.6844 75.0348 73.7347 74.9609 73.7698 74.9054C73.8095 74.8426 73.8518 74.7674 73.8966 74.682C73.9864 74.5106 74.098 74.2755 74.2349 73.9682L73.3215 73.5612ZM74.23 72.4682C76.3549 64.1741 77.5624 55.4941 79.3043 47.1415L78.3254 46.9374C76.5616 55.3948 75.3825 63.94 73.2613 72.22L74.23 72.4682ZM79.3043 47.1415C82.1886 33.3113 87.8464 22.8461 96.2939 14.363L95.5853 13.6574C86.9895 22.2894 81.2458 32.934 78.3254 46.9374L79.3043 47.1415ZM96.2939 14.363C100.298 10.3415 104.653 6.39658 109.451 5.17194L109.204 4.203C104.102 5.50513 99.5682 9.65772 95.5853 13.6574L96.2939 14.363ZM109.451 5.17194C113.251 4.20221 118.193 5.43052 121.141 9.0645L121.917 8.43456C118.703 4.47182 113.348 3.14516 109.204 4.203L109.451 5.17194ZM121.141 9.0645C126.564 15.7512 128.488 25.2645 127.03 34.8894L128.019 35.0391C129.507 25.2091 127.56 15.3912 121.917 8.43456L121.141 9.0645ZM127.03 34.8894C125.691 43.7332 123.057 51.3399 118.259 57.4977L119.048 58.1123C123.986 51.7744 126.664 43.9856 128.019 35.0391L127.03 34.8894ZM118.259 57.4977C115.403 61.1625 112.608 64.5859 109.146 66.9126L109.704 67.7425C113.316 65.3145 116.201 61.7659 119.048 58.1123L118.259 57.4977ZM109.146 66.9126C105.587 69.3044 101.653 71.2558 97.8906 73.1634L98.3428 74.0553C102.087 72.1568 106.083 70.1758 109.704 67.7425L109.146 66.9126ZM97.8906 73.1634C95.1144 74.571 92.285 74.8734 89.3748 74.8146C87.9165 74.7851 86.4497 74.6654 84.9564 74.5514C83.4689 74.4378 81.958 74.3301 80.4396 74.3301L80.4396 75.3301C81.9154 75.3301 83.3915 75.4348 84.8803 75.5485C86.3633 75.6617 87.8619 75.7842 89.3546 75.8144C92.3465 75.8749 95.3614 75.5669 98.3428 74.0553L97.8906 73.1634ZM80.4396 74.3301C80.4385 74.3301 80.4375 74.3301 80.4364 74.3301C80.4354 74.3301 80.4343 74.3301 80.4332 74.3301C80.4322 74.3301 80.4311 74.3301 80.43 74.3301C80.4289 74.3301 80.4279 74.3301 80.4268 74.3301C80.4257 74.3301 80.4247 74.3301 80.4236 74.3301C80.4225 74.3301 80.4214 74.3301 80.4203 74.3301C80.4193 74.3301 80.4182 74.3301 80.4171 74.3301C80.416 74.3301 80.4149 74.3301 80.4138 74.3301C80.4127 74.3301 80.4116 74.3301 80.4105 74.3301C80.4094 74.3301 80.4084 74.3301 80.4073 74.3301C80.4062 74.3301 80.4051 74.3301 80.404 74.3301C80.4029 74.3301 80.4017 74.3301 80.4006 74.3301C80.3995 74.3301 80.3984 74.3301 80.3973 74.3301C80.3962 74.3301 80.3951 74.3301 80.394 74.3301C80.3929 74.3301 80.3918 74.3301 80.3906 74.3301C80.3895 74.3301 80.3884 74.3301 80.3873 74.3301C80.3862 74.3301 80.385 74.3301 80.3839 74.3301C80.3828 74.3301 80.3817 74.3301 80.3805 74.3301C80.3794 74.3301 80.3783 74.3301 80.3772 74.3301C80.376 74.3301 80.3749 74.3301 80.3737 74.3301C80.3726 74.3301 80.3715 74.3301 80.3703 74.3301C80.3692 74.3301 80.3681 74.3301 80.3669 74.3301C80.3658 74.3301 80.3646 74.3301 80.3635 74.3301C80.3623 74.3301 80.3612 74.3301 80.36 74.3301C80.3589 74.3301 80.3577 74.3301 80.3566 74.3301C80.3554 74.3301 80.3543 74.3301 80.3531 74.3301C80.352 74.3301 80.3508 74.3301 80.3496 74.3301C80.3485 74.3301 80.3473 74.3301 80.3462 74.3301C80.345 74.3301 80.3438 74.3301 80.3427 74.3301C80.3415 74.3301 80.3403 74.3301 80.3391 74.3301C80.338 74.3301 80.3368 74.3301 80.3356 74.3301C80.3345 74.3301 80.3333 74.3301 80.3321 74.3301C80.3309 74.3301 80.3297 74.3301 80.3286 74.3301C80.3274 74.3301 80.3262 74.3301 80.325 74.3301C80.3238 74.3301 80.3226 74.3301 80.3215 74.3301C80.3203 74.3301 80.3191 74.3301 80.3179 74.3301C80.3167 74.3301 80.3155 74.3301 80.3143 74.3301C80.3131 74.3301 80.3119 74.3301 80.3107 74.3301C80.3095 74.3301 80.3083 74.3301 80.3071 74.3301C80.3059 74.3301 80.3047 74.3301 80.3035 74.3301C80.3023 74.3301 80.3011 74.3301 80.2999 74.3301C80.2987 74.3301 80.2975 74.3301 80.2963 74.3301C80.2951 74.3301 80.2939 74.3301 80.2926 74.3301C80.2914 74.3301 80.2902 74.3301 80.289 74.3301C80.2878 74.3301 80.2866 74.3301 80.2853 74.3301C80.2841 74.3301 80.2829 74.3301 80.2817 74.3301C80.2805 74.3301 80.2792 74.3301 80.278 74.3301C80.2768 74.3301 80.2756 74.3301 80.2743 74.3301C80.2731 74.3301 80.2719 74.3301 80.2706 74.3301C80.2694 74.3301 80.2682 74.3301 80.267 74.3301C80.2657 74.3301 80.2645 74.3301 80.2632 74.3301C80.262 74.3301 80.2608 74.3301 80.2595 74.3301C80.2583 74.3301 80.257 74.3301 80.2558 74.3301C80.2546 74.3301 80.2533 74.3301 80.2521 74.3301C80.2508 74.3301 80.2496 74.3301 80.2483 74.3301C80.2471 74.3301 80.2458 74.3301 80.2446 74.3301C80.2433 74.3301 80.2421 74.3301 80.2408 74.3301C80.2396 74.3301 80.2383 74.3301 80.2371 74.3301C80.2358 74.3301 80.2345 74.3301 80.2333 74.3301C80.232 74.3301 80.2308 74.3301 80.2295 74.3301C80.2282 74.3301 80.227 74.3301 80.2257 74.3301C80.2244 74.3301 80.2232 74.3301 80.2219 74.3301C80.2206 74.3301 80.2194 74.3301 80.2181 74.3301C80.2168 74.3301 80.2156 74.3301 80.2143 74.3301C80.213 74.3301 80.2117 74.3301 80.2105 74.3301C80.2092 74.3301 80.2079 74.3301 80.2066 74.3301C80.2054 74.3301 80.2041 74.3301 80.2028 74.3301C80.2015 74.3301 80.2002 74.3301 80.199 74.3301C80.1977 74.3301 80.1964 74.3301 80.1951 74.3301C80.1938 74.3301 80.1925 74.3301 80.1912 74.3301C80.19 74.3301 80.1887 74.3301 80.1874 74.3301C80.1861 74.3301 80.1848 74.3301 80.1835 74.3301C80.1822 74.3301 80.1809 74.3301 80.1796 74.3301C80.1783 74.3301 80.177 74.3301 80.1757 74.3301C80.1744 74.3301 80.1731 74.3301 80.1718 74.3301C80.1705 74.3301 80.1692 74.3301 80.1679 74.3301C80.1666 74.3301 80.1653 74.3301 80.164 74.3301C80.1627 74.3301 80.1614 74.3301 80.1601 74.3301C80.1588 74.3301 80.1575 74.3301 80.1562 74.3301C80.1549 74.3301 80.1536 74.3301 80.1523 74.3301C80.151 74.3301 80.1496 74.3301 80.1483 74.3301C80.147 74.3301 80.1457 74.3301 80.1444 74.3301C80.1431 74.3301 80.1418 74.3301 80.1404 74.3301C80.1391 74.3301 80.1378 74.3301 80.1365 74.3301C80.1352 74.3301 80.1338 74.3301 80.1325 74.3301C80.1312 74.3301 80.1299 74.3301 80.1286 74.3301C80.1272 74.3301 80.1259 74.3301 80.1246 74.3301C80.1233 74.3301 80.1219 74.3301 80.1206 74.3301C80.1193 74.3301 80.1179 74.3301 80.1166 74.3301C80.1153 74.3301 80.114 74.3301 80.1126 74.3301C80.1113 74.3301 80.11 74.3301 80.1086 74.3301C80.1073 74.3301 80.106 74.3301 80.1046 74.3301C80.1033 74.3301 80.102 74.3301 80.1006 74.3301C80.0993 74.3301 80.0979 74.3301 80.0966 74.3301C80.0953 74.3301 80.0939 74.3301 80.0926 74.3301C80.0912 74.3301 80.0899 74.3301 80.0885 74.3301C80.0872 74.3301 80.0859 74.3301 80.0845 74.3301C80.0832 74.3301 80.0818 74.3301 80.0805 74.3301C80.0791 74.3301 80.0778 74.3301 80.0764 74.3301C80.0751 74.3301 80.0737 74.3301 80.0724 74.3301C80.071 74.3301 80.0697 74.3301 80.0683 74.3301C80.067 74.3301 80.0656 74.3301 80.0643 74.3301C80.0629 74.3301 80.0616 74.3301 80.0602 74.3301C80.0589 74.3301 80.0575 74.3301 80.0562 74.3301C80.0548 74.3301 80.0534 74.3301 80.0521 74.3301C80.0507 74.3301 80.0494 74.3301 80.048 74.3301C80.0466 74.3301 80.0453 74.3301 80.0439 74.3301C80.0426 74.3301 80.0412 74.3301 80.0398 74.3301C80.0385 74.3301 80.0371 74.3301 80.0357 74.3301C80.0344 74.3301 80.033 74.3301 80.0316 74.3301C80.0303 74.3301 80.0289 74.3301 80.0275 74.3301C80.0262 74.3301 80.0248 74.3301 80.0234 74.3301C80.0221 74.3301 80.0207 74.3301 80.0193 74.3301C80.018 74.3301 80.0166 74.3301 80.0152 74.3301C80.0139 74.3301 80.0125 74.3301 80.0111 74.3301C80.0097 74.3301 80.0084 74.3301 80.007 74.3301C80.0056 74.3301 80.0042 74.3301 80.0029 74.3301C80.0015 74.3301 80.0001 74.3301 79.9987 74.3301C79.9974 74.3301 79.996 74.3301 79.9946 74.3301C79.9932 74.3301 79.9918 74.3301 79.9905 74.3301C79.9891 74.3301 79.9877 74.3301 79.9863 74.3301C79.9849 74.3301 79.9836 74.3301 79.9822 74.3301C79.9808 74.3301 79.9794 74.3301 79.978 74.3301C79.9767 74.3301 79.9753 74.3301 79.9739 74.3301C79.9725 74.3301 79.9711 74.3301 79.9697 74.3301C79.9683 74.3301 79.967 74.3301 79.9656 74.3301C79.9642 74.3301 79.9628 74.3301 79.9614 74.3301C79.96 74.3301 79.9586 74.3301 79.9573 74.3301C79.9559 74.3301 79.9545 74.3301 79.9531 74.3301C79.9517 74.3301 79.9503 74.3301 79.9489 74.3301C79.9475 74.3301 79.9461 74.3301 79.9447 74.3301C79.9434 74.3301 79.942 74.3301 79.9406 74.3301C79.9392 74.3301 79.9378 74.3301 79.9364 74.3301C79.935 74.3301 79.9336 74.3301 79.9322 74.3301C79.9308 74.3301 79.9294 74.3301 79.928 74.3301C79.9266 74.3301 79.9252 74.3301 79.9238 74.3301C79.9224 74.3301 79.9211 74.3301 79.9197 74.3301C79.9183 74.3301 79.9169 74.3301 79.9155 74.3301C79.9141 74.3301 79.9127 74.3301 79.9113 74.3301C79.9099 74.3301 79.9085 74.3301 79.9071 74.3301C79.9057 74.3301 79.9043 74.3301 79.9029 74.3301C79.9015 74.3301 79.9001 74.3301 79.8987 74.3301C79.8973 74.3301 79.8959 74.3301 79.8945 74.3301C79.8931 74.3301 79.8917 74.3301 79.8903 74.3301C79.8889 74.3301 79.8875 74.3301 79.8861 74.3301C79.8847 74.3301 79.8833 74.3301 79.8819 74.3301C79.8804 74.3301 79.879 74.3301 79.8776 74.3301C79.8762 74.3301 79.8748 74.3301 79.8734 74.3301C79.872 74.3301 79.8706 74.3301 79.8692 74.3301C79.8678 74.3301 79.8664 74.3301 79.865 74.3301C79.8636 74.3301 79.8622 74.3301 79.8608 74.3301C79.8594 74.3301 79.858 74.3301 79.8566 74.3301C79.8552 74.3301 79.8538 74.3301 79.8523 74.3301C79.8509 74.3301 79.8495 74.3301 79.8481 74.3301C79.8467 74.3301 79.8453 74.3301 79.8439 74.3301C79.8425 74.3301 79.8411 74.3301 79.8397 74.3301C79.8383 74.3301 79.8369 74.3301 79.8355 74.3301C79.8341 74.3301 79.8326 74.3301 79.8312 74.3301C79.8298 74.3301 79.8284 74.3301 79.827 74.3301C79.8256 74.3301 79.8242 74.3301 79.8228 74.3301C79.8214 74.3301 79.82 74.3301 79.8186 74.3301C79.8171 74.3301 79.8157 74.3301 79.8143 74.3301C79.8129 74.3301 79.8115 74.3301 79.8101 74.3301C79.8087 74.3301 79.8073 74.3301 79.8059 74.3301C79.8045 74.3301 79.8031 74.3301 79.8016 74.3301C79.8002 74.3301 79.7988 74.3301 79.7974 74.3301C79.796 74.3301 79.7946 74.3301 79.7932 74.3301C79.7918 74.3301 79.7904 74.3301 79.7889 74.3301C79.7875 74.3301 79.7861 74.3301 79.7847 74.3301C79.7833 74.3301 79.7819 74.3301 79.7805 74.3301C79.7791 74.3301 79.7777 74.3301 79.7763 74.3301C79.7748 74.3301 79.7734 74.3301 79.772 74.3301C79.7706 74.3301 79.7692 74.3301 79.7678 74.3301C79.7664 74.3301 79.765 74.3301 79.7636 74.3301C79.7622 74.3301 79.7607 74.3301 79.7593 74.3301C79.7579 74.3301 79.7565 74.3301 79.7551 74.3301C79.7537 74.3301 79.7523 74.3301 79.7509 74.3301C79.7495 74.3301 79.7481 74.3301 79.7466 74.3301C79.7452 74.3301 79.7438 74.3301 79.7424 74.3301C79.741 74.3301 79.7396 74.3301 79.7382 74.3301C79.7368 74.3301 79.7354 74.3301 79.734 74.3301C79.7326 74.3301 79.7311 74.3301 79.7297 74.3301C79.7283 74.3301 79.7269 74.3301 79.7255 74.3301C79.7241 74.3301 79.7227 74.3301 79.7213 74.3301C79.7199 74.3301 79.7185 74.3301 79.7171 74.3301C79.7157 74.3301 79.7142 74.3301 79.7128 74.3301C79.7114 74.3301 79.71 74.3301 79.7086 74.3301C79.7072 74.3301 79.7058 74.3301 79.7044 74.3301C79.703 74.3301 79.7016 74.3301 79.7002 74.3301C79.6988 74.3301 79.6974 74.3301 79.696 74.3301C79.6945 74.3301 79.6931 74.3301 79.6917 74.3301C79.6903 74.3301 79.6889 74.3301 79.6875 74.3301C79.6861 74.3301 79.6847 74.3301 79.6833 74.3301C79.6819 74.3301 79.6805 74.3301 79.6791 74.3301C79.6777 74.3301 79.6763 74.3301 79.6749 74.3301C79.6735 74.3301 79.6721 74.3301 79.6707 74.3301C79.6693 74.3301 79.6679 74.3301 79.6665 74.3301C79.6651 74.3301 79.6637 74.3301 79.6623 74.3301C79.6609 74.3301 79.6595 74.3301 79.6581 74.3301C79.6567 74.3301 79.6553 74.3301 79.6539 74.3301C79.6525 74.3301 79.6511 74.3301 79.6497 74.3301C79.6483 74.3301 79.6469 74.3301 79.6455 74.3301C79.6441 74.3301 79.6427 74.3301 79.6413 74.3301C79.6399 74.3301 79.6385 74.3301 79.6371 74.3301C79.6357 74.3301 79.6343 74.3301 79.6329 74.3301C79.6315 74.3301 79.6301 74.3301 79.6287 74.3301C79.6273 74.3301 79.6259 74.3301 79.6245 74.3301C79.6231 74.3301 79.6217 74.3301 79.6203 74.3301C79.6189 74.3301 79.6176 74.3301 79.6162 74.3301C79.6148 74.3301 79.6134 74.3301 79.612 74.3301C79.6106 74.3301 79.6092 74.3301 79.6078 74.3301C79.6064 74.3301 79.605 74.3301 79.6036 74.3301C79.6022 74.3301 79.6009 74.3301 79.5995 74.3301C79.5981 74.3301 79.5967 74.3301 79.5953 74.3301C79.5939 74.3301 79.5925 74.3301 79.5911 74.3301C79.5898 74.3301 79.5884 74.3301 79.587 74.3301C79.5856 74.3301 79.5842 74.3301 79.5828 74.3301C79.5815 74.3301 79.5801 74.3301 79.5787 74.3301C79.5773 74.3301 79.5759 74.3301 79.5745 74.3301C79.5732 74.3301 79.5718 74.3301 79.5704 74.3301C79.569 74.3301 79.5676 74.3301 79.5662 74.3301C79.5649 74.3301 79.5635 74.3301 79.5621 74.3301C79.5607 74.3301 79.5594 74.3301 79.558 74.3301C79.5566 74.3301 79.5552 74.3301 79.5538 74.3301C79.5525 74.3301 79.5511 74.3301 79.5497 74.3301C79.5483 74.3301 79.547 74.3301 79.5456 74.3301C79.5442 74.3301 79.5429 74.3301 79.5415 74.3301C79.5401 74.3301 79.5387 74.3301 79.5374 74.3301C79.536 74.3301 79.5346 74.3301 79.5333 74.3301C79.5319 74.3301 79.5305 74.3301 79.5292 74.3301C79.5278 74.3301 79.5264 74.3301 79.5251 74.3301C79.5237 74.3301 79.5223 74.3301 79.521 74.3301C79.5196 74.3301 79.5182 74.3301 79.5169 74.3301C79.5155 74.3301 79.5141 74.3301 79.5128 74.3301C79.5114 74.3301 79.5101 74.3301 79.5087 74.3301C79.5073 74.3301 79.506 74.3301 79.5046 74.3301C79.5033 74.3301 79.5019 74.3301 79.5005 74.3301C79.4992 74.3301 79.4978 74.3301 79.4965 74.3301C79.4951 74.3301 79.4938 74.3301 79.4924 74.3301C79.4911 74.3301 79.4897 74.3301 79.4883 74.3301C79.487 74.3301 79.4856 74.3301 79.4843 74.3301C79.4829 74.3301 79.4816 74.3301 79.4802 74.3301C79.4789 74.3301 79.4775 74.3301 79.4762 74.3301C79.4749 74.3301 79.4735 74.3301 79.4722 74.3301C79.4708 74.3301 79.4695 74.3301 79.4681 74.3301C79.4668 74.3301 79.4654 74.3301 79.4641 74.3301C79.4628 74.3301 79.4614 74.3301 79.4601 74.3301C79.4587 74.3301 79.4574 74.3301 79.4561 74.3301C79.4547 74.3301 79.4534 74.3301 79.452 74.3301C79.4507 74.3301 79.4494 74.3301 79.448 74.3301C79.4467 74.3301 79.4454 74.3301 79.444 74.3301C79.4427 74.3301 79.4414 74.3301 79.4401 74.3301C79.4387 74.3301 79.4374 74.3301 79.4361 74.3301C79.4347 74.3301 79.4334 74.3301 79.4321 74.3301C79.4308 74.3301 79.4294 74.3301 79.4281 74.3301C79.4268 74.3301 79.4255 74.3301 79.4241 74.3301C79.4228 74.3301 79.4215 74.3301 79.4202 74.3301C79.4189 74.3301 79.4175 74.3301 79.4162 74.3301C79.4149 74.3301 79.4136 74.3301 79.4123 74.3301C79.4109 74.3301 79.4096 74.3301 79.4083 74.3301C79.407 74.3301 79.4057 74.3301 79.4044 74.3301C79.4031 74.3301 79.4018 74.3301 79.4005 74.3301C79.3991 74.3301 79.3978 74.3301 79.3965 74.3301C79.3952 74.3301 79.3939 74.3301 79.3926 74.3301C79.3913 74.3301 79.39 74.3301 79.3887 74.3301C79.3874 74.3301 79.3861 74.3301 79.3848 74.3301C79.3835 74.3301 79.3822 74.3301 79.3809 74.3301C79.3796 74.3301 79.3783 74.3301 79.377 74.3301C79.3757 74.3301 79.3744 74.3301 79.3731 74.3301C79.3718 74.3301 79.3705 74.3301 79.3692 74.3301C79.368 74.3301 79.3667 74.3301 79.3654 74.3301C79.3641 74.3301 79.3628 74.3301 79.3615 74.3301C79.3602 74.3301 79.3589 74.3301 79.3577 74.3301C79.3564 74.3301 79.3551 74.3301 79.3538 74.3301C79.3525 74.3301 79.3512 74.3301 79.35 74.3301C79.3487 74.3301 79.3474 74.3301 79.3461 74.3301C79.3449 74.3301 79.3436 74.3301 79.3423 74.3301C79.341 74.3301 79.3398 74.3301 79.3385 74.3301C79.3372 74.3301 79.336 74.3301 79.3347 74.3301C79.3334 74.3301 79.3322 74.3301 79.3309 74.3301C79.3296 74.3301 79.3284 74.3301 79.3271 74.3301C79.3258 74.3301 79.3246 74.3301 79.3233 74.3301C79.3221 74.3301 79.3208 74.3301 79.3195 74.3301C79.3183 74.3301 79.317 74.3301 79.3158 74.3301C79.3145 74.3301 79.3133 74.3301 79.312 74.3301C79.3108 74.3301 79.3095 74.3301 79.3083 74.3301C79.307 74.3301 79.3058 74.3301 79.3045 74.3301C79.3033 74.3301 79.302 74.3301 79.3008 74.3301C79.2995 74.3301 79.2983 74.3301 79.2971 74.3301C79.2958 74.3301 79.2946 74.3301 79.2933 74.3301C79.2921 74.3301 79.2909 74.3301 79.2896 74.3301C79.2884 74.3301 79.2872 74.3301 79.2859 74.3301C79.2847 74.3301 79.2835 74.3301 79.2822 74.3301C79.281 74.3301 79.2798 74.3301 79.2785 74.3301C79.2773 74.3301 79.2761 74.3301 79.2749 74.3301C79.2737 74.3301 79.2724 74.3301 79.2712 74.3301C79.27 74.3301 79.2688 74.3301 79.2675 74.3301C79.2663 74.3301 79.2651 74.3301 79.2639 74.3301C79.2627 74.3301 79.2615 74.3301 79.2603 74.3301C79.2591 74.3301 79.2578 74.3301 79.2566 74.3301C79.2554 74.3301 79.2542 74.3301 79.253 74.3301C79.2518 74.3301 79.2506 74.3301 79.2494 74.3301C79.2482 74.3301 79.247 74.3301 79.2458 74.3301C79.2446 74.3301 79.2434 74.3301 79.2422 74.3301C79.241 74.3301 79.2398 74.3301 79.2386 74.3301C79.2374 74.3301 79.2363 74.3301 79.2351 74.3301C79.2339 74.3301 79.2327 74.3301 79.2315 74.3301C79.2303 74.3301 79.2291 74.3301 79.228 74.3301C79.2268 74.3301 79.2256 74.3301 79.2244 74.3301C79.2232 74.3301 79.2221 74.3301 79.2209 74.3301C79.2197 74.3301 79.2185 74.3301 79.2174 74.3301C79.2162 74.3301 79.215 74.3301 79.2139 74.3301C79.2127 74.3301 79.2115 74.3301 79.2104 74.3301C79.2092 74.3301 79.208 74.3301 79.2069 74.3301C79.2057 74.3301 79.2045 74.3301 79.2034 74.3301C79.2022 74.3301 79.2011 74.3301 79.1999 74.3301C79.1988 74.3301 79.1976 74.3301 79.1964 74.3301C79.1953 74.3301 79.1942 74.3301 79.193 74.3301C79.1919 74.3301 79.1907 74.3301 79.1896 74.3301C79.1884 74.3301 79.1873 74.3301 79.1861 74.3301C79.185 74.3301 79.1839 74.3301 79.1827 74.3301C79.1816 74.3301 79.1805 74.3301 79.1793 74.3301C79.1782 74.3301 79.1771 74.3301 79.1759 74.3301C79.1748 74.3301 79.1737 74.3301 79.1725 74.3301C79.1714 74.3301 79.1703 74.3301 79.1692 74.3301C79.1681 74.3301 79.1669 74.3301 79.1658 74.3301C79.1647 74.3301 79.1636 74.3301 79.1625 74.3301C79.1613 74.3301 79.1602 74.3301 79.1591 74.3301C79.158 74.3301 79.1569 74.3301 79.1558 74.3301C79.1547 74.3301 79.1536 74.3301 79.1525 74.3301C79.1514 74.3301 79.1503 74.3301 79.1492 74.3301C79.1481 74.3301 79.147 74.3301 79.1459 74.3301C79.1448 74.3301 79.1437 74.3301 79.1426 74.3301C79.1415 74.3301 79.1404 74.3301 79.1393 74.3301C79.1383 74.3301 79.1372 74.3301 79.1361 74.3301C79.135 74.3301 79.1339 74.3301 79.1328 74.3301C79.1318 74.3301 79.1307 74.3301 79.1296 74.3301C79.1285 74.3301 79.1275 74.3301 79.1264 74.3301C79.1253 74.3301 79.1242 74.3301 79.1232 74.3301C79.1221 74.3301 79.121 74.3301 79.12 74.3301C79.1189 74.3301 79.1179 74.3301 79.1168 74.3301C79.1157 74.3301 79.1147 74.3301 79.1136 74.3301C79.1126 74.3301 79.1115 74.3301 79.1105 74.3301C79.1094 74.3301 79.1084 74.3301 79.1073 74.3301C79.1063 74.3301 79.1052 74.3301 79.1042 74.3301C79.1031 74.3301 79.1021 74.3301 79.1011 74.3301C79.1 74.3301 79.099 74.3301 79.098 74.3301C79.0969 74.3301 79.0959 74.3301 79.0949 74.3301C79.0938 74.3301 79.0928 74.3301 79.0918 74.3301C79.0908 74.3301 79.0897 74.3301 79.0887 74.3301C79.0877 74.3301 79.0867 74.3301 79.0857 74.3301C79.0846 74.3301 79.0836 74.3301 79.0826 74.3301C79.0816 74.3301 79.0806 74.3301 79.0796 74.3301C79.0786 74.3301 79.0776 74.3301 79.0766 74.3301C79.0756 74.3301 79.0746 74.3301 79.0736 74.3301C79.0726 74.3301 79.0716 74.3301 79.0706 74.3301C79.0696 74.3301 79.0686 74.3301 79.0676 74.3301C79.0666 74.3301 79.0656 74.3301 79.0646 74.3301C79.0636 74.3301 79.0627 74.3301 79.0617 74.3301C79.0607 74.3301 79.0597 74.3301 79.0587 74.3301C79.0578 74.3301 79.0568 74.3301 79.0558 74.3301C79.0548 74.3301 79.0539 74.3301 79.0529 74.3301C79.0519 74.3301 79.051 74.3301 79.05 74.3301C79.0491 74.3301 79.0481 74.3301 79.0471 74.3301C79.0462 74.3301 79.0452 74.3301 79.0443 74.3301C79.0433 74.3301 79.0424 74.3301 79.0414 74.3301C79.0405 74.3301 79.0395 74.3301 79.0386 74.3301C79.0376 74.3301 79.0367 74.3301 79.0358 74.3301C79.0348 74.3301 79.0339 74.3301 79.0329 74.3301C79.032 74.3301 79.0311 74.3301 79.0302 74.3301C79.0292 74.3301 79.0283 74.3301 79.0274 74.3301C79.0264 74.3301 79.0255 74.3301 79.0246 74.3301C79.0237 74.3301 79.0228 74.3301 79.0219 74.3301C79.0209 74.3301 79.02 74.3301 79.0191 74.3301C79.0182 74.3301 79.0173 74.3301 79.0164 74.3301C79.0155 74.3301 79.0146 74.3301 79.0137 74.3301C79.0128 74.3301 79.0119 74.3301 79.011 74.3301C79.0101 74.3301 79.0092 74.3301 79.0083 74.3301C79.0074 74.3301 79.0065 74.3301 79.0057 74.3301C79.0048 74.3301 79.0039 74.3301 79.003 74.3301C79.0021 74.3301 79.0013 74.3301 79.0004 74.3301C78.9995 74.3301 78.9986 74.3301 78.9978 74.3301C78.9969 74.3301 78.996 74.3301 78.9952 74.3301C78.9943 74.3301 78.9934 74.3301 78.9926 74.3301C78.9917 74.3301 78.9909 74.3301 78.99 74.3301C78.9891 74.3301 78.9883 74.3301 78.9874 74.3301C78.9866 74.3301 78.9857 74.3301 78.9849 74.3301C78.9841 74.3301 78.9832 74.3301 78.9824 74.3301C78.9815 74.3301 78.9807 74.3301 78.9799 74.3301C78.979 74.3301 78.9782 74.3301 78.9774 74.3301C78.9766 74.3301 78.9757 74.3301 78.9749 74.3301C78.9741 74.3301 78.9733 74.3301 78.9724 74.3301C78.9716 74.3301 78.9708 74.3301 78.97 74.3301C78.9692 74.3301 78.9684 74.3301 78.9676 74.3301C78.9668 74.3301 78.966 74.3301 78.9652 74.3301C78.9644 74.3301 78.9636 74.3301 78.9628 74.3301C78.962 74.3301 78.9612 74.3301 78.9604 74.3301C78.9596 74.3301 78.9588 74.3301 78.958 74.3301C78.9572 74.3301 78.9565 74.3301 78.9557 74.3301C78.9549 74.3301 78.9541 74.3301 78.9533 74.3301C78.9526 74.3301 78.9518 74.3301 78.951 74.3301C78.9503 74.3301 78.9495 74.3301 78.9487 74.3301C78.948 74.3301 78.9472 74.3301 78.9465 74.3301C78.9457 74.3301 78.9449 74.3301 78.9442 74.3301C78.9434 74.3301 78.9427 74.3301 78.942 74.3301C78.9412 74.3301 78.9405 74.3301 78.9397 74.3301C78.939 74.3301 78.9382 74.3301 78.9375 74.3301C78.9368 74.3301 78.9361 74.3301 78.9353 74.3301C78.9346 74.3301 78.9339 74.3301 78.9331 74.3301C78.9324 74.3301 78.9317 74.3301 78.931 74.3301C78.9303 74.3301 78.9296 74.3301 78.9288 74.3301C78.9281 74.3301 78.9274 74.3301 78.9267 74.3301C78.926 74.3301 78.9253 74.3301 78.9246 74.3301C78.9239 74.3301 78.9232 74.3301 78.9225 74.3301C78.9218 74.3301 78.9211 74.3301 78.9204 74.3301C78.9198 74.3301 78.9191 74.3301 78.9184 74.3301C78.9177 74.3301 78.917 74.3301 78.9164 74.3301C78.9157 74.3301 78.915 74.3301 78.9143 74.3301C78.9137 74.3301 78.913 74.3301 78.9123 74.3301C78.9117 74.3301 78.911 74.3301 78.9104 74.3301C78.9097 74.3301 78.909 74.3301 78.9084 74.3301C78.9077 74.3301 78.9071 74.3301 78.9064 74.3301C78.9058 74.3301 78.9052 74.3301 78.9045 74.3301C78.9039 74.3301 78.9032 74.3301 78.9026 74.3301C78.902 74.3301 78.9013 74.3301 78.9007 74.3301C78.9001 74.3301 78.8995 74.3301 78.8988 74.3301C78.8982 74.3301 78.8976 74.3301 78.897 74.3301C78.8964 74.3301 78.8958 74.3301 78.8951 74.3301C78.8945 74.3301 78.8939 74.3301 78.8933 74.3301C78.8927 74.3301 78.8921 74.3301 78.8915 74.3301C78.8909 74.3301 78.8904 74.3301 78.8898 74.3301C78.8892 74.3301 78.8886 74.3301 78.888 74.3301C78.8874 74.3301 78.8868 74.3301 78.8863 74.3301C78.8857 74.3301 78.8851 74.3301 78.8845 74.3301C78.884 74.3301 78.8834 74.3301 78.8828 74.3301C78.8823 74.3301 78.8817 74.3301 78.8811 74.3301C78.8806 74.3301 78.88 74.3301 78.8795 74.3301C78.8789 74.3301 78.8784 74.3301 78.8778 74.3301C78.8773 74.3301 78.8767 74.3301 78.8762 74.3301C78.8757 74.3301 78.8751 74.3301 78.8746 74.3301C78.8741 74.3301 78.8735 74.3301 78.873 74.3301C78.8725 74.3301 78.872 74.3301 78.8715 74.3301C78.8709 74.3301 78.8704 74.3301 78.8699 74.3301C78.8694 74.3301 78.8689 74.3301 78.8684 74.3301C78.8679 74.3301 78.8674 74.3301 78.8669 74.3301C78.8664 74.3301 78.8659 74.3301 78.8654 74.3301C78.8649 74.3301 78.8644 74.3301 78.8639 74.3301C78.8634 74.3301 78.8629 74.3301 78.8625 74.3301C78.862 74.3301 78.8615 74.3301 78.861 74.3301C78.8606 74.3301 78.8601 74.3301 78.8596 74.3301C78.8592 74.3301 78.8587 74.3301 78.8582 74.3301C78.8578 74.3301 78.8573 74.3301 78.8569 74.3301C78.8564 74.3301 78.856 74.3301 78.8555 74.3301C78.8551 74.3301 78.8546 74.3301 78.8542 74.3301C78.8538 74.3301 78.8533 74.3301 78.8529 74.3301C78.8525 74.3301 78.852 74.3301 78.8516 74.3301C78.8512 74.3301 78.8508 74.3301 78.8503 74.3301C78.8499 74.3301 78.8495 74.3301 78.8491 74.3301C78.8487 74.3301 78.8483 74.3301 78.8479 74.3301C78.8475 74.3301 78.8471 74.3301 78.8467 74.3301C78.8463 74.3301 78.8459 74.3301 78.8455 74.3301C78.8451 74.3301 78.8447 74.3301 78.8443 74.3301C78.844 74.3301 78.8436 74.3301 78.8432 74.3301C78.8428 74.3301 78.8425 74.3301 78.8421 74.3301C78.8417 74.3301 78.8413 74.3301 78.841 74.3301C78.8406 74.3301 78.8403 74.3301 78.8399 74.3301C78.8396 74.3301 78.8392 74.3301 78.8389 74.3301C78.8385 74.3301 78.8382 74.3301 78.8378 74.3301C78.8375 74.3301 78.8372 74.3301 78.8368 74.3301C78.8365 74.3301 78.8362 74.3301 78.8358 74.3301C78.8355 74.3301 78.8352 74.3301 78.8349 74.3301C78.8345 74.3301 78.8342 74.3301 78.8339 74.3301C78.8336 74.3301 78.8333 74.3301 78.833 74.3301C78.8327 74.3301 78.8324 74.3301 78.8321 74.3301C78.8318 74.3301 78.8315 74.3301 78.8312 74.3301C78.8309 74.3301 78.8306 74.3301 78.8304 74.3301C78.8301 74.3301 78.8298 74.3301 78.8295 74.3301C78.8293 74.3301 78.829 74.3301 78.8287 74.3301C78.8285 74.3301 78.8282 74.3301 78.8279 74.3301C78.8277 74.3301 78.8274 74.3301 78.8272 74.3301C78.8269 74.3301 78.8267 74.3301 78.8264 74.3301C78.8262 74.3301 78.8259 74.3301 78.8257 74.3301C78.8255 74.3301 78.8252 74.3301 78.825 74.3301C78.8248 74.3301 78.8245 74.3301 78.8243 74.3301C78.8241 74.3301 78.8239 74.3301 78.8237 74.3301C78.8234 74.3301 78.8232 74.3301 78.823 74.3301C78.8228 74.3301 78.8226 74.3301 78.8224 74.3301C78.8222 74.3301 78.822 74.3301 78.8218 74.3301C78.8216 74.3301 78.8215 74.3301 78.8213 74.3301C78.8211 74.3301 78.8209 74.3301 78.8207 74.3301C78.8206 74.3301 78.8204 74.3301 78.8202 74.3301C78.8201 74.3301 78.8199 74.3301 78.8197 74.3301C78.8196 74.3301 78.8194 74.3301 78.8193 74.3301C78.8191 74.3301 78.819 74.3301 78.8188 74.3301C78.8187 74.3301 78.8185 74.3301 78.8184 74.3301C78.8183 74.3301 78.8181 74.3301 78.818 74.3301C78.8179 74.3301 78.8177 74.3301 78.8176 74.3301C78.8175 74.3301 78.8174 74.3301 78.8173 74.3301C78.8171 74.3301 78.817 74.3301 78.8169 74.3301C78.8168 74.3301 78.8167 74.3301 78.8166 74.3301C78.8165 74.3301 78.8164 74.3301 78.8163 74.3301C78.8163 74.3301 78.8162 74.3301 78.8161 74.3301C78.816 74.3301 78.8159 74.3301 78.8159 74.3301C78.8158 74.3301 78.8157 74.3301 78.8157 74.3301C78.8156 74.3301 78.8155 74.3301 78.8155 74.3301C78.8154 74.3301 78.8154 74.3301 78.8153 74.3301C78.8153 74.3301 78.8152 74.3301 78.8152 74.3301C78.8151 74.3301 78.8151 74.3301 78.8151 74.3301C78.815 74.3301 78.815 74.3301 78.815 74.3301C78.8149 74.3301 78.8149 74.3301 78.8149 74.3301C78.8149 74.3301 78.8149 74.3301 78.8149 74.3301C78.8149 74.3301 78.8149 74.3301 78.8149 74.8301C78.8149 75.3301 78.8149 75.3301 78.8149 75.3301C78.8149 75.3301 78.8149 75.3301 78.8149 75.3301C78.8149 75.3301 78.8149 75.3301 78.815 75.3301C78.815 75.3301 78.815 75.3301 78.8151 75.3301C78.8151 75.3301 78.8151 75.3301 78.8152 75.3301C78.8152 75.3301 78.8153 75.3301 78.8153 75.3301C78.8154 75.3301 78.8154 75.3301 78.8155 75.3301C78.8155 75.3301 78.8156 75.3301 78.8157 75.3301C78.8157 75.3301 78.8158 75.3301 78.8159 75.3301C78.8159 75.3301 78.816 75.3301 78.8161 75.3301C78.8162 75.3301 78.8163 75.3301 78.8163 75.3301C78.8164 75.3301 78.8165 75.3301 78.8166 75.3301C78.8167 75.3301 78.8168 75.3301 78.8169 75.3301C78.817 75.3301 78.8171 75.3301 78.8173 75.3301C78.8174 75.3301 78.8175 75.3301 78.8176 75.3301C78.8177 75.3301 78.8179 75.3301 78.818 75.3301C78.8181 75.3301 78.8183 75.3301 78.8184 75.3301C78.8185 75.3301 78.8187 75.3301 78.8188 75.3301C78.819 75.3301 78.8191 75.3301 78.8193 75.3301C78.8194 75.3301 78.8196 75.3301 78.8197 75.3301C78.8199 75.3301 78.8201 75.3301 78.8202 75.3301C78.8204 75.3301 78.8206 75.3301 78.8207 75.3301C78.8209 75.3301 78.8211 75.3301 78.8213 75.3301C78.8215 75.3301 78.8216 75.3301 78.8218 75.3301C78.822 75.3301 78.8222 75.3301 78.8224 75.3301C78.8226 75.3301 78.8228 75.3301 78.823 75.3301C78.8232 75.3301 78.8234 75.3301 78.8237 75.3301C78.8239 75.3301 78.8241 75.3301 78.8243 75.3301C78.8245 75.3301 78.8248 75.3301 78.825 75.3301C78.8252 75.3301 78.8255 75.3301 78.8257 75.3301C78.8259 75.3301 78.8262 75.3301 78.8264 75.3301C78.8267 75.3301 78.8269 75.3301 78.8272 75.3301C78.8274 75.3301 78.8277 75.3301 78.8279 75.3301C78.8282 75.3301 78.8285 75.3301 78.8287 75.3301C78.829 75.3301 78.8293 75.3301 78.8295 75.3301C78.8298 75.3301 78.8301 75.3301 78.8304 75.3301C78.8306 75.3301 78.8309 75.3301 78.8312 75.3301C78.8315 75.3301 78.8318 75.3301 78.8321 75.3301C78.8324 75.3301 78.8327 75.3301 78.833 75.3301C78.8333 75.3301 78.8336 75.3301 78.8339 75.3301C78.8342 75.3301 78.8345 75.3301 78.8349 75.3301C78.8352 75.3301 78.8355 75.3301 78.8358 75.3301C78.8362 75.3301 78.8365 75.3301 78.8368 75.3301C78.8372 75.3301 78.8375 75.3301 78.8378 75.3301C78.8382 75.3301 78.8385 75.3301 78.8389 75.3301C78.8392 75.3301 78.8396 75.3301 78.8399 75.3301C78.8403 75.3301 78.8406 75.3301 78.841 75.3301C78.8413 75.3301 78.8417 75.3301 78.8421 75.3301C78.8425 75.3301 78.8428 75.3301 78.8432 75.3301C78.8436 75.3301 78.844 75.3301 78.8443 75.3301C78.8447 75.3301 78.8451 75.3301 78.8455 75.3301C78.8459 75.3301 78.8463 75.3301 78.8467 75.3301C78.8471 75.3301 78.8475 75.3301 78.8479 75.3301C78.8483 75.3301 78.8487 75.3301 78.8491 75.3301C78.8495 75.3301 78.8499 75.3301 78.8503 75.3301C78.8508 75.3301 78.8512 75.3301 78.8516 75.3301C78.852 75.3301 78.8525 75.3301 78.8529 75.3301C78.8533 75.3301 78.8538 75.3301 78.8542 75.3301C78.8546 75.3301 78.8551 75.3301 78.8555 75.3301C78.856 75.3301 78.8564 75.3301 78.8569 75.3301C78.8573 75.3301 78.8578 75.3301 78.8582 75.3301C78.8587 75.3301 78.8592 75.3301 78.8596 75.3301C78.8601 75.3301 78.8606 75.3301 78.861 75.3301C78.8615 75.3301 78.862 75.3301 78.8625 75.3301C78.8629 75.3301 78.8634 75.3301 78.8639 75.3301C78.8644 75.3301 78.8649 75.3301 78.8654 75.3301C78.8659 75.3301 78.8664 75.3301 78.8669 75.3301C78.8674 75.3301 78.8679 75.3301 78.8684 75.3301C78.8689 75.3301 78.8694 75.3301 78.8699 75.3301C78.8704 75.3301 78.8709 75.3301 78.8715 75.3301C78.872 75.3301 78.8725 75.3301 78.873 75.3301C78.8735 75.3301 78.8741 75.3301 78.8746 75.3301C78.8751 75.3301 78.8757 75.3301 78.8762 75.3301C78.8767 75.3301 78.8773 75.3301 78.8778 75.3301C78.8784 75.3301 78.8789 75.3301 78.8795 75.3301C78.88 75.3301 78.8806 75.3301 78.8811 75.3301C78.8817 75.3301 78.8823 75.3301 78.8828 75.3301C78.8834 75.3301 78.884 75.3301 78.8845 75.3301C78.8851 75.3301 78.8857 75.3301 78.8863 75.3301C78.8868 75.3301 78.8874 75.3301 78.888 75.3301C78.8886 75.3301 78.8892 75.3301 78.8898 75.3301C78.8904 75.3301 78.8909 75.3301 78.8915 75.3301C78.8921 75.3301 78.8927 75.3301 78.8933 75.3301C78.8939 75.3301 78.8945 75.3301 78.8951 75.3301C78.8958 75.3301 78.8964 75.3301 78.897 75.3301C78.8976 75.3301 78.8982 75.3301 78.8988 75.3301C78.8995 75.3301 78.9001 75.3301 78.9007 75.3301C78.9013 75.3301 78.902 75.3301 78.9026 75.3301C78.9032 75.3301 78.9039 75.3301 78.9045 75.3301C78.9052 75.3301 78.9058 75.3301 78.9064 75.3301C78.9071 75.3301 78.9077 75.3301 78.9084 75.3301C78.909 75.3301 78.9097 75.3301 78.9104 75.3301C78.911 75.3301 78.9117 75.3301 78.9123 75.3301C78.913 75.3301 78.9137 75.3301 78.9143 75.3301C78.915 75.3301 78.9157 75.3301 78.9164 75.3301C78.917 75.3301 78.9177 75.3301 78.9184 75.3301C78.9191 75.3301 78.9198 75.3301 78.9204 75.3301C78.9211 75.3301 78.9218 75.3301 78.9225 75.3301C78.9232 75.3301 78.9239 75.3301 78.9246 75.3301C78.9253 75.3301 78.926 75.3301 78.9267 75.3301C78.9274 75.3301 78.9281 75.3301 78.9288 75.3301C78.9296 75.3301 78.9303 75.3301 78.931 75.3301C78.9317 75.3301 78.9324 75.3301 78.9331 75.3301C78.9339 75.3301 78.9346 75.3301 78.9353 75.3301C78.9361 75.3301 78.9368 75.3301 78.9375 75.3301C78.9382 75.3301 78.939 75.3301 78.9397 75.3301C78.9405 75.3301 78.9412 75.3301 78.942 75.3301C78.9427 75.3301 78.9434 75.3301 78.9442 75.3301C78.9449 75.3301 78.9457 75.3301 78.9465 75.3301C78.9472 75.3301 78.948 75.3301 78.9487 75.3301C78.9495 75.3301 78.9503 75.3301 78.951 75.3301C78.9518 75.3301 78.9526 75.3301 78.9533 75.3301C78.9541 75.3301 78.9549 75.3301 78.9557 75.3301C78.9565 75.3301 78.9572 75.3301 78.958 75.3301C78.9588 75.3301 78.9596 75.3301 78.9604 75.3301C78.9612 75.3301 78.962 75.3301 78.9628 75.3301C78.9636 75.3301 78.9644 75.3301 78.9652 75.3301C78.966 75.3301 78.9668 75.3301 78.9676 75.3301C78.9684 75.3301 78.9692 75.3301 78.97 75.3301C78.9708 75.3301 78.9716 75.3301 78.9724 75.3301C78.9733 75.3301 78.9741 75.3301 78.9749 75.3301C78.9757 75.3301 78.9766 75.3301 78.9774 75.3301C78.9782 75.3301 78.979 75.3301 78.9799 75.3301C78.9807 75.3301 78.9815 75.3301 78.9824 75.3301C78.9832 75.3301 78.9841 75.3301 78.9849 75.3301C78.9857 75.3301 78.9866 75.3301 78.9874 75.3301C78.9883 75.3301 78.9891 75.3301 78.99 75.3301C78.9909 75.3301 78.9917 75.3301 78.9926 75.3301C78.9934 75.3301 78.9943 75.3301 78.9952 75.3301C78.996 75.3301 78.9969 75.3301 78.9978 75.3301C78.9986 75.3301 78.9995 75.3301 79.0004 75.3301C79.0013 75.3301 79.0021 75.3301 79.003 75.3301C79.0039 75.3301 79.0048 75.3301 79.0057 75.3301C79.0065 75.3301 79.0074 75.3301 79.0083 75.3301C79.0092 75.3301 79.0101 75.3301 79.011 75.3301C79.0119 75.3301 79.0128 75.3301 79.0137 75.3301C79.0146 75.3301 79.0155 75.3301 79.0164 75.3301C79.0173 75.3301 79.0182 75.3301 79.0191 75.3301C79.02 75.3301 79.0209 75.3301 79.0219 75.3301C79.0228 75.3301 79.0237 75.3301 79.0246 75.3301C79.0255 75.3301 79.0264 75.3301 79.0274 75.3301C79.0283 75.3301 79.0292 75.3301 79.0302 75.3301C79.0311 75.3301 79.032 75.3301 79.0329 75.3301C79.0339 75.3301 79.0348 75.3301 79.0358 75.3301C79.0367 75.3301 79.0376 75.3301 79.0386 75.3301C79.0395 75.3301 79.0405 75.3301 79.0414 75.3301C79.0424 75.3301 79.0433 75.3301 79.0443 75.3301C79.0452 75.3301 79.0462 75.3301 79.0471 75.3301C79.0481 75.3301 79.0491 75.3301 79.05 75.3301C79.051 75.3301 79.0519 75.3301 79.0529 75.3301C79.0539 75.3301 79.0548 75.3301 79.0558 75.3301C79.0568 75.3301 79.0578 75.3301 79.0587 75.3301C79.0597 75.3301 79.0607 75.3301 79.0617 75.3301C79.0627 75.3301 79.0636 75.3301 79.0646 75.3301C79.0656 75.3301 79.0666 75.3301 79.0676 75.3301C79.0686 75.3301 79.0696 75.3301 79.0706 75.3301C79.0716 75.3301 79.0726 75.3301 79.0736 75.3301C79.0746 75.3301 79.0756 75.3301 79.0766 75.3301C79.0776 75.3301 79.0786 75.3301 79.0796 75.3301C79.0806 75.3301 79.0816 75.3301 79.0826 75.3301C79.0836 75.3301 79.0846 75.3301 79.0857 75.3301C79.0867 75.3301 79.0877 75.3301 79.0887 75.3301C79.0897 75.3301 79.0908 75.3301 79.0918 75.3301C79.0928 75.3301 79.0938 75.3301 79.0949 75.3301C79.0959 75.3301 79.0969 75.3301 79.098 75.3301C79.099 75.3301 79.1 75.3301 79.1011 75.3301C79.1021 75.3301 79.1031 75.3301 79.1042 75.3301C79.1052 75.3301 79.1063 75.3301 79.1073 75.3301C79.1084 75.3301 79.1094 75.3301 79.1105 75.3301C79.1115 75.3301 79.1126 75.3301 79.1136 75.3301C79.1147 75.3301 79.1157 75.3301 79.1168 75.3301C79.1179 75.3301 79.1189 75.3301 79.12 75.3301C79.121 75.3301 79.1221 75.3301 79.1232 75.3301C79.1242 75.3301 79.1253 75.3301 79.1264 75.3301C79.1275 75.3301 79.1285 75.3301 79.1296 75.3301C79.1307 75.3301 79.1318 75.3301 79.1328 75.3301C79.1339 75.3301 79.135 75.3301 79.1361 75.3301C79.1372 75.3301 79.1383 75.3301 79.1393 75.3301C79.1404 75.3301 79.1415 75.3301 79.1426 75.3301C79.1437 75.3301 79.1448 75.3301 79.1459 75.3301C79.147 75.3301 79.1481 75.3301 79.1492 75.3301C79.1503 75.3301 79.1514 75.3301 79.1525 75.3301C79.1536 75.3301 79.1547 75.3301 79.1558 75.3301C79.1569 75.3301 79.158 75.3301 79.1591 75.3301C79.1602 75.3301 79.1613 75.3301 79.1625 75.3301C79.1636 75.3301 79.1647 75.3301 79.1658 75.3301C79.1669 75.3301 79.1681 75.3301 79.1692 75.3301C79.1703 75.3301 79.1714 75.3301 79.1725 75.3301C79.1737 75.3301 79.1748 75.3301 79.1759 75.3301C79.1771 75.3301 79.1782 75.3301 79.1793 75.3301C79.1805 75.3301 79.1816 75.3301 79.1827 75.3301C79.1839 75.3301 79.185 75.3301 79.1861 75.3301C79.1873 75.3301 79.1884 75.3301 79.1896 75.3301C79.1907 75.3301 79.1919 75.3301 79.193 75.3301C79.1942 75.3301 79.1953 75.3301 79.1964 75.3301C79.1976 75.3301 79.1988 75.3301 79.1999 75.3301C79.2011 75.3301 79.2022 75.3301 79.2034 75.3301C79.2045 75.3301 79.2057 75.3301 79.2069 75.3301C79.208 75.3301 79.2092 75.3301 79.2104 75.3301C79.2115 75.3301 79.2127 75.3301 79.2139 75.3301C79.215 75.3301 79.2162 75.3301 79.2174 75.3301C79.2185 75.3301 79.2197 75.3301 79.2209 75.3301C79.2221 75.3301 79.2232 75.3301 79.2244 75.3301C79.2256 75.3301 79.2268 75.3301 79.228 75.3301C79.2291 75.3301 79.2303 75.3301 79.2315 75.3301C79.2327 75.3301 79.2339 75.3301 79.2351 75.3301C79.2363 75.3301 79.2374 75.3301 79.2386 75.3301C79.2398 75.3301 79.241 75.3301 79.2422 75.3301C79.2434 75.3301 79.2446 75.3301 79.2458 75.3301C79.247 75.3301 79.2482 75.3301 79.2494 75.3301C79.2506 75.3301 79.2518 75.3301 79.253 75.3301C79.2542 75.3301 79.2554 75.3301 79.2566 75.3301C79.2578 75.3301 79.2591 75.3301 79.2603 75.3301C79.2615 75.3301 79.2627 75.3301 79.2639 75.3301C79.2651 75.3301 79.2663 75.3301 79.2675 75.3301C79.2688 75.3301 79.27 75.3301 79.2712 75.3301C79.2724 75.3301 79.2737 75.3301 79.2749 75.3301C79.2761 75.3301 79.2773 75.3301 79.2785 75.3301C79.2798 75.3301 79.281 75.3301 79.2822 75.3301C79.2835 75.3301 79.2847 75.3301 79.2859 75.3301C79.2872 75.3301 79.2884 75.3301 79.2896 75.3301C79.2909 75.3301 79.2921 75.3301 79.2933 75.3301C79.2946 75.3301 79.2958 75.3301 79.2971 75.3301C79.2983 75.3301 79.2995 75.3301 79.3008 75.3301C79.302 75.3301 79.3033 75.3301 79.3045 75.3301C79.3058 75.3301 79.307 75.3301 79.3083 75.3301C79.3095 75.3301 79.3108 75.3301 79.312 75.3301C79.3133 75.3301 79.3145 75.3301 79.3158 75.3301C79.317 75.3301 79.3183 75.3301 79.3195 75.3301C79.3208 75.3301 79.3221 75.3301 79.3233 75.3301C79.3246 75.3301 79.3258 75.3301 79.3271 75.3301C79.3284 75.3301 79.3296 75.3301 79.3309 75.3301C79.3322 75.3301 79.3334 75.3301 79.3347 75.3301C79.336 75.3301 79.3372 75.3301 79.3385 75.3301C79.3398 75.3301 79.341 75.3301 79.3423 75.3301C79.3436 75.3301 79.3449 75.3301 79.3461 75.3301C79.3474 75.3301 79.3487 75.3301 79.35 75.3301C79.3512 75.3301 79.3525 75.3301 79.3538 75.3301C79.3551 75.3301 79.3564 75.3301 79.3577 75.3301C79.3589 75.3301 79.3602 75.3301 79.3615 75.3301C79.3628 75.3301 79.3641 75.3301 79.3654 75.3301C79.3667 75.3301 79.368 75.3301 79.3692 75.3301C79.3705 75.3301 79.3718 75.3301 79.3731 75.3301C79.3744 75.3301 79.3757 75.3301 79.377 75.3301C79.3783 75.3301 79.3796 75.3301 79.3809 75.3301C79.3822 75.3301 79.3835 75.3301 79.3848 75.3301C79.3861 75.3301 79.3874 75.3301 79.3887 75.3301C79.39 75.3301 79.3913 75.3301 79.3926 75.3301C79.3939 75.3301 79.3952 75.3301 79.3965 75.3301C79.3978 75.3301 79.3991 75.3301 79.4005 75.3301C79.4018 75.3301 79.4031 75.3301 79.4044 75.3301C79.4057 75.3301 79.407 75.3301 79.4083 75.3301C79.4096 75.3301 79.4109 75.3301 79.4123 75.3301C79.4136 75.3301 79.4149 75.3301 79.4162 75.3301C79.4175 75.3301 79.4189 75.3301 79.4202 75.3301C79.4215 75.3301 79.4228 75.3301 79.4241 75.3301C79.4255 75.3301 79.4268 75.3301 79.4281 75.3301C79.4294 75.3301 79.4308 75.3301 79.4321 75.3301C79.4334 75.3301 79.4347 75.3301 79.4361 75.3301C79.4374 75.3301 79.4387 75.3301 79.4401 75.3301C79.4414 75.3301 79.4427 75.3301 79.444 75.3301C79.4454 75.3301 79.4467 75.3301 79.448 75.3301C79.4494 75.3301 79.4507 75.3301 79.452 75.3301C79.4534 75.3301 79.4547 75.3301 79.4561 75.3301C79.4574 75.3301 79.4587 75.3301 79.4601 75.3301C79.4614 75.3301 79.4628 75.3301 79.4641 75.3301C79.4654 75.3301 79.4668 75.3301 79.4681 75.3301C79.4695 75.3301 79.4708 75.3301 79.4722 75.3301C79.4735 75.3301 79.4749 75.3301 79.4762 75.3301C79.4775 75.3301 79.4789 75.3301 79.4802 75.3301C79.4816 75.3301 79.4829 75.3301 79.4843 75.3301C79.4856 75.3301 79.487 75.3301 79.4883 75.3301C79.4897 75.3301 79.4911 75.3301 79.4924 75.3301C79.4938 75.3301 79.4951 75.3301 79.4965 75.3301C79.4978 75.3301 79.4992 75.3301 79.5005 75.3301C79.5019 75.3301 79.5033 75.3301 79.5046 75.3301C79.506 75.3301 79.5073 75.3301 79.5087 75.3301C79.5101 75.3301 79.5114 75.3301 79.5128 75.3301C79.5141 75.3301 79.5155 75.3301 79.5169 75.3301C79.5182 75.3301 79.5196 75.3301 79.521 75.3301C79.5223 75.3301 79.5237 75.3301 79.5251 75.3301C79.5264 75.3301 79.5278 75.3301 79.5292 75.3301C79.5305 75.3301 79.5319 75.3301 79.5333 75.3301C79.5346 75.3301 79.536 75.3301 79.5374 75.3301C79.5387 75.3301 79.5401 75.3301 79.5415 75.3301C79.5429 75.3301 79.5442 75.3301 79.5456 75.3301C79.547 75.3301 79.5483 75.3301 79.5497 75.3301C79.5511 75.3301 79.5525 75.3301 79.5538 75.3301C79.5552 75.3301 79.5566 75.3301 79.558 75.3301C79.5594 75.3301 79.5607 75.3301 79.5621 75.3301C79.5635 75.3301 79.5649 75.3301 79.5662 75.3301C79.5676 75.3301 79.569 75.3301 79.5704 75.3301C79.5718 75.3301 79.5732 75.3301 79.5745 75.3301C79.5759 75.3301 79.5773 75.3301 79.5787 75.3301C79.5801 75.3301 79.5815 75.3301 79.5828 75.3301C79.5842 75.3301 79.5856 75.3301 79.587 75.3301C79.5884 75.3301 79.5898 75.3301 79.5911 75.3301C79.5925 75.3301 79.5939 75.3301 79.5953 75.3301C79.5967 75.3301 79.5981 75.3301 79.5995 75.3301C79.6009 75.3301 79.6022 75.3301 79.6036 75.3301C79.605 75.3301 79.6064 75.3301 79.6078 75.3301C79.6092 75.3301 79.6106 75.3301 79.612 75.3301C79.6134 75.3301 79.6148 75.3301 79.6162 75.3301C79.6176 75.3301 79.6189 75.3301 79.6203 75.3301C79.6217 75.3301 79.6231 75.3301 79.6245 75.3301C79.6259 75.3301 79.6273 75.3301 79.6287 75.3301C79.6301 75.3301 79.6315 75.3301 79.6329 75.3301C79.6343 75.3301 79.6357 75.3301 79.6371 75.3301C79.6385 75.3301 79.6399 75.3301 79.6413 75.3301C79.6427 75.3301 79.6441 75.3301 79.6455 75.3301C79.6469 75.3301 79.6483 75.3301 79.6497 75.3301C79.6511 75.3301 79.6525 75.3301 79.6539 75.3301C79.6553 75.3301 79.6567 75.3301 79.6581 75.3301C79.6595 75.3301 79.6609 75.3301 79.6623 75.3301C79.6637 75.3301 79.6651 75.3301 79.6665 75.3301C79.6679 75.3301 79.6693 75.3301 79.6707 75.3301C79.6721 75.3301 79.6735 75.3301 79.6749 75.3301C79.6763 75.3301 79.6777 75.3301 79.6791 75.3301C79.6805 75.3301 79.6819 75.3301 79.6833 75.3301C79.6847 75.3301 79.6861 75.3301 79.6875 75.3301C79.6889 75.3301 79.6903 75.3301 79.6917 75.3301C79.6931 75.3301 79.6945 75.3301 79.696 75.3301C79.6974 75.3301 79.6988 75.3301 79.7002 75.3301C79.7016 75.3301 79.703 75.3301 79.7044 75.3301C79.7058 75.3301 79.7072 75.3301 79.7086 75.3301C79.71 75.3301 79.7114 75.3301 79.7128 75.3301C79.7142 75.3301 79.7157 75.3301 79.7171 75.3301C79.7185 75.3301 79.7199 75.3301 79.7213 75.3301C79.7227 75.3301 79.7241 75.3301 79.7255 75.3301C79.7269 75.3301 79.7283 75.3301 79.7297 75.3301C79.7311 75.3301 79.7326 75.3301 79.734 75.3301C79.7354 75.3301 79.7368 75.3301 79.7382 75.3301C79.7396 75.3301 79.741 75.3301 79.7424 75.3301C79.7438 75.3301 79.7452 75.3301 79.7466 75.3301C79.7481 75.3301 79.7495 75.3301 79.7509 75.3301C79.7523 75.3301 79.7537 75.3301 79.7551 75.3301C79.7565 75.3301 79.7579 75.3301 79.7593 75.3301C79.7607 75.3301 79.7622 75.3301 79.7636 75.3301C79.765 75.3301 79.7664 75.3301 79.7678 75.3301C79.7692 75.3301 79.7706 75.3301 79.772 75.3301C79.7734 75.3301 79.7748 75.3301 79.7763 75.3301C79.7777 75.3301 79.7791 75.3301 79.7805 75.3301C79.7819 75.3301 79.7833 75.3301 79.7847 75.3301C79.7861 75.3301 79.7875 75.3301 79.7889 75.3301C79.7904 75.3301 79.7918 75.3301 79.7932 75.3301C79.7946 75.3301 79.796 75.3301 79.7974 75.3301C79.7988 75.3301 79.8002 75.3301 79.8016 75.3301C79.8031 75.3301 79.8045 75.3301 79.8059 75.3301C79.8073 75.3301 79.8087 75.3301 79.8101 75.3301C79.8115 75.3301 79.8129 75.3301 79.8143 75.3301C79.8157 75.3301 79.8171 75.3301 79.8186 75.3301C79.82 75.3301 79.8214 75.3301 79.8228 75.3301C79.8242 75.3301 79.8256 75.3301 79.827 75.3301C79.8284 75.3301 79.8298 75.3301 79.8312 75.3301C79.8326 75.3301 79.8341 75.3301 79.8355 75.3301C79.8369 75.3301 79.8383 75.3301 79.8397 75.3301C79.8411 75.3301 79.8425 75.3301 79.8439 75.3301C79.8453 75.3301 79.8467 75.3301 79.8481 75.3301C79.8495 75.3301 79.8509 75.3301 79.8523 75.3301C79.8538 75.3301 79.8552 75.3301 79.8566 75.3301C79.858 75.3301 79.8594 75.3301 79.8608 75.3301C79.8622 75.3301 79.8636 75.3301 79.865 75.3301C79.8664 75.3301 79.8678 75.3301 79.8692 75.3301C79.8706 75.3301 79.872 75.3301 79.8734 75.3301C79.8748 75.3301 79.8762 75.3301 79.8776 75.3301C79.879 75.3301 79.8804 75.3301 79.8819 75.3301C79.8833 75.3301 79.8847 75.3301 79.8861 75.3301C79.8875 75.3301 79.8889 75.3301 79.8903 75.3301C79.8917 75.3301 79.8931 75.3301 79.8945 75.3301C79.8959 75.3301 79.8973 75.3301 79.8987 75.3301C79.9001 75.3301 79.9015 75.3301 79.9029 75.3301C79.9043 75.3301 79.9057 75.3301 79.9071 75.3301C79.9085 75.3301 79.9099 75.3301 79.9113 75.3301C79.9127 75.3301 79.9141 75.3301 79.9155 75.3301C79.9169 75.3301 79.9183 75.3301 79.9197 75.3301C79.9211 75.3301 79.9224 75.3301 79.9238 75.3301C79.9252 75.3301 79.9266 75.3301 79.928 75.3301C79.9294 75.3301 79.9308 75.3301 79.9322 75.3301C79.9336 75.3301 79.935 75.3301 79.9364 75.3301C79.9378 75.3301 79.9392 75.3301 79.9406 75.3301C79.942 75.3301 79.9434 75.3301 79.9447 75.3301C79.9461 75.3301 79.9475 75.3301 79.9489 75.3301C79.9503 75.3301 79.9517 75.3301 79.9531 75.3301C79.9545 75.3301 79.9559 75.3301 79.9573 75.3301C79.9586 75.3301 79.96 75.3301 79.9614 75.3301C79.9628 75.3301 79.9642 75.3301 79.9656 75.3301C79.967 75.3301 79.9683 75.3301 79.9697 75.3301C79.9711 75.3301 79.9725 75.3301 79.9739 75.3301C79.9753 75.3301 79.9767 75.3301 79.978 75.3301C79.9794 75.3301 79.9808 75.3301 79.9822 75.3301C79.9836 75.3301 79.9849 75.3301 79.9863 75.3301C79.9877 75.3301 79.9891 75.3301 79.9905 75.3301C79.9918 75.3301 79.9932 75.3301 79.9946 75.3301C79.996 75.3301 79.9974 75.3301 79.9987 75.3301C80.0001 75.3301 80.0015 75.3301 80.0029 75.3301C80.0042 75.3301 80.0056 75.3301 80.007 75.3301C80.0084 75.3301 80.0097 75.3301 80.0111 75.3301C80.0125 75.3301 80.0139 75.3301 80.0152 75.3301C80.0166 75.3301 80.018 75.3301 80.0193 75.3301C80.0207 75.3301 80.0221 75.3301 80.0234 75.3301C80.0248 75.3301 80.0262 75.3301 80.0275 75.3301C80.0289 75.3301 80.0303 75.3301 80.0316 75.3301C80.033 75.3301 80.0344 75.3301 80.0357 75.3301C80.0371 75.3301 80.0385 75.3301 80.0398 75.3301C80.0412 75.3301 80.0426 75.3301 80.0439 75.3301C80.0453 75.3301 80.0466 75.3301 80.048 75.3301C80.0494 75.3301 80.0507 75.3301 80.0521 75.3301C80.0534 75.3301 80.0548 75.3301 80.0562 75.3301C80.0575 75.3301 80.0589 75.3301 80.0602 75.3301C80.0616 75.3301 80.0629 75.3301 80.0643 75.3301C80.0656 75.3301 80.067 75.3301 80.0683 75.3301C80.0697 75.3301 80.071 75.3301 80.0724 75.3301C80.0737 75.3301 80.0751 75.3301 80.0764 75.3301C80.0778 75.3301 80.0791 75.3301 80.0805 75.3301C80.0818 75.3301 80.0832 75.3301 80.0845 75.3301C80.0859 75.3301 80.0872 75.3301 80.0885 75.3301C80.0899 75.3301 80.0912 75.3301 80.0926 75.3301C80.0939 75.3301 80.0953 75.3301 80.0966 75.3301C80.0979 75.3301 80.0993 75.3301 80.1006 75.3301C80.102 75.3301 80.1033 75.3301 80.1046 75.3301C80.106 75.3301 80.1073 75.3301 80.1086 75.3301C80.11 75.3301 80.1113 75.3301 80.1126 75.3301C80.114 75.3301 80.1153 75.3301 80.1166 75.3301C80.1179 75.3301 80.1193 75.3301 80.1206 75.3301C80.1219 75.3301 80.1233 75.3301 80.1246 75.3301C80.1259 75.3301 80.1272 75.3301 80.1286 75.3301C80.1299 75.3301 80.1312 75.3301 80.1325 75.3301C80.1338 75.3301 80.1352 75.3301 80.1365 75.3301C80.1378 75.3301 80.1391 75.3301 80.1404 75.3301C80.1418 75.3301 80.1431 75.3301 80.1444 75.3301C80.1457 75.3301 80.147 75.3301 80.1483 75.3301C80.1496 75.3301 80.151 75.3301 80.1523 75.3301C80.1536 75.3301 80.1549 75.3301 80.1562 75.3301C80.1575 75.3301 80.1588 75.3301 80.1601 75.3301C80.1614 75.3301 80.1627 75.3301 80.164 75.3301C80.1653 75.3301 80.1666 75.3301 80.1679 75.3301C80.1692 75.3301 80.1705 75.3301 80.1718 75.3301C80.1731 75.3301 80.1744 75.3301 80.1757 75.3301C80.177 75.3301 80.1783 75.3301 80.1796 75.3301C80.1809 75.3301 80.1822 75.3301 80.1835 75.3301C80.1848 75.3301 80.1861 75.3301 80.1874 75.3301C80.1887 75.3301 80.19 75.3301 80.1912 75.3301C80.1925 75.3301 80.1938 75.3301 80.1951 75.3301C80.1964 75.3301 80.1977 75.3301 80.199 75.3301C80.2002 75.3301 80.2015 75.3301 80.2028 75.3301C80.2041 75.3301 80.2054 75.3301 80.2066 75.3301C80.2079 75.3301 80.2092 75.3301 80.2105 75.3301C80.2117 75.3301 80.213 75.3301 80.2143 75.3301C80.2156 75.3301 80.2168 75.3301 80.2181 75.3301C80.2194 75.3301 80.2206 75.3301 80.2219 75.3301C80.2232 75.3301 80.2244 75.3301 80.2257 75.3301C80.227 75.3301 80.2282 75.3301 80.2295 75.3301C80.2308 75.3301 80.232 75.3301 80.2333 75.3301C80.2345 75.3301 80.2358 75.3301 80.2371 75.3301C80.2383 75.3301 80.2396 75.3301 80.2408 75.3301C80.2421 75.3301 80.2433 75.3301 80.2446 75.3301C80.2458 75.3301 80.2471 75.3301 80.2483 75.3301C80.2496 75.3301 80.2508 75.3301 80.2521 75.3301C80.2533 75.3301 80.2546 75.3301 80.2558 75.3301C80.257 75.3301 80.2583 75.3301 80.2595 75.3301C80.2608 75.3301 80.262 75.3301 80.2632 75.3301C80.2645 75.3301 80.2657 75.3301 80.267 75.3301C80.2682 75.3301 80.2694 75.3301 80.2706 75.3301C80.2719 75.3301 80.2731 75.3301 80.2743 75.3301C80.2756 75.3301 80.2768 75.3301 80.278 75.3301C80.2792 75.3301 80.2805 75.3301 80.2817 75.3301C80.2829 75.3301 80.2841 75.3301 80.2853 75.3301C80.2866 75.3301 80.2878 75.3301 80.289 75.3301C80.2902 75.3301 80.2914 75.3301 80.2926 75.3301C80.2939 75.3301 80.2951 75.3301 80.2963 75.3301C80.2975 75.3301 80.2987 75.3301 80.2999 75.3301C80.3011 75.3301 80.3023 75.3301 80.3035 75.3301C80.3047 75.3301 80.3059 75.3301 80.3071 75.3301C80.3083 75.3301 80.3095 75.3301 80.3107 75.3301C80.3119 75.3301 80.3131 75.3301 80.3143 75.3301C80.3155 75.3301 80.3167 75.3301 80.3179 75.3301C80.3191 75.3301 80.3203 75.3301 80.3215 75.3301C80.3226 75.3301 80.3238 75.3301 80.325 75.3301C80.3262 75.3301 80.3274 75.3301 80.3286 75.3301C80.3297 75.3301 80.3309 75.3301 80.3321 75.3301C80.3333 75.3301 80.3345 75.3301 80.3356 75.3301C80.3368 75.3301 80.338 75.3301 80.3391 75.3301C80.3403 75.3301 80.3415 75.3301 80.3427 75.3301C80.3438 75.3301 80.345 75.3301 80.3462 75.3301C80.3473 75.3301 80.3485 75.3301 80.3496 75.3301C80.3508 75.3301 80.352 75.3301 80.3531 75.3301C80.3543 75.3301 80.3554 75.3301 80.3566 75.3301C80.3577 75.3301 80.3589 75.3301 80.36 75.3301C80.3612 75.3301 80.3623 75.3301 80.3635 75.3301C80.3646 75.3301 80.3658 75.3301 80.3669 75.3301C80.3681 75.3301 80.3692 75.3301 80.3703 75.3301C80.3715 75.3301 80.3726 75.3301 80.3737 75.3301C80.3749 75.3301 80.376 75.3301 80.3772 75.3301C80.3783 75.3301 80.3794 75.3301 80.3805 75.3301C80.3817 75.3301 80.3828 75.3301 80.3839 75.3301C80.385 75.3301 80.3862 75.3301 80.3873 75.3301C80.3884 75.3301 80.3895 75.3301 80.3906 75.3301C80.3918 75.3301 80.3929 75.3301 80.394 75.3301C80.3951 75.3301 80.3962 75.3301 80.3973 75.3301C80.3984 75.3301 80.3995 75.3301 80.4006 75.3301C80.4017 75.3301 80.4029 75.3301 80.404 75.3301C80.4051 75.3301 80.4062 75.3301 80.4073 75.3301C80.4084 75.3301 80.4094 75.3301 80.4105 75.3301C80.4116 75.3301 80.4127 75.3301 80.4138 75.3301C80.4149 75.3301 80.416 75.3301 80.4171 75.3301C80.4182 75.3301 80.4193 75.3301 80.4203 75.3301C80.4214 75.3301 80.4225 75.3301 80.4236 75.3301C80.4247 75.3301 80.4257 75.3301 80.4268 75.3301C80.4279 75.3301 80.4289 75.3301 80.43 75.3301C80.4311 75.3301 80.4322 75.3301 80.4332 75.3301C80.4343 75.3301 80.4354 75.3301 80.4364 75.3301C80.4375 75.3301 80.4385 75.3301 80.4396 75.3301L80.4396 74.3301ZM78.8149 74.8301C78.81 75.3301 78.81 75.3301 78.81 75.3301C78.8101 75.3301 78.8101 75.3301 78.8102 75.3301C78.8104 75.3301 78.8106 75.3301 78.8109 75.3301C78.8115 75.3301 78.8123 75.3301 78.8134 75.3301C78.8156 75.3302 78.8189 75.3302 78.8232 75.3302C78.8319 75.3303 78.8446 75.3304 78.8613 75.3306C78.8947 75.3308 78.9438 75.3312 79.007 75.3315C79.1334 75.3322 79.3161 75.333 79.5423 75.3331C79.9945 75.3334 80.6207 75.3313 81.3163 75.3214C82.7009 75.3019 84.3841 75.2519 85.5148 75.1274L85.4053 74.1334C84.3276 74.2521 82.6881 74.302 81.3022 74.3215C80.6127 74.3313 79.9916 74.3334 79.5429 74.3331C79.3186 74.333 79.1375 74.3323 79.0127 74.3315C78.9502 74.3312 78.9018 74.3308 78.8692 74.3306C78.8528 74.3305 78.8404 74.3303 78.8321 74.3303C78.8279 74.3302 78.8248 74.3302 78.8228 74.3302C78.8217 74.3302 78.821 74.3302 78.8205 74.3302C78.8202 74.3302 78.82 74.3302 78.8199 74.3302C78.8199 74.3302 78.8198 74.3302 78.8198 74.3302C78.8198 74.3302 78.8198 74.3302 78.8149 74.8301ZM85.5148 75.1274C88.9925 74.7442 92.3413 75.8129 95.8506 76.9484L96.1585 75.997C92.6863 74.8735 89.1317 73.7228 85.4053 74.1334L85.5148 75.1274ZM95.8506 76.9484C100.52 78.4592 105.607 80.2207 109.946 82.8492L110.464 81.9939C106.015 79.2985 100.826 77.5072 96.1585 75.997L95.8506 76.9484ZM109.946 82.8492C111.683 83.9015 113.429 85.1013 114.527 87.1016L115.403 86.6203C114.169 84.3714 112.219 83.0571 110.464 81.9939L109.946 82.8492ZM114.527 87.1016C115.521 88.9124 116.75 90.5241 117.914 92.1173C119.085 93.7213 120.199 95.3169 121.025 97.1442L121.936 96.7326C121.064 94.8028 119.896 93.1351 118.721 91.5274C117.539 89.9089 116.359 88.3604 115.403 86.6203L114.527 87.1016ZM121.025 97.1442C124.039 103.819 125.355 113.183 124.962 120.975L125.96 121.025C126.359 113.118 125.032 103.588 121.936 96.7326L121.025 97.1442Z",
-            stroke: "rgba(0,0,0,1)",
-            fillRule: "nonzero",
-            strokeLinejoin: "round",
-            strokeWidth: 1,
-          },
-        ]}
-        position="absolute"
-        top="527px"
-        left="20px"
-        {...getOverrideProps(overrides, "Vector 255")}
-      ></Icon>
       <Text
-        fontFamily="Dawning of a New Day"
+        fontFamily="HelveticaNeue-Light"
         fontSize="36px"
-        fontWeight="400"
+        fontWeight="300"
         color="rgba(0,0,0,1)"
-        lineHeight="5px"
-        textAlign="left"
+        lineHeight="36px"
+        textAlign="center"
         display="flex"
         direction="column"
         justifyContent="flex-start"
-        position="absolute"
-        top="64.33%"
-        bottom="28.15%"
-        left="36.11%"
-        right="32.32%"
-        transformOrigin="top left"
-        transform="rotate(-11.54deg)"
+        position="relative"
+        top="375px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="&#xA;Spring 2022"
+        children={ season.name + " " + d.getFullYear()}
         {...getOverrideProps(overrides, "Spring 2022")}
       ></Text>
     </View>
