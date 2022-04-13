@@ -20,7 +20,7 @@ function Yearbook() {
             <div style={{padding: '54px 0px 250px 0px', backgroundColor: 'black'}}>
                 <h3>
                     <Link to={'/yearbook/' + id}>
-                    <Button variation="primary">Get Started</Button>
+                        <Button variation="primary">Get Started</Button>
                     </Link>
                 </h3>
             </div>

@@ -1,13 +1,13 @@
-/***************************************************************************
- * The contents of this file were generated with Amplify Studio.           *
- * Please refrain from making any modifications to this file.              *
- * Any changes to this file will be overwritten when running amplify pull. *
- **************************************************************************/
-
-/* eslint-disable */
 import React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Image, Text, View } from "@aws-amplify/ui-react";
+import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
+
+var username = "";
+Auth.currentAuthenticatedUser().then((user) => {
+    username = user.username;
+  });
+
 export default function Classof2021(props) {
   const { overrides, ...rest } = props;
   return (
@@ -17,7 +17,7 @@ export default function Classof2021(props) {
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      backgroundColor="rgba(199,185,255,1)"
+      backgroundColor="rgba(210,210,210,1)"
       {...rest}
       {...getOverrideProps(overrides, "Classof2021")}
     >
@@ -27,7 +27,9 @@ export default function Classof2021(props) {
         position="absolute"
         top="101px"
         left="59px"
+        borderRadius="2px"
         border="4px SOLID rgba(0,0,0,1)"
+        backgroundColor="rgba(196,196,196,1)"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 13")}
       ></Image>
@@ -37,7 +39,9 @@ export default function Classof2021(props) {
         position="absolute"
         top="101px"
         left="235px"
+        borderRadius="2px"
         border="4px SOLID rgba(0,0,0,1)"
+        backgroundColor="rgba(196,196,196,1)"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 16")}
       ></Image>
@@ -48,8 +52,9 @@ export default function Classof2021(props) {
         top="330px"
         left="59px"
         border="4px SOLID rgba(0,0,0,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
-        backgroundColor="rgba(255,203,70,1)"
+        backgroundColor="rgba(196,196,196,1)"
         {...getOverrideProps(overrides, "Rectangle 18")}
       ></View>
       <Image
@@ -59,6 +64,8 @@ export default function Classof2021(props) {
         top="330px"
         left="59px"
         border="4px SOLID rgba(0,0,0,1)"
+        borderRadius="2px"
+        backgroundColor="rgba(196,196,196,1)"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 25")}
       ></Image>
@@ -69,8 +76,9 @@ export default function Classof2021(props) {
         top="330px"
         left="235px"
         border="4px SOLID rgba(0,0,0,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
-        backgroundColor="rgba(255,203,70,1)"
+        backgroundColor="rgba(196,196,196,1)"
         {...getOverrideProps(overrides, "Rectangle 24")}
       ></View>
       <Image
@@ -79,6 +87,8 @@ export default function Classof2021(props) {
         position="absolute"
         top="334px"
         left="239px"
+        backgroundColor="rgba(196,196,196,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 26")}
       ></Image>
@@ -89,6 +99,8 @@ export default function Classof2021(props) {
         top="330px"
         left="412px"
         border="4px SOLID rgba(0,0,0,1)"
+        backgroundColor="rgba(196,196,196,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 19")}
       ></Image>
@@ -119,6 +131,8 @@ export default function Classof2021(props) {
         top="538px"
         left="59px"
         border="4px SOLID rgba(0,0,0,1)"
+        borderRadius="2px"
+        backgroundColor="rgba(196,196,196,1)"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 21")}
       ></Image>
@@ -129,6 +143,8 @@ export default function Classof2021(props) {
         top="538px"
         left="412px"
         border="4px SOLID rgba(0,0,0,1)"
+        backgroundColor="rgba(196,196,196,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 22")}
       ></Image>
@@ -139,6 +155,8 @@ export default function Classof2021(props) {
         top="538px"
         left="235px"
         border="4px SOLID rgba(0,0,0,1)"
+        backgroundColor="rgba(196,196,196,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 23")}
       ></Image>
@@ -159,7 +177,7 @@ export default function Classof2021(props) {
         left="416px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Flippy&#xA;Figma Mascot "
+        children="John Sent "
         {...getOverrideProps(overrides, "Flippy Figma Mascot")}
       ></Text>
       <Text
@@ -199,7 +217,7 @@ export default function Classof2021(props) {
         left="47px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="The Team"
+        children={username + "'s Team"}
         {...getOverrideProps(overrides, "The Team")}
       ></Text>
       <Text
@@ -219,7 +237,7 @@ export default function Classof2021(props) {
         left="239px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="SWE | Collaboration"
+        children="Position: "
         {...getOverrideProps(overrides, "SWE | Collaboration")}
       ></Text>
       <Text
@@ -279,7 +297,7 @@ export default function Classof2021(props) {
         left="57px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="SWE | Editor Experience"
+        children="Position: "
         {...getOverrideProps(overrides, "SWE | Editor Experience")}
       ></Text>
       <Text
@@ -317,7 +335,7 @@ export default function Classof2021(props) {
         left="239px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="SWE | Security"
+        children="Position: "
         {...getOverrideProps(overrides, "SWE | Security")}
       ></Text>
       <Text
@@ -357,7 +375,7 @@ export default function Classof2021(props) {
         left="62px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="SWE | Editor Platform"
+        children="Position: "
         {...getOverrideProps(overrides, "SWE | Editor Platform")}
       ></Text>
       <Text
@@ -397,7 +415,7 @@ export default function Classof2021(props) {
         left="416px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="SWE | Growth "
+        children="Position: "
         {...getOverrideProps(overrides, "SWE | Growth")}
       ></Text>
       <Text
@@ -437,7 +455,7 @@ export default function Classof2021(props) {
         left="412px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="SWE | Prototyping"
+        children="Position: "
         {...getOverrideProps(overrides, "SWE | Prototyping")}
       ></Text>
       <Image
@@ -447,6 +465,8 @@ export default function Classof2021(props) {
         top="101px"
         left="413px"
         border="4px SOLID rgba(0,0,0,1)"
+        borderRadius="2px"
+        backgroundColor="rgba(196,196,196,1)"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "IMG_1025 1")}
       ></Image>
@@ -507,7 +527,7 @@ export default function Classof2021(props) {
         left="63px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="SWE | Infrastructure"
+        children="Position: "
         {...getOverrideProps(overrides, "SWE | Infrastructure")}
       ></Text>
       <Text
@@ -527,7 +547,7 @@ export default function Classof2021(props) {
         left="239px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="SWE | Native"
+        children="Position: "
         {...getOverrideProps(overrides, "SWE | Native")}
       ></Text>
     </View>

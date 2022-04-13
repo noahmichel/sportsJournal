@@ -23,6 +23,10 @@ import Beginner5 from './Beginner5'
 import BeginnerComplete from './BeginnerComplete';
 import ProfilePublished from './ProfilePublished';
 import YearbookHome from './YearbookHome';
+import YearbookPage1 from './YearbookPage1';
+import YearbookPage2 from './YearbookPage2';
+import YearbookPage3 from './YearbookPage3.js';
+import YearbookPage4 from './YearbookPage4';
 
 function App() {
   return (
@@ -48,6 +52,10 @@ function App() {
         <Route exact path="/journal/beginner5" component={Beginner5}/>
         <Route exact path="/journal/beginnerComplete" component={BeginnerComplete}/>
         <Route exact path="/myProfile/edit" component={Profile}/>
+        <Route exact path="/yearbook/:id/page1" component={YearbookPage1}/>
+        <Route exact path="/yearbook/:id/page2" component={YearbookPage2}/>
+        <Route exact path="/yearbook/:id/page3" component={YearbookPage3}/>
+        <Route exact path="/yearbook/:id/page4" component={YearbookPage4}/>
         
       </div>
   );

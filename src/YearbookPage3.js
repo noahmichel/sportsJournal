@@ -1,5 +1,5 @@
 import React, {useLayoutEffect, useState} from 'react'
-import { NavBarLogout, MarketingFooter2, TempCover } from './ui-components'
+import { NavBarLogout, MarketingFooter2, Classof2021, InternBiosPg1 } from './ui-components'
 import './NavBar2.css'
 import { Text, withAuthenticator } from '@aws-amplify/ui-react'
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
@@ -13,6 +13,7 @@ import {Link} from 'react-router-dom';
 var id = "";
 Auth.currentAuthenticatedUser().then((user) => {
     id = user.signInUserSession.idToken.jwtToken.substring(0,8);
+    
   });
 
 function downloadPDF() {
@@ -122,40 +123,14 @@ async function savePDF () {
         var imgData = canvas.toDataURL('image/jpeg');
         const pdf = new jsPDF('p', 'pt', [ 595.28,  841.89]);
         pdf.addImage(imgData, 'JPEG', 1, 0, 595.28,  841.89);
-        Storage.put("yearbookCover.pdf", pdf.output('arraybuffer'), {
+        Storage.put("yearbookPage3.pdf", pdf.output('arraybuffer'), {
             contentType: "application/pdf"
         })
     });
     console.log("finished");
   }
 
-  async function viewYearbook () {
-
-    await Storage.get('yearbookCover.pdf', { download: true }).then(result => {
-            const pdf = new jsPDF(result, 'JPEG', 1, 0, 595.28,  841.89);
-            result.output('dataurlnewwindow');
-    })
-    console.log("finished");
-  }
-
-function Yearbook() {
-
-    // async function callApi() {
-    //     const user = await Auth.currentAuthenticatedUser()
-    //     const token = user.signInUserSession.idToken.jwtToken
-    //     console.log({ token })
-
-    //     //whatever info you want to get
-    //     const requestInfo = {
-    //         headers: {
-    //             Authorization: token
-    //         }
-    //     }
-
-    //     const data = await API.get('reactSportsJournalAPI', '/items', requestInfo)
-    //     console.log( {data} )
-    //     console.log( JSON.stringify(data) )
-    // }
+function YearbookPage3() {
 
     const url1 = window.location.href;
 
@@ -167,7 +142,7 @@ function Yearbook() {
             
             <div style={{padding: '54px 0px 75px 0px', backgroundColor: 'black'}}>
                 <h3>
-                    <Button onClick= { savePDF }>Save to the Cloud</Button>
+                <Button onClick= { savePDF }>Save to the Cloud</Button>
                     <Button onClick={ downloadPDF }>Download page</Button>
                     <Button onClick={ previewPDF }>Preview page</Button>
                     <CopyToClipboard text={url1}>
@@ -186,21 +161,12 @@ function Yearbook() {
                 wrap="nowrap"
                 gap="2rem"
                 padding= "0px 0px 50px 0px"
-                ><Flex 
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="flex-end"
-                    alignContent="flex-start"
-                    wrap="nowrap"
-                    gap="1rem"
-                    padding= "0px 0px 0px 0px"
-                            ><Link to= "/yearbook">
-                                <Button3>Home</Button3>
-                            </Link>
-                            <Button3 onClick={ viewYearbook }>View Full Yearbook</Button3>
-                        </Flex>
-                    <TempCover id="capture" border="2px SOLID gray" borderRadius="2px"/>
-                    <Link to = {'/yearbook/' + id + '/page1'}>
+                >
+                    <Link to= {"/yearbook/" + id + "/page2"}>
+                        <Button3>Prev Page</Button3>
+                    </Link>
+                    <InternBiosPg1 id="capture" border="2px SOLID gray" borderRadius="2px"/>
+                    <Link to ={"/yearbook/" + id + "/page4"}>
                         <Button2 >Next Page</Button2>
                     </Link>
                 </Flex>
@@ -213,4 +179,4 @@ function Yearbook() {
 
 }
 
-export default withAuthenticator(Yearbook);
+export default withAuthenticator(YearbookPage3);

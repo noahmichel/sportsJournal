@@ -17,7 +17,7 @@ export default function InternBiosPg1(props) {
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      backgroundColor="rgba(255,255,255,1)"
+      backgroundColor="rgba(210,210,210,1)"
       {...rest}
       {...getOverrideProps(overrides, "InternBiosPg1")}
     >
@@ -174,6 +174,8 @@ export default function InternBiosPg1(props) {
         top="66px"
         left="373px"
         border="4px SOLID rgba(0,0,0,1)"
+        backgroundColor="rgba(196,196,196,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 24")}
       ></Image>
@@ -224,6 +226,8 @@ export default function InternBiosPg1(props) {
         top="548px"
         left="373px"
         border="4px SOLID rgba(0,0,0,1)"
+        backgroundColor="rgba(196,196,196,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 26")}
       ></Image>
@@ -234,6 +238,8 @@ export default function InternBiosPg1(props) {
         top="301px"
         left="86px"
         border="4px SOLID rgba(0,0,0,1)"
+        backgroundColor="rgba(196,196,196,1)"
+        borderRadius="2px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Rectangle 25")}
       ></Image>
