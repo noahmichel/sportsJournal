@@ -207,6 +207,14 @@ export default function NavBarLogout(props) {
             {...getOverrideProps(overrides, "Flex.Flex[1].Text[3]")}
           ></Button>
         </Link>
+        <Link to={'/upload/' + id}>
+          <Button
+            type="button"
+            className="button"
+            children="Upload"
+            {...getOverrideProps(overrides, "Flex.Flex[1].Text[3]")}
+          ></Button>
+        </Link>
       </Flex>
       <Flex
         gap="32px"

@@ -27,6 +27,7 @@ import YearbookPage1 from './YearbookPage1';
 import YearbookPage2 from './YearbookPage2';
 import YearbookPage3 from './YearbookPage3.js';
 import YearbookPage4 from './YearbookPage4';
+import Upload from './Upload';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
         <Route exact path="/yearbook/:id/page2" component={YearbookPage2}/>
         <Route exact path="/yearbook/:id/page3" component={YearbookPage3}/>
         <Route exact path="/yearbook/:id/page4" component={YearbookPage4}/>
+        <Route exact path="/upload/:id" component={Upload}/>
         
       </div>
   );

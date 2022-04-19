@@ -26,7 +26,7 @@
       "function": {
         "sportsjournal8ee27c12": {
           "deploymentBucketName": "amplify-sportsjournal-staging-222825-deployment",
-          "s3Key": "amplify-builds/sportsjournal8ee27c12-7a3459554a6e44526c39-build.zip"
+          "s3Key": "amplify-builds/sportsjournal8ee27c12-7a59416f614453537048-build.zip"
         }
       }
     }
