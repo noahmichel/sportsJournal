@@ -60,8 +60,9 @@ function Upload() {
             
             <NavBarLogout class="Header"/>
             
-            <div style={{padding: '54px 0px 400px 0px', backgroundColor: 'black'}}>
+            <div style={{padding: '54px 0px 64px 0px', backgroundColor: 'black'}}>
                 <h3>
+                    <Button>Share QR Code</Button>
                     <CopyToClipboard text={url1}>
                         <Button>Copy URL to the clipboard</Button>
                     </CopyToClipboard>
@@ -77,7 +78,7 @@ function Upload() {
                     wrap="nowrap"
                     gap="1rem"
                     padding= "0px 0px 0px 0px"
-                            >
+                >
                 <UploadField />
                 </Flex>
             </div>

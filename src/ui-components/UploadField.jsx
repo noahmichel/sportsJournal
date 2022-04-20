@@ -38,12 +38,6 @@ const Button1 = styled.button`
   
 `;
 
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 export default function UploadField(props) {
   const { overrides: overridesProp, ...rest } = props;
   const variants = [
@@ -111,7 +105,6 @@ export default function UploadField(props) {
     overridesProp || {}
   );
 
-
   Storage.configure({ track: true, level: "private" });
   let fileInput = React.createRef();
   
@@ -129,41 +122,17 @@ export default function UploadField(props) {
         const signedURL = Storage.get(k.key)
         return signedURL
       }))
-      console.log(imageKeys)
       setImages(imageKeys)
     }
 
     async function onChange(e) {
       const file = e.target.files[0]
-      const result = await Storage.put('/images/' + file.name,file)
-      console.log(result);
+      const result = await Storage.put('/images/' + file.name , file)
       fetchImages()
     }
 
-
-  
-    const onProcessFile = e => {
-      e.preventDefault();
-      let reader = new FileReader();
-      let file = e.target.files[0];
-      try {
-        reader.readAsDataURL(file);
-      } catch (err) {
-        console.log(err);
-      }
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      Storage.put(getRandomIntInclusive(1, 100000) + "UploadedImage.png", file, {
-        contentType: "image/png"
-      })
-        .then(result => console.log(result))
-        .catch(err => console.log(err));
-    };
-
-
-
   return (
+
   <Flex 
   direction="column"
   width="1550px"
@@ -304,16 +273,38 @@ export default function UploadField(props) {
       </Flex>
     </Flex>
     <Flex
-    direction="row"
-    width="1550px"
+    width="1000px"
     justifyContent="center"
     alignSelf="center"
     alignItems="center"
     position="relative"
+    ><Text
+      color="white"
+      fontFamily="HelveticaNeue"
+      fontSize="24px"
+      fontWeight="500"
+      lineHeight="24px"
+      padding="24px 0px 0px 0px"
+      children="Gallery"
+      />
+    </Flex>
+    <Flex
+    direction="row"
+    width="1200px"
+    justifyContent="center"
+    alignSelf="center"
+    alignItems="flex-start"
+    position="relative"
+    wrap="wrap"
     >
     {
       images.map(image => (
-        <Image src={image} key={image} style={{width: 200, height: 200, marginBottom: 10}} />
+        <Image 
+        border="1px solid white"
+        borderRadius="2px"
+        src={image} 
+        key={image} 
+        style={{width: 200, height: 200, marginBottom: 10}} />
       ))
     }
     </Flex>

@@ -5,7 +5,7 @@
  **************************************************************************/
 
 /* eslint-disable */
-import React from "react";
+import React, {useEffect, useState} from 'react'
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Icon, View, Text, TextField, SelectField, Image} from "@aws-amplify/ui-react";
 import Amplify, { Analytics, Auth, Storage, Hub } from "aws-amplify";
@@ -225,6 +225,21 @@ var i = 0;
 export default function WireframePublished(props) {
   const { overrides, ...rest } = props;
 
+  Storage.configure({ track: true, level: "private" });
+
+  const [images, setImages] = useState([])
+  useEffect(() => {
+    fetchImages()
+  }, [])
+  async function fetchImages() {
+    let imageKeys = await Storage.list('/images')
+    imageKeys = await Promise.all(imageKeys.map(async k => {
+      const signedURL = Storage.get(k.key)
+      return signedURL
+    }))
+    setImages(imageKeys)
+  }
+
 var hits = 0;
 var ip = 0;
 var rested = 0;
@@ -296,7 +311,7 @@ var rested = 0;
         fontSize="22px"
         fontWeight="500"
         color="white"
-        children="Images"
+        children="Gallery"
         ></Text>
       </View>
         <Text
@@ -549,6 +564,20 @@ var rested = 0;
         backgroundColor="rgba(196,196,196,1)"
         {...getOverrideProps(overrides, "Rectangle 21")}
       ></View>
+      {
+      images.map(image => (
+        <Image 
+        width="248.7px"
+        height="237.63px"
+        position="absolute"
+        top="669.48px"
+        left="54.95px"
+        border="1px solid white"
+        borderRadius="9.593770980834961px"
+        src={images[1]} 
+        key={images[1]} />
+      ))
+      }
       <View
         width="248.7px"
         height="237.63px"
@@ -560,6 +589,20 @@ var rested = 0;
         backgroundColor="rgba(196,196,196,1)"
         {...getOverrideProps(overrides, "Rectangle 22")}
       ></View>
+      {
+      images.map(image => (
+        <Image 
+        width="248.7px"
+        height="237.63px"
+        position="absolute"
+        top="920.4px"
+        left="54.95px"
+        border="1px solid white"
+        borderRadius="9.593770980834961px"
+        src={images[Math.floor((images.length)/2)]} 
+        key={images[Math.floor((images.length)/2)]} />
+      ))
+      }
       <View
         width="248.7px"
         height="237.63px"
@@ -571,6 +614,20 @@ var rested = 0;
         backgroundColor="rgba(196,196,196,1)"
         {...getOverrideProps(overrides, "Rectangle 23")}
       ></View>
+      {
+      images.map(image => (
+        <Image 
+        width="248.7px"
+        height="237.63px"
+        position="absolute"
+        top="1171.31px"
+        left="54.95px"
+        border="1px solid white"
+        borderRadius="9.593770980834961px"
+        src={images[(images.length)-1]} 
+        key={images[(images.length)-1]} />
+      ))
+      }
       <View
         width="602.93px"
         height="82.65px"
