@@ -291,7 +291,7 @@ export default function MarketingFooter2(props) {
           fontSize="16px"
           fontWeight="300"
           color="rgba(255,255,255,1)"
-          lineHeight="24px"
+          lineHeight="16px"
           textAlign="left"
           display="flex"
           direction="column"
@@ -304,12 +304,17 @@ export default function MarketingFooter2(props) {
           {...getOverrideProps(overrides, "View.Flex[1].Text[0]")}
         ></Text>
         <TextField
+          height="38px"
+          width="350px"
+          border="1px solid black"
+          backgroundColor="rgba(196,196,196,0.39)"
+          color="white"
           display="flex"
           fontSize="16px"
           textAlign="left"
           shrink="0"
-          label="Search"
-          size="medium"
+          placeholder="Search"
+          size="small"
           variation="default"
           {...getOverrideProps(overrides, "View.Flex[1].TextField[0]")}
         ></TextField>
